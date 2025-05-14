@@ -1,0 +1,115 @@
+"use client"
+
+import { useEffect, useRef } from "react"
+import { motion } from "framer-motion"
+
+export function ParticleBackground() {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+
+  // Add comments to identify the particle background gradient
+  // This is a subtle effect that creates the starry background
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+
+    // PARTICLE EFFECT: This creates the subtle starry background
+    // To remove, you can set particles.length = 0 or return early from this useEffect
+    const particles: {
+      x: number
+      y: number
+      size: number
+      speedX: number
+      speedY: number
+      opacity: number
+    }[] = []
+
+    const createParticles = () => {
+      const particleCount = Math.floor(window.innerWidth / 10)
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 2 + 0.1,
+          speedX: Math.random() * 0.5 - 0.25,
+          speedY: Math.random() * 0.5 - 0.25,
+          opacity: Math.random() * 0.5 + 0.1,
+        })
+      }
+    }
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+      particles.forEach((particle, index) => {
+        particle.x += particle.speedX
+        particle.y += particle.speedY
+
+        if (particle.x < 0 || particle.x > canvas.width) {
+          particle.speedX *= -1
+        }
+
+        if (particle.y < 0 || particle.y > canvas.height) {
+          particle.speedY *= -1
+        }
+
+        ctx.beginPath()
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(255, 255, 255, ${particle.opacity})`
+        ctx.fill()
+
+        // Draw connections
+        particles.forEach((otherParticle, otherIndex) => {
+          if (index !== otherIndex) {
+            const dx = particle.x - otherParticle.x
+            const dy = particle.y - otherParticle.y
+            const distance = Math.sqrt(dx * dx + dy * dy)
+
+            if (distance < 100) {
+              ctx.beginPath()
+              ctx.moveTo(particle.x, particle.y)
+              ctx.lineTo(otherParticle.x, otherParticle.y)
+              ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - distance / 100)})`
+              ctx.stroke()
+            }
+          }
+        })
+      })
+
+      requestAnimationFrame(animate)
+    }
+
+    const handleResize = () => {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+      particles.length = 0
+      createParticles()
+    }
+
+    createParticles()
+    animate()
+
+    window.addEventListener("resize", handleResize)
+
+    return () => {
+      window.removeEventListener("resize", handleResize)
+    }
+  }, [])
+
+  return (
+    <motion.canvas
+      ref={canvasRef}
+      className="absolute inset-0 z-0"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 2 }}
+    />
+  )
+}
