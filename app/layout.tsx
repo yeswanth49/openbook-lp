@@ -12,12 +12,15 @@ const inter = Inter({
 const dancingScript = Dancing_Script({
   subsets: ['latin'],
   variable: '--font-script',
+  display: 'swap',
+  weight: ['400', '500', '600', '700'],
 })
 
 const kalam = Kalam({
-  weight: ['400'],
+  weight: ['300', '400', '700'],
   subsets: ['latin'],
   variable: '--font-handwriting',
+  display: 'swap',
 })
 
 export const metadata: Metadata = {

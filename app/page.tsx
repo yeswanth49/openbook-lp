@@ -159,6 +159,16 @@ export default function LandingPage() {
           <SectionHeading
             title="Designed for Better Learning"
             description="A clean interface that helps you focus on what matters most"
+            highlightWords={[
+              {
+                word: "Better",
+                className: "font-script text-white text-5xl md:text-6xl relative text-3d mx-2",
+              },
+              {
+                word: "Learning",
+                className: "font-script text-white text-5xl md:text-6xl relative textured-underline text-3d",
+              }
+            ]}
           />
           
           <div className="mt-12">

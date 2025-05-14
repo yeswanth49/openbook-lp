@@ -92,3 +92,46 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* styles for textured underlines */
+.textured-underline {
+  position: relative;
+  z-index: 1;
+}
+
+.textured-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='8' viewBox='0 0 100 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4.5C3.66667 2.5 6.33333 2.5 9 4.5C11.6667 6.5 14.3333 6.5 17 4.5C19.6667 2.5 22.3333 2.5 25 4.5C27.6667 6.5 30.3333 6.5 33 4.5C35.6667 2.5 38.3333 2.5 41 4.5C43.6667 6.5 46.3333 6.5 49 4.5C51.6667 2.5 54.3333 2.5 57 4.5C59.6667 6.5 62.3333 6.5 65 4.5C67.6667 2.5 70.3333 2.5 73 4.5C75.6667 6.5 78.3333 6.5 81 4.5C83.6667 2.5 86.3333 2.5 89 4.5C91.6667 6.5 94.3333 6.5 97 4.5' stroke='white' stroke-opacity='0.9' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.5));
+  opacity: 0.9;
+  z-index: -1;
+  animation: wave 2s infinite linear;
+}
+
+@keyframes wave {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100px 0;
+  }
+}
+
+/* 3D text effect */
+.text-3d {
+  text-shadow: 
+    0px 1px 0px rgba(255, 255, 255, 0.3),
+    0px 2px 0px rgba(255, 255, 255, 0.2),
+    0px 3px 3px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+  display: inline-block;
+  padding: 0 2px;
+  margin: 0 1px;
+}
