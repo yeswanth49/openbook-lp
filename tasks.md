@@ -1,41 +1,81 @@
-# Footer Background Integration Tasks
+# Footer Implementation Action Plan
+
+## Current State Analysis
+
+The footer implementation currently has the following components:
+
+1. `CombinedFooter.tsx` - A component that includes both the footer content and the background effects
+2. `footer.tsx` - A standard footer component with links and information
+3. `footer-text.tsx` - A component that renders just the background text effect
+4. `footer.module.css` - CSS module with styling for the footer effects
+
+## Issues Identified
+
+Based on the screenshot and codebase analysis:
+
+1. There appears to be a visual issue with the footer background text "OpenBook" positioning/display
+2. The current implementation has redundant components (footer.tsx and parts of CombinedFooter.tsx contain duplicated code)
+3. There may be z-index or layering issues causing the footer content to be improperly displayed or the background text to overlap content
 
 ## Action Plan
 
-### 1. Improve CombinedFooter structure
+### 1. Refactor Footer Components Structure
 
-1. Rename `CombinedFooter.tsx` to use a `<footer>` root element instead of a `<div>`.
-2. Merge the CSS module class (`.footer`) with the original footer Tailwind classes (`border-t border-border/40 bg-background`) on the root `<footer>`.
-3. Inline the content of `components/footer.tsx` (links, sections, contact info, copyright notice) directly into `CombinedFooter.tsx`:
-   - Remove the nested `<Footer />` import and component call.
-   - Copy the JSX from `components/footer.tsx` into `CombinedFooter.tsx` under the background layers.
-4. Ensure the background text (`<span className={css['footer-text']}>OpenBook</span>`), grid, and gradient overlays remain at the bottom of the markup, with the inlined footer content layered on top (using `relative z-10`).
-5. Refactor CSS module if necessary to adjust positioning and spacing so the large background text does not overlap or clip the normal footer content in undesirable ways.
+1. Remove redundant components:
+   - Keep `CombinedFooter.tsx` as the main footer component
+   - Delete `footer-text.tsx` as its functionality is already in CombinedFooter
+   - Delete `footer.tsx` once we confirm CombinedFooter works correctly
 
-### 2. Update `app/layout.tsx`
+2. Improve semantic HTML:
+   - Ensure the footer uses proper semantic HTML tags
+   - Use appropriate ARIA attributes for accessibility 
 
-1. Import the improved `CombinedFooter` from its updated path.
-2. Remove any residual import or reference to the old `FooterText` or standalone `Footer` component.
-3. Place `<CombinedFooter />` as the last child inside `<body>`.
+### 2. Fix Visual Styling Issues
 
-### 3. Plan CSS enhancements for `footer.module.css`
+1. Adjust the footer background text:
+   - Fix the positioning of the "OpenBook" text (currently set to `bottom: -30%` which may cause it to be cut off)
+   - Adjust opacity and text size for better visibility
+   - Test different positioning options: centered, offset, or fully visible
 
-1. Revisit the `.footer-text` rules to create an even more visually appealing background text style:
-   - Experiment with blend modes (e.g., `mix-blend-mode: overlay`), additional text shadows, or subtle animations.
-   - Consider using a contrasting font, varying opacity stops, or a multi-color gradient.
-   - Ensure the text remains responsive (using CSS custom properties for size) and accessible (sufficient contrast).
-2. Update or add new CSS custom properties (e.g., `--footer-text-opacity`, `--footer-text-blur`) to allow fine-tuning without editing the core rules.
-3. Test across multiple screen sizes to verify the effect.
+2. Improve the layering of elements:
+   - Ensure z-index values are properly set for all elements
+   - Verify the grid overlay and gradient are properly positioned
+   - Make sure content is always readable above the effects
 
-### 4. Testing & Cleanup
+3. Responsive design improvements:
+   - Test on different screen sizes to ensure the footer is fully responsive
+   - Adjust the clamp values for the footer text size to work well on all screens
 
-1. Run the Next.js development server and test the footer on all pages.
-2. Verify semantic markup, layering, and visual fidelity.
-3. Remove deprecated components (`footer-text.tsx`, original `Footer.tsx`) once the combined version is fully functional.
+### 3. Implementation Approach
 
-## Next Steps
+1. Update `footer.module.css`:
+   - Adjust the CSS variables for better text sizing
+   - Fix positioning of the background text
+   - Improve the gradient and grid overlay effects
 
-Before implementation, could you clarify:
+2. Refine `CombinedFooter.tsx`:
+   - Ensure proper semantic HTML structure
+   - Verify z-index values for proper layering
+   - Add appropriate responsive classes
 
-- Which specific aspects of the combined footer need to be improved? (e.g., semantics, layering, spacing, responsiveness).
-- Do you have any examples or inspiration for the new background text style? (gradient colors, animations, blend modes). 
+3. Update the imports in `page.tsx`:
+   - Ensure the footer is imported and used correctly
+
+### 4. Testing
+
+1. Visual testing:
+   - Test on various screen sizes
+   - Verify text is visible and properly positioned
+   - Check that all links and content are accessible
+
+2. Accessibility testing:
+   - Ensure proper contrast ratios
+   - Verify semantic HTML structure
+   - Check keyboard navigation
+
+## Questions to Clarify
+
+1. Should the "OpenBook" background text be fully visible or partially visible?
+2. What is the preferred position of the background text (top, center, bottom)?
+3. Should the background effects (grid and gradient) be more or less prominent?
+4. Are there any specific responsive behaviors needed for mobile views? 

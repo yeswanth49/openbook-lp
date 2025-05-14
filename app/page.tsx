@@ -347,19 +347,20 @@ export default function LandingPage() {
       </section>
 
       {/* Call to Action Section */}
-      <section className="py-32 md:py-40 bg-black">
+      <section className="py-32 md:py-40 bg-background/50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto text-center">
             <AnimateInView>
-              <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 text-gray-200">
-                Experience the Future of <span className="split-text">Learning Today</span>
+              <h2 className="inline-block bg-gradient-to-b from-[#FFFFFF] to-[#1a1a19] bg-clip-text text-center text-4xl font-bold text-transparent md:text-6xl lg:text-7xl" style={{ opacity: 1, transform: 'none' }}>
+                Experience the Future of <br />Learning Today
               </h2>
-              <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
+              <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
                 Watch how OpenBook helps you learn in a fraction of the time.
               </p>
               <div className="flex justify-center">
-                <Button size="lg" className="bg-white text-black hover:bg-gray-200 text-lg px-10 py-6 h-auto">
+                <Button size="lg" className="bg-white text-black hover:bg-gray-200 group">
                   Get Started
+                  <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
               </div>
             </AnimateInView>
