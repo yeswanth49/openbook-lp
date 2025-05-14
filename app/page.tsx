@@ -347,23 +347,19 @@ export default function LandingPage() {
       </section>
 
       {/* Call to Action Section */}
-      <section className="py-20">
+      <section className="py-32 md:py-40 bg-black">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-4xl mx-auto text-center">
             <AnimateInView>
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 gradient-text">
+              <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 text-gray-200">
                 Experience the Future of Learning Today
               </h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                Watch how OpenBook helps you learn and retain knowledge in a fraction of the time.
+              <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
+                Watch how OpenBook helps you learn in a fraction of the time.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-white text-black hover:bg-gray-200 group">
+              <div className="flex justify-center">
+                <Button size="lg" className="bg-white text-black hover:bg-gray-200 text-lg px-10 py-6 h-auto">
                   Get Started
-                  <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Button>
-                <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10">
-                  See Pricing
                 </Button>
               </div>
             </AnimateInView>
