@@ -2,56 +2,17 @@
 
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { ChevronRight, Brain, BarChart3, Globe, MessageSquare, CheckCircle, ArrowRight } from "lucide-react"
+import { ChevronRight, Brain, Search, Edit, PenTool, KeyRound, Lightbulb, Clock, Sparkles } from "lucide-react"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import TestimonialCard from "@/components/testimonial-card"
-import FeatureCard from "@/components/feature-card"
-import HowItWorksStep from "@/components/how-it-works-step"
-import { ParticleBackground } from "@/components/particle-background"
-import ContactForm from "@/components/contact-form"
 import AnimateInView from "@/components/animate-in-view"
 import SectionHeading from "@/components/section-heading"
-import BlogCard from "@/components/blog-card"
+import { ParticleBackground } from "@/components/particle-background"
 import { motion } from "framer-motion"
 
 export default function LandingPage() {
-  // Blog posts data
-  const blogPosts = [
-    {
-      title: "How AI is Transforming Education in 2025",
-      excerpt:
-        "Discover how artificial intelligence is revolutionizing the way students learn and teachers teach in the modern classroom.",
-      date: "May 2, 2025",
-      readTime: "5 min read",
-      author: "Dr. Sarah Chen",
-      image: "/placeholder.svg?height=300&width=500",
-      slug: "ai-transforming-education-2025",
-    },
-    {
-      title: "5 Effective Study Techniques Backed by Science",
-      excerpt:
-        "Learn about evidence-based study methods that can help you retain information better and improve your academic performance.",
-      date: "April 28, 2025",
-      readTime: "7 min read",
-      author: "Prof. Michael Rivera",
-      image: "/placeholder.svg?height=300&width=500",
-      slug: "effective-study-techniques",
-    },
-    {
-      title: "The Future of Personalized Learning Paths",
-      excerpt:
-        "Explore how adaptive learning technologies are creating customized educational experiences for students worldwide.",
-      date: "April 15, 2025",
-      readTime: "6 min read",
-      author: "Aisha Johnson",
-      image: "/placeholder.svg?height=300&width=500",
-      slug: "future-personalized-learning",
-    },
-  ]
-
   return (
-    <div className="min-h-screen bg-background dot-pattern">
+    <div className="min-h-screen bg-background">
       <div className="fixed inset-0 z-0 pointer-events-none">
         <ParticleBackground />
       </div>
@@ -59,307 +20,351 @@ export default function LandingPage() {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-20 md:py-28">
-        <div className="container mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center">
-          <AnimateInView className="md:w-1/2 z-10" direction="left">
-            <div className="inline-block px-3 py-1 mb-4 text-sm font-medium rounded-full bg-white/10 text-white">
-              Backed by Y Combinator
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 gradient-text">
-              AI Powered Notebook,
-              <br />
-              Built to learn
-            </h1>
-            <p className="text-lg md:text-xl mb-8 text-muted-foreground max-w-lg">
-              Personalized learning that adapts to your needs—accessible anytime, anywhere.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-white text-black hover:bg-gray-200 group">
-                Get Started
-                <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-              <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10">
-                Learn More
-              </Button>
-            </div>
-          </AnimateInView>
-          <AnimateInView className="md:w-1/2 mt-10 md:mt-0 relative" direction="right" delay={0.2}>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.3 }}
-              className="relative h-[400px] md:h-[500px] rounded-xl overflow-hidden"
-            >
-              {/* GRADIENT: Hero split-screen gradient - to remove, change to "bg-black" */}
-              <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-black rounded-xl">
-                <div className="absolute inset-0 flex">
-                  <div className="w-1/2 p-6 flex items-center justify-center">
-                    <div className="bg-gray-800 rounded-lg p-4 w-full max-w-[200px] opacity-60">
-                      <div className="h-4 w-3/4 bg-gray-700 rounded mb-3"></div>
-                      <div className="h-20 w-full bg-gray-700 rounded mb-3"></div>
-                      <div className="h-4 w-1/2 bg-gray-700 rounded"></div>
-                    </div>
-                  </div>
-                  <div className="w-1/2 p-6 flex items-center justify-center">
-                    <div className="bg-gray-800 rounded-lg p-4 w-full max-w-[200px] relative overflow-hidden">
-                      <div className="h-4 w-3/4 bg-gray-700 rounded mb-3"></div>
-                      <div className="h-20 w-full bg-white bg-opacity-10 rounded mb-3 flex items-center justify-center">
-                        <span className="text-xs text-white opacity-80">f(x) = ∫ e^x dx</span>
+      <section className="relative overflow-hidden py-24 md:py-32">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
+            <AnimateInView>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 gradient-text">
+                AI Powered Notebook, Built to Learn Faster
+              </h1>
+              <p className="text-lg md:text-xl mb-8 text-muted-foreground max-w-2xl mx-auto">
+                OpenBook is an AI-native notebook that helps you learn, retain, and apply knowledge more effectively than ever before.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" className="bg-white text-black hover:bg-gray-200 group">
+                  Get Started
+                  <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+                <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                  See How It Works
+                </Button>
+              </div>
+            </AnimateInView>
+          </div>
+        </div>
+      </section>
+
+      {/* Key Features Section */}
+      <section className="py-20 bg-background/50">
+        <div className="container mx-auto px-4 md:px-6">
+          <SectionHeading
+            title="Speed Is Everything"
+            description="Designed for students and lifelong learners who value their time"
+          />
+          
+          <div className="mt-12 mb-16">
+            <AnimateInView>
+              <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl">
+                <div className="aspect-video bg-gradient-to-br from-black to-gray-900 p-6 md:p-8">
+                  <div className="flex flex-col h-full">
+                    <div className="bg-black/40 backdrop-blur-sm rounded-lg p-4 mb-4 border border-white/10">
+                      <div className="flex items-center mb-4">
+                        <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                        <div className="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                        <div className="ml-4 text-sm text-white/60">OpenBook Interface</div>
                       </div>
-                      <div className="h-4 w-1/2 bg-gray-700 rounded"></div>
-                      <div className="absolute -right-4 -top-4 w-20 h-20 bg-white bg-opacity-5 rounded-full"></div>
-                      <div className="absolute -left-4 -bottom-4 w-16 h-16 bg-white bg-opacity-5 rounded-full"></div>
+                      <div className="space-y-4">
+                        <div className="flex">
+                          <div className="w-1/3 pr-4">
+                            <div className="h-8 bg-white/5 rounded"></div>
+                            <div className="mt-2 space-y-2">
+                              <div className="h-6 bg-white/5 rounded w-3/4"></div>
+                              <div className="h-6 bg-white/5 rounded"></div>
+                              <div className="h-6 bg-white/5 rounded w-5/6"></div>
+                            </div>
+                          </div>
+                          <div className="w-2/3 pl-4 border-l border-white/10">
+                            <div className="h-8 bg-white/5 rounded mb-4"></div>
+                            <div className="relative bg-white/5 rounded-lg p-4">
+                              <div className="text-sm text-white/80">How does photosynthesis work?</div>
+                              <div className="mt-3 space-y-2">
+                                <div className="h-4 bg-white/10 rounded w-full"></div>
+                                <div className="h-4 bg-white/10 rounded w-11/12"></div>
+                                <div className="h-4 bg-white/10 rounded w-3/4"></div>
+                              </div>
+                              <div className="mt-4 flex space-x-3">
+                                <div className="px-3 py-1 bg-white/10 rounded-full text-xs text-white/60">Detailed</div>
+                                <div className="px-3 py-1 bg-white/10 rounded-full text-xs text-white/60">Simple</div>
+                                <div className="px-3 py-1 bg-white/10 rounded-full text-xs text-white/60">Visual</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </motion.div>
-          </AnimateInView>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 md:px-6">
-          <SectionHeading
-            title="Powerful Features for Academic Success"
-            description="OpenBook combines cutting-edge AI with proven learning methodologies to help you excel."
-          />
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <AnimateInView delay={0.1}>
-              <FeatureCard
-                icon={<MessageSquare className="h-10 w-10" />}
-                title="Real-time Chat Support"
-                description="Get instant answers to your academic questions across all subjects, 24/7."
-              />
-            </AnimateInView>
-            <AnimateInView delay={0.2}>
-              <FeatureCard
-                icon={<Brain className="h-10 w-10" />}
-                title="Adaptive Learning"
-                description="Personalized learning paths that adjust based on your strengths and areas for improvement."
-              />
-            </AnimateInView>
-            <AnimateInView delay={0.3}>
-              <FeatureCard
-                icon={<BarChart3 className="h-10 w-10" />}
-                title="Immediate Feedback"
-                description="Practice with instant feedback to accelerate your learning and retention."
-              />
-            </AnimateInView>
-            <AnimateInView delay={0.4}>
-              <FeatureCard
-                icon={<Globe className="h-10 w-10" />}
-                title="Cross-platform Access"
-                description="Learn seamlessly across all your devices, whether at home or on the go."
-              />
             </AnimateInView>
           </div>
         </div>
       </section>
 
-      {/* Problem-Solution Section */}
-      <section className="py-20 bg-background/50">
+      {/* Core Features Grid */}
+      <section className="py-20">
         <div className="container mx-auto px-4 md:px-6">
-          <SectionHeading
-            title="Traditional Learning vs OpenBook"
-            description="Students worldwide face common challenges. OpenBook provides the solution."
-          />
-
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <AnimateInView direction="left">
-              <Card className="p-6 border-white/10 bg-white/5 backdrop-blur-sm">
-                <h3 className="text-xl font-bold mb-4">Traditional Learning Challenges</h3>
-                <ul className="space-y-3">
-                  <li className="flex items-start">
-                    <div className="mr-3 text-red-500 mt-1">✖</div>
-                    <p className="text-muted-foreground">Limited access to quality academic support</p>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="mr-3 text-red-500 mt-1">✖</div>
-                    <p className="text-muted-foreground">
-                      One-size-fits-all approach that doesn't adapt to individual needs
-                    </p>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="mr-3 text-red-500 mt-1">✖</div>
-                    <p className="text-muted-foreground">Delayed feedback on practice and assessments</p>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="mr-3 text-red-500 mt-1">✖</div>
-                    <p className="text-muted-foreground">Time-bound learning restricted to specific hours</p>
-                  </li>
-                </ul>
+          <div className="grid md:grid-cols-3 gap-8">
+            <AnimateInView delay={0.1}>
+              <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm h-full">
+                <KeyRound className="h-12 w-12 mb-5 text-white/80" />
+                <h3 className="text-xl font-bold mb-3">Lightning-Fast Interface</h3>
+                <p className="text-muted-foreground mb-4">
+                  Navigate your entire notebook using just your keyboard. Process and organize information in seconds.
+                </p>
+                <div className="mt-auto">
+                  <Button variant="ghost" className="p-0 h-auto text-white/70 hover:text-white">
+                    Learn more <ChevronRight className="ml-1 h-4 w-4" />
+                  </Button>
+                </div>
               </Card>
             </AnimateInView>
-
-            <AnimateInView direction="right" delay={0.2}>
-              <Card className="p-6 border-white/10 bg-white/5 backdrop-blur-sm">
-                <h3 className="text-xl font-bold mb-4">OpenBook Solutions</h3>
-                <ul className="space-y-3">
-                  <li className="flex items-start">
-                    <CheckCircle className="mr-3 h-5 w-5 text-green-400 mt-1" />
-                    <p className="text-muted-foreground">Instant, AI-powered academic support available 24/7</p>
-                  </li>
-                  <li className="flex items-start">
-                    <CheckCircle className="mr-3 h-5 w-5 text-green-400 mt-1" />
-                    <p className="text-muted-foreground">Personalized learning paths that adapt to your progress</p>
-                  </li>
-                  <li className="flex items-start">
-                    <CheckCircle className="mr-3 h-5 w-5 text-green-400 mt-1" />
-                    <p className="text-muted-foreground">Immediate feedback on practice questions and assessments</p>
-                  </li>
-                  <li className="flex items-start">
-                    <CheckCircle className="mr-3 h-5 w-5 text-green-400 mt-1" />
-                    <p className="text-muted-foreground">Learn anytime, anywhere on any device</p>
-                  </li>
-                </ul>
+            
+            <AnimateInView delay={0.2}>
+              <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm h-full">
+                <Brain className="h-12 w-12 mb-5 text-white/80" />
+                <h3 className="text-xl font-bold mb-3">AI-Powered Learning</h3>
+                <p className="text-muted-foreground mb-4">
+                  Let our AI generate explanations, create practice questions, and provide personalized study materials.
+                </p>
+                <div className="mt-auto">
+                  <Button variant="ghost" className="p-0 h-auto text-white/70 hover:text-white">
+                    Learn more <ChevronRight className="ml-1 h-4 w-4" />
+                  </Button>
+                </div>
+              </Card>
+            </AnimateInView>
+            
+            <AnimateInView delay={0.3}>
+              <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm h-full">
+                <Search className="h-12 w-12 mb-5 text-white/80" />
+                <h3 className="text-xl font-bold mb-3">Smart Search</h3>
+                <p className="text-muted-foreground mb-4">
+                  Create personalized learning flows that match exactly how you study, memorize, and process information.
+                </p>
+                <div className="mt-auto">
+                  <Button variant="ghost" className="p-0 h-auto text-white/70 hover:text-white">
+                    Learn more <ChevronRight className="ml-1 h-4 w-4" />
+                  </Button>
+                </div>
               </Card>
             </AnimateInView>
           </div>
         </div>
       </section>
 
-      {/* How It Works Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 md:px-6">
-          <SectionHeading
-            title="How OpenBook Works"
-            description="Getting started is simple. Follow these three easy steps."
-          />
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <AnimateInView delay={0.1}>
-              <HowItWorksStep
-                number="1"
-                title="Sign Up"
-                description="Create your account in seconds to access the full platform."
-                image="/placeholder.svg?height=200&width=300"
-              />
-            </AnimateInView>
-            <AnimateInView delay={0.2}>
-              <HowItWorksStep
-                number="2"
-                title="Chat with OpenBook"
-                description="Ask questions and get instant academic support across subjects."
-                image="/placeholder.svg?height=200&width=300"
-              />
-            </AnimateInView>
-            <AnimateInView delay={0.3}>
-              <HowItWorksStep
-                number="3"
-                title="Track Progress"
-                description="Monitor your learning journey and improve with personalized insights."
-                image="/placeholder.svg?height=200&width=300"
-              />
-            </AnimateInView>
-          </div>
-        </div>
-      </section>
-
-      {/* Social Proof Section */}
+      {/* Interface Preview Section */}
       <section className="py-20 bg-background/50">
         <div className="container mx-auto px-4 md:px-6">
           <SectionHeading
-            title="What Students Are Saying"
-            description="Students from over 30 countries trust OpenBook for academic success."
+            title="Designed for Better Learning"
+            description="A clean interface that helps you focus on what matters most"
           />
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <AnimateInView delay={0.1}>
-              <TestimonialCard
-                quote="OpenBook made tackling complex concepts simple and engaging! I've improved my grades significantly."
-                name="Priya S."
-                location="India"
-                image="/placeholder.svg?height=100&width=100"
-              />
-            </AnimateInView>
-            <AnimateInView delay={0.2}>
-              <TestimonialCard
-                quote="The personalized learning approach helped me understand difficult topics at my own pace. Highly recommend!"
-                name="Michael T."
-                location="United States"
-                image="/placeholder.svg?height=100&width=100"
-              />
-            </AnimateInView>
-            <AnimateInView delay={0.3}>
-              <TestimonialCard
-                quote="Having 24/7 access to academic support has been a game-changer for my studies."
-                name="Sophia L."
-                location="Singapore"
-                image="/placeholder.svg?height=100&width=100"
-              />
-            </AnimateInView>
-          </div>
-
-          <AnimateInView className="mt-16 text-center" delay={0.4}>
-            <div className="inline-flex items-center justify-center p-4 bg-white/5 border border-white/10 rounded-lg backdrop-blur-sm">
-              <div className="flex space-x-1">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <svg key={star} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
+          
+          <div className="mt-12">
+            <AnimateInView>
+              <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl">
+                <div className="bg-gradient-to-br from-black to-gray-900 p-6 md:p-8">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-6">
+                      <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
+                        <h4 className="text-sm font-medium text-white/70 mb-2">Smart Organization</h4>
+                        <div className="space-y-2">
+                          <div className="h-6 bg-white/10 rounded w-full"></div>
+                          <div className="h-6 bg-white/10 rounded w-3/4"></div>
+                        </div>
+                      </div>
+                      
+                      <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
+                        <h4 className="text-sm font-medium text-white/70 mb-2">Flexible Note-Taking</h4>
+                        <div className="space-y-2">
+                          <div className="h-6 bg-white/10 rounded w-full"></div>
+                          <div className="h-6 bg-white/10 rounded w-5/6"></div>
+                        </div>
+                      </div>
+                      
+                      <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
+                        <h4 className="text-sm font-medium text-white/70 mb-2">Resource Management</h4>
+                        <div className="space-y-2">
+                          <div className="h-6 bg-white/10 rounded w-full"></div>
+                          <div className="h-6 bg-white/10 rounded w-4/5"></div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4 h-full">
+                      <h4 className="text-sm font-medium text-white/70 mb-4">Interactive Learning Experience</h4>
+                      <div className="space-y-4">
+                        <div className="p-3 bg-white/10 rounded-lg">
+                          <div className="flex items-center">
+                            <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-3">
+                              <Brain className="h-4 w-4 text-white/60" />
+                            </div>
+                            <div className="flex-1">
+                              <div className="h-4 bg-white/15 rounded w-3/4"></div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="p-3 bg-white/10 rounded-lg">
+                          <div className="flex items-center">
+                            <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-3">
+                              <Lightbulb className="h-4 w-4 text-white/60" />
+                            </div>
+                            <div className="flex-1">
+                              <div className="h-4 bg-white/15 rounded w-full"></div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="p-3 bg-white/10 rounded-lg">
+                          <div className="flex items-center">
+                            <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-3">
+                              <Edit className="h-4 w-4 text-white/60" />
+                            </div>
+                            <div className="flex-1">
+                              <div className="h-4 bg-white/15 rounded w-5/6"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <span className="ml-2 font-medium text-muted-foreground">
-                4.9/5 average rating from over 10,000 students
-              </span>
-            </div>
-          </AnimateInView>
+            </AnimateInView>
+          </div>
         </div>
       </section>
 
-      {/* Blog Section */}
+      {/* Natural Language Interaction */}
       <section className="py-20">
         <div className="container mx-auto px-4 md:px-6">
           <SectionHeading
-            title="Latest from Our Blog"
-            description="Insights, tips, and the latest trends in education and learning technology."
+            title="AI notebook chat with natural language"
+            description="Ask away"
           />
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {blogPosts.map((post, index) => (
-              <AnimateInView key={post.slug} delay={0.1 * (index + 1)}>
-                <BlogCard
-                  title={post.title}
-                  excerpt={post.excerpt}
-                  date={post.date}
-                  readTime={post.readTime}
-                  author={post.author}
-                  image={post.image}
-                  slug={post.slug}
-                />
-              </AnimateInView>
-            ))}
+          
+          <div className="mt-10 max-w-3xl mx-auto">
+            <AnimateInView>
+              <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm">
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                      <PenTool className="h-4 w-4 text-white/60" />
+                    </div>
+                    <div className="flex-1 p-3 rounded-lg bg-white/10">
+                      <p className="text-white/80">Explain quantum computing for beginners</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                      <PenTool className="h-4 w-4 text-white/60" />
+                    </div>
+                    <div className="flex-1 p-3 rounded-lg bg-white/10">
+                      <p className="text-white/80">Generate practice questions about cell biology</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                      <PenTool className="h-4 w-4 text-white/60" />
+                    </div>
+                    <div className="flex-1 p-3 rounded-lg bg-white/10">
+                      <p className="text-white/80">Create a study schedule for my calculus exam</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                      <PenTool className="h-4 w-4 text-white/60" />
+                    </div>
+                    <div className="flex-1 p-3 rounded-lg bg-white/10">
+                      <p className="text-white/80">Find my notes on Renaissance art</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                      <PenTool className="h-4 w-4 text-white/60" />
+                    </div>
+                    <div className="flex-1 p-3 rounded-lg bg-white/10">
+                      <p className="text-white/80">Summarize all my notes on machine learning</p>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </AnimateInView>
           </div>
-
-          <AnimateInView className="mt-12 text-center">
-            <Button variant="outline" size="lg" className="group border-white/20 text-white hover:bg-white/10">
-              View All Articles
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </AnimateInView>
         </div>
       </section>
 
-      {/* Final CTA Section */}
+      {/* Productivity Benefits Section */}
       <section className="py-20 bg-background/50">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-3xl mx-auto text-center">
+            <AnimateInView>
+              <div className="inline-flex p-1 bg-white/10 rounded-full mb-6">
+                <div className="flex items-center space-x-2 px-4 py-2 bg-white/10 rounded-full">
+                  <Clock className="h-4 w-4 text-white/60" />
+                  <span className="text-sm font-medium text-white/80">Productivity Benefits</span>
+                </div>
+              </div>
+              
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 gradient-text">
+                Learn smarter, not harder
+              </h2>
+              
+              <p className="text-lg text-muted-foreground mb-8">
+                Automate repetitive study tasks with smart templates, scheduled reviews, memory-optimized learning paths, and personalized practice that save hours every week while boosting retention.
+              </p>
+              
+              <div className="flex flex-wrap justify-center gap-4">
+                <div className="flex items-center space-x-2">
+                  <Sparkles className="h-5 w-5 text-white/60" />
+                  <span className="text-white/80">Spaced repetition</span>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <Sparkles className="h-5 w-5 text-white/60" />
+                  <span className="text-white/80">Active recall</span>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <Sparkles className="h-5 w-5 text-white/60" />
+                  <span className="text-white/80">Concept mapping</span>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <Sparkles className="h-5 w-5 text-white/60" />
+                  <span className="text-white/80">Knowledge synthesis</span>
+                </div>
+              </div>
+            </AnimateInView>
+          </div>
+        </div>
+      </section>
+
+      {/* Call to Action Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="max-w-3xl mx-auto text-center">
             <AnimateInView>
               <h2 className="text-3xl md:text-4xl font-bold mb-6 gradient-text">
-                Join Thousands of Students Worldwide—Start Learning Smarter Today!
+                Experience the Future of Learning Today
               </h2>
-              <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
-                Experience the future of learning with OpenBook's AI-powered platform. Get instant academic support,
-                personalized learning paths, and track your progress—all in one place.
+              <p className="text-lg text-muted-foreground mb-8">
+                Watch how OpenBook helps you learn and retain knowledge in a fraction of the time.
               </p>
-            </AnimateInView>
-
-            <AnimateInView delay={0.2}>
-              <div className="bg-white/5 border border-white/10 rounded-xl p-8 backdrop-blur-sm">
-                <ContactForm />
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" className="bg-white text-black hover:bg-gray-200 group">
+                  Get Started
+                  <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+                <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                  See Pricing
+                </Button>
               </div>
             </AnimateInView>
           </div>
