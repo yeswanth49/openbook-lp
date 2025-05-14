@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { ChevronRight, Brain, Search, Edit, PenTool, KeyRound, Lightbulb, Clock, Sparkles } from "lucide-react"
 import Header from "@/components/header"
-import Footer from "@/components/footer"
+import CombinedFooter from "@/components/CombinedFooter"
 import AnimateInView from "@/components/animate-in-view"
 import SectionHeading from "@/components/section-heading"
 import { ParticleBackground } from "@/components/particle-background"
@@ -352,7 +352,7 @@ export default function LandingPage() {
           <div className="max-w-4xl mx-auto text-center">
             <AnimateInView>
               <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 text-gray-200">
-                Experience the Future of Learning Today
+                Experience the Future of <span className="split-text">Learning Today</span>
               </h2>
               <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
                 Watch how OpenBook helps you learn in a fraction of the time.
@@ -367,7 +367,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <Footer />
+      <CombinedFooter />
     </div>
   )
 }

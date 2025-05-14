@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'OpenBook',
+  description: 'AI-powered learning notebook',
   generator: 'v0.dev',
 }
 
@@ -14,7 +14,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        {/* Footer placement removed; will be included in page component */}
+      </body>
     </html>
   )
 }
