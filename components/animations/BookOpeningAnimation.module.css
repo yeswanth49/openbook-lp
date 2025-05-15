@@ -250,61 +250,63 @@
   }
 }
 
+/* Sparkle animations with different timing */
 .sparkle1 {
-  animation: sparkleAnim 1.5s ease-in-out infinite;
-  animation-delay: 0s;
+  opacity: 0;
+  animation: drawPath 1.5s ease-in-out 0.2s forwards, sparkleAnim 2s ease-in-out 0.2s infinite;
 }
 
 .sparkle2 {
-  animation: sparkleAnim 1.5s ease-in-out infinite;
-  animation-delay: 0.3s;
+  opacity: 0;
+  animation: drawPath 1.5s ease-in-out 0.4s forwards, sparkleAnim 2s ease-in-out 0.4s infinite;
 }
 
 .sparkle3 {
-  animation: sparkleAnim 1.5s ease-in-out infinite;
-  animation-delay: 0.6s;
+  opacity: 0;
+  animation: drawPath 1.5s ease-in-out 0.1s forwards, sparkleAnim 2s ease-in-out 0.1s infinite;
 }
 
 .sparkle4 {
-  animation: sparkleAnim 1.5s ease-in-out infinite;
-  animation-delay: 0.9s;
+  opacity: 0;
+  animation: drawPath 1.5s ease-in-out 0.7s forwards, sparkleAnim 2s ease-in-out 0.7s infinite;
 }
 
-.swirl {
-  animation: swirlAnim 2s ease-in-out infinite;
-}
-
-/* Styles for new particles */
 .sparkle5 {
-  animation: sparkleAnim 1.8s ease-in-out infinite;
-  animation-delay: 0.2s;
+  opacity: 0;
+  animation: drawPath 1.5s ease-in-out 0.5s forwards, sparkleAnim 2s ease-in-out 0.5s infinite;
 }
 
 .sparkle6 {
-  animation: sparkleAnim 1.6s ease-in-out infinite;
-  animation-delay: 0.5s;
+  opacity: 0;
+  animation: drawPath 1.5s ease-in-out 0.3s forwards, sparkleAnim 2s ease-in-out 0.3s infinite;
 }
 
 .sparkle7 {
-  animation: sparkleAnim 1.7s ease-in-out infinite;
-  animation-delay: 0.8s;
+  opacity: 0;
+  animation: drawPath 1.5s ease-in-out 0.6s forwards, sparkleAnim 2s ease-in-out 0.6s infinite;
+}
+
+.swirl {
+  opacity: 0;
+  animation: drawPath 2s ease-in-out forwards, swirlAnim 3s ease-in-out infinite;
 }
 
 .swirl2 {
-  animation: swirlAnim 2.5s ease-in-out infinite;
-  animation-delay: 0.4s;
+  opacity: 0;
+  animation: drawPath 2s ease-in-out 0.3s forwards, swirlAnim 3s ease-in-out 0.3s infinite;
 }
 
 .swirl3 {
-  animation: swirlAnim 2.2s ease-in-out infinite;
-  animation-delay: 0.7s;
+  opacity: 0;
+  animation: drawPath 2s ease-in-out 0.6s forwards, swirlAnim 3s ease-in-out 0.6s infinite;
 }
 
-/* Add paused state styles */
+/* Pause all animations when paused class is applied */
 .paused {
   animation-play-state: paused !important;
 }
 
+/* Also pause all child animations */
 .paused .bookLeftCover,
 .paused .bookRightCover,
 .paused .bookPage,
@@ -318,32 +320,35 @@
 .paused .sparkle7,
 .paused .swirl,
 .paused .swirl2,
-.paused .swirl3 {
+.paused .swirl3,
+.paused .decorativeBorder,
+.paused .cornerFlourish,
+.paused .decorativeSymbol,
+.paused .decorativeSwirl {
   animation-play-state: paused !important;
+  transition: none !important;
 }
 
-/* Book Page Rolling Styles */
+/* Page rolling animation */
 .bookPageRolling {
   animation: rollPage 1s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
-  transform-origin: 67% 50%;
 }
 
 @keyframes rollPage {
   0% {
-    transform: perspective(1000px) rotateY(0deg) translateZ(0);
-    opacity: 1;
-  }
-  50% {
-    transform: perspective(1000px) rotateY(-60deg) translateZ(20px);
+    transform: perspective(1500px) rotateY(0deg) translateZ(0);
     opacity: 0.8;
   }
+  50% {
+    transform: perspective(1500px) rotateY(-60deg) translateZ(20px);
+    opacity: 1;
+  }
   100% {
-    transform: perspective(1000px) rotateY(-120deg) translateZ(40px);
+    transform: perspective(1500px) rotateY(-95deg) translateZ(30px);
     opacity: 0;
   }
 }
 
-/* Progress bar animation */
 @keyframes progressGlow {
   0%, 100% {
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
@@ -354,147 +359,132 @@
 }
 
 .progressBar {
-  height: 2px;
-  background: white;
+  background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.1) 100%);
   animation: progressGlow 2s ease-in-out infinite;
+  border-radius: 2px;
 }
 
-/* Enhanced paused state */
+/* Stop all animations when paused */
 .paused * {
   animation-play-state: paused !important;
   transition: none !important;
 }
 
-/* Transition state styles */
+/* Final transition effect */
 .transitioning {
-  animation: transitionOut 0.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  animation: transitionOut 0.5s ease-out forwards;
 }
 
 @keyframes transitionOut {
   0% {
     opacity: 1;
-    filter: blur(5px);
+    transform: scale(15) translateZ(0);
+    filter: blur(0);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(20) translateZ(0);
+    filter: blur(3px);
   }
   100% {
     opacity: 0;
-    filter: blur(20px);
+    transform: scale(25) translateZ(0);
+    filter: blur(10px);
   }
 }
 
 /* Book spine styles */
 .bookSpine {
-  transform-origin: center;
   transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transform-origin: 50% 50%;
 }
 
-.spineText {
-  opacity: 0.8;
-  font-family: monospace;
-  letter-spacing: 1px;
-}
+/* Removed styles for spine text */
 
-/* Decorative elements */
+/* Decorative elements styles */
 .decorativeBorder {
-  opacity: 0.6;
-  transition: all 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  animation: drawPath 2s ease-in-out 0.5s forwards;
 }
 
 .cornerFlourish {
-  opacity: 0.8;
-  transition: all 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-.coverTitle {
-  font-family: monospace;
-  letter-spacing: 2px;
-  opacity: 0.9;
-  transition: all 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-.titleUnderline {
-  opacity: 0.6;
-  transition: all 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  animation: drawPath 1.5s ease-in-out 0.8s forwards;
 }
 
 .decorativeSymbol {
-  opacity: 0.7;
-  transition: all 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+  animation: drawPath 2s ease-in-out 1s forwards, fadeIn 2s ease-in-out 1s forwards;
 }
 
 .decorativeSwirl {
   opacity: 0;
-  animation: swirlFadeIn 2s ease-in-out infinite;
+  transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+  animation: swirlFadeIn 2.5s ease-in-out 0.5s forwards;
 }
 
 @keyframes swirlFadeIn {
   0% {
     opacity: 0;
-    transform: translateY(5px) scale(0.95);
+    stroke-dashoffset: 100;
+    transform: rotate(0deg);
   }
   50% {
-    opacity: 0.7;
-    transform: translateY(0) scale(1.05);
+    opacity: 0.5;
+    stroke-dashoffset: 50;
+    transform: rotate(5deg);
   }
   100% {
-    opacity: 0;
-    transform: translateY(-5px) scale(0.95);
+    opacity: 1;
+    stroke-dashoffset: 0;
+    transform: rotate(0deg);
   }
 }
 
-/* Enhanced book cover animations */
+/* Animation for cover opening with decorative elements revealed */
 .bookLeftCoverOpen .decorativeBorder,
 .bookLeftCoverOpen .cornerFlourish,
+.bookLeftCoverOpen .decorativeSymbol,
 .bookRightCoverOpen .decorativeBorder,
 .bookRightCoverOpen .cornerFlourish,
-.bookRightCoverOpen .coverTitle,
-.bookRightCoverOpen .titleUnderline,
-.bookRightCoverOpen .decorativeSymbol {
+.bookRightCoverOpen .decorativeSymbol,
+.bookRightCoverOpen .decorativeSwirl {
   opacity: 1;
 }
 
-/* Enhanced page styles */
-.bookPage {
-  fill: white;
-  stroke: black;
-  stroke-width: 0.3px;
-  transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1);
-  transform-origin: 155px 150px;
-  will-change: transform, opacity;
-  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.2));
+/* Page styles for improved visual effect */
+.pagesContainer {
+  transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-/* Enhanced page content styles */
+/* Page content line styles */
 .pageLines line {
-  transition: all 0.5s ease-out;
+  opacity: 0;
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
-  animation: drawLine 1s ease-out forwards;
+  animation: drawLine 1s ease-in-out forwards;
 }
 
 @keyframes drawLine {
   to {
+    opacity: 0.8;
     stroke-dashoffset: 0;
   }
 }
 
-/* Enhanced sparkle animations */
+/* Sparkles container path animation */
 .sparklesContainer path {
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
-  animation: drawPath 2s ease-out infinite;
+  opacity: 0;
 }
 
 @keyframes drawPath {
-  0% {
-    stroke-dashoffset: 100;
-    opacity: 0;
-  }
-  50% {
+  to {
+    opacity: 1;
     stroke-dashoffset: 0;
-    opacity: 0.8;
-  }
-  100% {
-    stroke-dashoffset: -100;
-    opacity: 0;
   }
 } 

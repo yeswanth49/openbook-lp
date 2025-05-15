@@ -172,29 +172,12 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
           xmlns="http://www.w3.org/2000/svg"
           className={styles.bookSvg}
         >
-          {/* Book spine with decorative elements */}
+          {/* Book spine */}
           <g className={styles.bookSpine}>
             <rect x="145" y="75" width="10" height="150" fill="white" />
-            {/* Spine decorative lines */}
-            <line x1="147" y1="85" x2="153" y2="85" stroke="black" strokeWidth="0.5" />
-            <line x1="147" y1="95" x2="153" y2="95" stroke="black" strokeWidth="0.5" />
-            <line x1="147" y1="205" x2="153" y2="205" stroke="black" strokeWidth="0.5" />
-            <line x1="147" y1="215" x2="153" y2="215" stroke="black" strokeWidth="0.5" />
-            {/* Spine title (vertical text) */}
-            <text
-              x="150"
-              y="180"
-              fill="black"
-              fontSize="8"
-              textAnchor="middle"
-              transform="rotate(-90, 150, 180)"
-              className={styles.spineText}
-            >
-              OPENBOOK
-            </text>
           </g>
 
-          {/* Left cover (back of book) with decorative border */}
+          {/* Left cover (back of book) */}
           <g>
             <rect
               x="50"
@@ -202,35 +185,13 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
               width="95"
               height="150"
               fill="black"
-              stroke="white"
-              strokeWidth="2"
               className={`${styles.bookCover} ${styles.bookLeftCover} ${
-                (animationState === "opening" || animationState === "zooming" || animationState === "complete") ? styles.bookLeftCoverOpen : ""
-              }`}
-            />
-            {/* Decorative border for left cover */}
-            <path
-              d="M 55 80 h 85 v 140 h -85 v -140"
-              stroke="white"
-              strokeWidth="0.5"
-              fill="none"
-              className={`${styles.decorativeBorder} ${styles.bookLeftCover} ${
-                (animationState === "opening" || animationState === "zooming" || animationState === "complete") ? styles.bookLeftCoverOpen : ""
-              }`}
-            />
-            {/* Corner flourishes */}
-            <path
-              d="M 60 85 h 10 v 10 M 130 85 h -10 v 10 M 60 205 h 10 v -10 M 130 205 h -10 v -10"
-              stroke="white"
-              strokeWidth="0.5"
-              fill="none"
-              className={`${styles.cornerFlourish} ${styles.bookLeftCover} ${
                 (animationState === "opening" || animationState === "zooming" || animationState === "complete") ? styles.bookLeftCoverOpen : ""
               }`}
             />
           </g>
 
-          {/* Right cover (front of book) with decorative elements */}
+          {/* Right cover (front of book) */}
           <g>
             <rect
               x="155"
@@ -238,139 +199,107 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
               width="95"
               height="150"
               fill="black"
-              stroke="white"
-              strokeWidth="2"
               className={`${styles.bookCover} ${styles.bookRightCover} ${
-                (animationState === "opening" || animationState === "zooming" || animationState === "complete") ? styles.bookRightCoverOpen : ""
-              }`}
-            />
-            {/* Decorative border for right cover */}
-            <path
-              d="M 160 80 h 85 v 140 h -85 v -140"
-              stroke="white"
-              strokeWidth="0.5"
-              fill="none"
-              className={`${styles.decorativeBorder} ${styles.bookRightCover} ${
-                (animationState === "opening" || animationState === "zooming" || animationState === "complete") ? styles.bookRightCoverOpen : ""
-              }`}
-            />
-            {/* Corner flourishes */}
-            <path
-              d="M 165 85 h 10 v 10 M 235 85 h -10 v 10 M 165 205 h 10 v -10 M 235 205 h -10 v -10"
-              stroke="white"
-              strokeWidth="0.5"
-              fill="none"
-              className={`${styles.cornerFlourish} ${styles.bookRightCover} ${
-                (animationState === "opening" || animationState === "zooming" || animationState === "complete") ? styles.bookRightCoverOpen : ""
-              }`}
-            />
-            {/* Title design on front cover */}
-            <text
-              x="202.5"
-              y="130"
-              fill="white"
-              fontSize="14"
-              textAnchor="middle"
-              className={`${styles.coverTitle} ${styles.bookRightCover} ${
-                (animationState === "opening" || animationState === "zooming" || animationState === "complete") ? styles.bookRightCoverOpen : ""
-              }`}
-            >
-              OPENBOOK
-            </text>
-            {/* Decorative line under title */}
-            <line
-              x1="175"
-              y1="140"
-              x2="230"
-              y2="140"
-              stroke="white"
-              strokeWidth="0.5"
-              className={`${styles.titleUnderline} ${styles.bookRightCover} ${
-                (animationState === "opening" || animationState === "zooming" || animationState === "complete") ? styles.bookRightCoverOpen : ""
-              }`}
-            />
-            {/* Decorative symbol */}
-            <path
-              d="M 202.5 160 m -10 0 a 10 10 0 1 0 20 0 a 10 10 0 1 0 -20 0 M 202.5 160 m -5 0 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0"
-              stroke="white"
-              strokeWidth="0.5"
-              fill="none"
-              className={`${styles.decorativeSymbol} ${styles.bookRightCover} ${
                 (animationState === "opening" || animationState === "zooming" || animationState === "complete") ? styles.bookRightCoverOpen : ""
               }`}
             />
           </g>
 
-          {/* Pages with enhanced styling */}
-          {Array.from({ length: 5 }).map((_, i) => (
-            <g key={`page-group-${i}`} className={`${getPageZoomClass(i)} ${animationState === "rolling" ? styles.bookPageRolling : ""}`}>
-              <rect
-                x={155 - i}
-                y={80 + i * 0.5}
-                width={90 - i}
-                height={140 - i}
-                fill="white"
-                stroke="black"
-                strokeWidth="0.3"
-                className={`${styles.bookPage} ${styles.bookPageInitial}`}
-              />
-              {/* Enhanced page content with more varied text-like lines */}
-              {(animationState === "zooming" || animationState === "complete") && (
-                <g className={`${styles.pageLines} ${animationState === "zooming" ? styles.pageLinesZoomThrough : ""}`} 
-                   style={{ animationDelay: `${i * 0.2 + 0.1}s` }}>
-                  {/* Header-like lines */}
-                  <line x1={160 - i} y1={90 + i * 0.5} x2={200 - i} y2={90 + i * 0.5} stroke="black" strokeWidth="0.5" />
-                  {/* Body text lines with varying lengths */}
-                  {Array.from({ length: 8 }).map((_, j) => (
-                    <line
-                      key={j}
-                      x1={160 - i}
-                      y1={110 + j * 15 + i * 0.5}
-                      x2={230 - i - (Math.random() * 20)}
-                      y2={110 + j * 15 + i * 0.5}
-                      stroke="black"
-                      strokeWidth="0.3"
-                      opacity={0.8}
-                    />
-                  ))}
-                </g>
-              )}
+          {/* Pages */}
+          <g className={styles.pagesContainer}>
+            {/* Page 1 - frontmost page */}
+            <rect
+              x="155"
+              y="80"
+              width="90"
+              height="140"
+              className={`${styles.bookPage} ${
+                animationState === "rolling" ? styles.bookPageRolling : ""
+              } ${animationState === "zooming" ? getPageZoomClass(1) : ""}`}
+            />
+
+            {/* Page 2 */}
+            <rect
+              x="154"
+              y="81"
+              width="89"
+              height="138"
+              className={`${styles.bookPage} ${
+                animationState === "rolling" ? styles.bookPageRolling : ""
+              } ${animationState === "zooming" ? getPageZoomClass(2) : ""}`}
+            />
+
+            {/* Page 3 */}
+            <rect
+              x="153"
+              y="82"
+              width="88"
+              height="136"
+              className={`${styles.bookPage} ${
+                animationState === "rolling" ? styles.bookPageRolling : ""
+              } ${animationState === "zooming" ? getPageZoomClass(3) : ""}`}
+            />
+
+            {/* Page 4 */}
+            <rect
+              x="152"
+              y="83"
+              width="87"
+              height="134"
+              className={`${styles.bookPage} ${
+                animationState === "rolling" ? styles.bookPageRolling : ""
+              } ${animationState === "zooming" ? getPageZoomClass(4) : ""}`}
+            />
+
+            {/* Page 5 - innermost page */}
+            <rect
+              x="151"
+              y="84"
+              width="86"
+              height="132"
+              className={`${styles.bookPage} ${
+                animationState === "rolling" ? styles.bookPageRolling : ""
+              } ${animationState === "zooming" ? getPageZoomClass(5) : ""}`}
+            />
+
+            {/* Page content - simplified lines */}
+            <g className={`${styles.pageLines} ${animationState === "zooming" ? styles.pageLinesZoomThrough : ""}`}>
+              {/* Create pattern of horizontal lines to represent text */}
+              {Array.from({ length: 10 }).map((_, i) => (
+                <line 
+                  key={i}
+                  x1="165" 
+                  y1={100 + i * 12} 
+                  x2={220 + (i % 3) * 15}
+                  y2={100 + i * 12} 
+                  stroke="black" 
+                  strokeWidth="0.5" 
+                />
+              ))}
             </g>
-          ))}
+          </g>
 
-          {/* Enhanced sparkle effects */}
-          {animationState === "opening" && (
-            <g className={styles.sparklesContainer}>
-              <circle cx="100" cy="100" r="2.5" fill="white" className={styles.sparkle1} />
-              <circle cx="120" cy="180" r="1.5" fill="white" className={styles.sparkle2} />
-              <circle cx="200" cy="90" r="2" fill="white" className={styles.sparkle3} />
-              <circle cx="220" cy="190" r="1.5" fill="white" className={styles.sparkle4} />
-              <path d="M 150 60 q 5 -10 10 0 t 10 0" stroke="white" strokeWidth="0.7" fill="none" className={styles.swirl} />
-
-              <circle cx="80" cy="150" r="2" fill="white" className={styles.sparkle5} />
-              <circle cx="230" cy="130" r="1.5" fill="white" className={styles.sparkle6} />
-              <circle cx="150" cy="230" r="2.2" fill="white" className={styles.sparkle7} />
-
-              <path d="M 70 80 C 75 70, 85 70, 90 80" stroke="white" strokeWidth="0.5" fill="none" className={styles.swirl2} />
-              <path d="M 210 220 C 215 210, 225 210, 230 220 S 235 230, 230 240" stroke="white" strokeWidth="0.5" fill="none" className={styles.swirl3} />
-
-              {/* Additional decorative elements */}
-              <path
-                d="M 140 70 q 10 -10 20 0 q 10 10 20 0"
-                stroke="white"
-                strokeWidth="0.3"
-                fill="none"
-                className={styles.decorativeSwirl}
-              />
-              <path
-                d="M 120 220 q 5 5 10 0 q 5 -5 10 0"
-                stroke="white"
-                strokeWidth="0.3"
-                fill="none"
-                className={styles.decorativeSwirl}
-              />
-            </g>
-          )}
+          {/* Simplified sparkles - fewer and more subtle */}
+          <g className={styles.sparklesContainer}>
+            <path
+              d="M 150 130 c -5 -5, 2 -8, 4 -12"
+              stroke="white"
+              strokeDasharray="3 2"
+              className={styles.sparkle1}
+            />
+            <path
+              d="M 180 120 c 8 -4, 2 -10, 15 -8"
+              stroke="white"
+              strokeDasharray="4 4"
+              className={styles.sparkle3}
+            />
+            <path
+              d="M 190 170 c -5 10, 10 5, 5 15"
+              stroke="white"
+              strokeDasharray="3 3"
+              className={styles.sparkle4}
+            />
+          </g>
         </svg>
       </div>
     </div>
