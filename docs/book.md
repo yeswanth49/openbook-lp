@@ -1,50 +1,110 @@
 # Book Animation Implementation Plan
 
-This document outlines a step-by-step plan to implement a book-opening animation that transitions smoothly into the landing page.
+This document outlines a step-by-step plan to implement a book-opening animation that transitions smoothly into the landing page with a dynamic "zoom through pages" effect.
 
 ## Animation Sequence
 
-1. Closed Book (Initial State)
-   - Render the book covers and pages in a closed position using SVG or HTML elements.
-   - Ensure initial CSS classes represent a closed book (e.g., covers unrotated, pages hidden).
+1. **Closed Book (Initial State)**
+   - Render the book covers and pages in a closed position using SVG elements
+   - Black book covers with white borders
+   - White pages with subtle text-like lines
+   - All pages initially stacked and visible within the closed book
 
-2. Opening Animation
-   - After a short delay, trigger a state change to `opening`.
-   - Animate the right cover rotating open from right to left (e.g., `rotateY(-120deg)`).
-   - Optionally animate the left cover for a 3D effect using CSS transforms.
-   - Use CSS transitions or keyframe animations with defined durations and easing.
+2. **Opening Animation**
+   - After a brief delay of 500ms, transition to `opening` state
+   - Animate both covers rotating outward in 3D space:
+     - Left cover rotates with `perspective(1000px) rotateY(120deg)`
+     - Right cover rotates with `perspective(1000px) rotateY(-120deg)`
+   - Duration: 1500ms with cubic-bezier easing
+   - Keep pages static during this phase
 
-3. Zoom into Pages
-   - On completion of the opening animation, change state to `zooming`.
-   - Scale and translate the animation container (SVG or wrapper) to focus on the pages.
-   - Set `transform-origin` on the center of the page area for a smooth zoom.
-   - Animate the scale (e.g., `scale(1)` to `scale(1.5)`) and translate over a defined duration.
+3. **Page Zoom-Through Effect**
+   - On completion of cover opening, transition to `zooming` state
+   - Implement multi-phase zooming:
+     - Phase 1: Initial camera movement toward the pages (scale increase to 2.5)
+     - Phase 2: "Travel" through the pages using:
+       - Gradual opacity transitions between pages
+       - Sequential reveal of content on each page as we zoom "through"
+       - Use `transform-origin` set to page center (around 67% horizontally)
+     - Fine-tune z-index and opacity of pages to create parallax-like depth
+   - Duration: 2000ms for full zoom sequence
+   - Visual cues like text lines should become visible during zoom
 
-4. Page Flutter / Transition Overlay (Optional)
-   - Add subtle page flutter or overlay elements to emphasize the zoom.
-   - Sequence page flutter animations using staggered keyframes for multiple pages.
-   - Maintain zoomed-in focus during this stage.
+4. **Final Transition to Landing Page**
+   - After zoom completes, transition to `complete` state
+   - Fade out the entire book animation (opacity: 0)
+   - Simultaneously fade in the landing page content
+   - Duration: 500ms for fade transition
 
-5. Transition to Landing Page
-   - After zoom and flutter animations complete, switch state to `complete`.
-   - Fade out or scale down the animation overlay.
-   - Reveal landing page content with a fade-in or slide-up animation.
-   - Use React state (e.g., `showAnimation = false`, `showLandingContent = true`).
+5. **User Controls**
+   - Prominent "Skip" button in top right corner
+   - Immediately transitions to landing page when clicked
+   - Cleans up all animation timeouts to avoid memory leaks
 
-6. Skip / User Control
-   - Provide a "Skip" button that sets state to `complete` immediately.
-   - Ensure any pending timeouts or animations are cleared on skip.
+## Technical Implementation
 
-7. Integration & Cleanup
-   - Integrate `BookOpeningAnimation` into the main page layout.
-   - Define an `animationState` enum: `initial`, `opening`, `zooming`, `complete`.
-   - Use `useEffect` to sequence state transitions and clean up timeouts.
-   - Ensure responsiveness and accessibility across devices.
-   - Optionally, use session storage to prevent replaying the animation on repeat visits.
+### Component Structure
+```jsx
+BookOpeningAnimation
+  ├── SVG Container
+  │   ├── Book Spine
+  │   ├── Left Cover 
+  │   ├── Right Cover
+  │   ├── Pages (5 layers)
+  │   │   ├── Page Content (lines)
+  │   ├── Visual Effects (sparkles, etc.)
+  └── Skip Button
+```
 
-## Implementation Notes
+### State Machine
+```
+initial → opening → zooming → complete
+```
 
-- Use React functional components with `useState` and `useEffect`.
-- Leverage CSS Modules or Tailwind for styling keyframes and transforms.
-- Clean up timeouts in `useEffect` cleanup functions to avoid memory leaks.
-- Test durations, easing functions, and transform origins for the best UX. 
+### CSS Modules Requirements
+1. **Base Animations**
+   - `.bookAnimationContainer`: Controls overall container, transitions
+   - `.bookCover`, `.bookLeftCover`, `.bookRightCover`: Cover animations
+   - `.bookPage`, `.bookPageInitial`: Page styling
+
+2. **Zoom Effect Classes**
+   - `.zoomActive`: For deep zoom effect (scale 4-6)
+   - Set appropriate transform-origin (67% 50%)
+   - Use long duration with proper easing
+
+3. **Page-Specific Classes**
+   - `.pageLines`: Text representation on pages
+   - Control visibility during zoom through/between pages
+   - Subtle opacity transitions between pages
+
+### Animation Timing
+- Initial delay: 500ms
+- Cover opening: 1500ms
+- Zoom through pages: 2000ms
+- Final transition: 500ms
+
+## Implementation Steps
+
+1. **Refine SVG Structure**
+   - Ensure all pages are properly layered
+   - Adjust stroke, fill, and position for consistency
+
+2. **Enhance CSS Module**
+   - Add zoom animations with optimal transform-origin
+   - Create keyframes for page transitions
+   - Implement sequential text visibility
+
+3. **Update State Management**
+   - Refine state transitions in useEffect
+   - Add logic to adjust page visibility during zoom
+   - Clean up all listeners/timeouts
+
+4. **Optimize Performance**
+   - Use will-change for elements with transitions
+   - Ensure hardware acceleration with transform properties
+   - Test across devices for smooth animation
+
+5. **Final Integration**
+   - Connect with landing page visibility toggle
+   - Add session storage option to skip on repeat visits
+   - Ensure responsive behavior at different viewport sizes 

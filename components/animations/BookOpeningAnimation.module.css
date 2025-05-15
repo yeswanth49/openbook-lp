@@ -1,11 +1,18 @@
 .animationOverlay {
   /* Styles for the main overlay, if any beyond Tailwind fixed/inset/bg */
   /* overflow-hidden is now applied inline in TSX */
+  transition: background-color 0.8s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .skipButton {
   /* Styles for the skip button, if any beyond Tailwind absolute/top/right etc. */
   z-index: 20; /* Ensure skip button is above particles */
+}
+
+/* Add white flash transition class */
+.whiteFlash {
+  background-color: white !important;
+  transition: background-color 1s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .bookAnimationContainer {
@@ -14,6 +21,7 @@
   transform: scale(1); /* Initial scale */
   position: relative; /* Establish stacking context */
   z-index: 10; /* Ensure book container is above general particles */
+  will-change: transform, opacity; /* Optimize for performance */
 }
 
 .bookContainerOnTop {
@@ -28,8 +36,16 @@
 
 .zoomActive {
   transform-origin: 67% 50%; /* Center on pages for full zoom */
-  transform: scale(4); /* Zoom further to fill the viewport */
-  transition: transform 2s ease-in-out;
+  transform: scale(15); /* Extreme zoom to dissolve into landing page */
+  transition: transform 2.5s cubic-bezier(0.19, 1, 0.22, 1); /* Exponential easing */
+  filter: blur(0); /* Start with no blur */
+  animation: zoomAndBlur 2.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+@keyframes zoomAndBlur {
+  0% { filter: blur(0px); }
+  80% { filter: blur(0px); }
+  100% { filter: blur(5px); }
 }
 
 .fadeIn {
@@ -38,6 +54,7 @@
 
 .fadeOut {
   opacity: 0;
+  transition: opacity 0.3s ease-out; /* Faster fade out to blend with landing page */
 }
 
 .bookSvg {
@@ -45,8 +62,10 @@
   overflow: visible; /* Ensure transforms outside the initial viewbox are seen */
 }
 
+/* Book Cover Styles */
 .bookCover {
   transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1); /* easeInOutCubic for opening */
+  will-change: transform; /* Optimize for hardware acceleration */
 }
 
 .bookLeftCover {
@@ -67,13 +86,14 @@
   transform: perspective(1000px) rotateY(-120deg);
 }
 
+/* Page Styles */
 .bookPage {
   fill: white;
   stroke: black;
   stroke-width: 0.5px;
-  transition: transform 1s ease-out;
-  /* transform-origin set inline for individual pages, near spine */
-  opacity: 1;
+  transition: transform 1s ease-out, opacity 0.8s ease-in-out;
+  transform-origin: 155px 150px; /* Center of page area */
+  will-change: transform, opacity; /* Optimize for performance */
 }
 
 .bookPageInitial {
@@ -81,9 +101,37 @@
   opacity: 0.3; /* Pages are initially slightly visible */
 }
 
-/* Define fluttering animations for pages */
-/* We need up to bookPageFlutter5 from the TSX */
+/* Page sequence for zoom-through effect */
+.pageZoomThrough1 {
+  opacity: 1;
+  transition: opacity 0.6s ease-in-out;
+}
 
+.pageZoomThrough2 {
+  opacity: 0.8;
+  transition: opacity 0.6s ease-in-out;
+  transition-delay: 0.2s;
+}
+
+.pageZoomThrough3 {
+  opacity: 0.6;  
+  transition: opacity 0.6s ease-in-out;
+  transition-delay: 0.4s;
+}
+
+.pageZoomThrough4 {
+  opacity: 0.4;
+  transition: opacity 0.6s ease-in-out;
+  transition-delay: 0.6s;
+}
+
+.pageZoomThrough5 {
+  opacity: 0.2;
+  transition: opacity 0.6s ease-in-out;
+  transition-delay: 0.8s;
+}
+
+/* Page flutter animations preserved for reference */
 @keyframes flutter1 {
   0% { transform: perspective(1500px) rotateY(5deg); opacity: 1; }
   50% { transform: perspective(1500px) rotateY(-90deg) translateX(-10px); opacity: 1; }
@@ -135,7 +183,7 @@
   opacity: 0;
 }
 
-/* Animation for page lines */
+/* Page Content Styles */
 .pageLines {
   opacity: 0;
   animation: fadeInAndSkewLines 0.7s ease-out forwards;
@@ -150,6 +198,18 @@
   0% { opacity: 0; transform: skewY(0deg); }
   50% { opacity: 0.7; transform: skewY(-5deg); }
   100% { opacity: 1; transform: skewY(0deg); }
+}
+
+/* New zoom-through page content animation */
+@keyframes zoomThrough {
+  0% { opacity: 0; transform: translateZ(0); }
+  30% { opacity: 1; transform: translateZ(30px); }
+  70% { opacity: 1; transform: translateZ(70px); }
+  100% { opacity: 0; transform: translateZ(100px); }
+}
+
+.pageLinesZoomThrough {
+  animation: zoomThrough 2s ease-in-out forwards;
 }
 
 /* Animations for Sparkle/Dust Elements */

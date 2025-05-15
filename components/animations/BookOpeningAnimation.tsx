@@ -1,36 +1,79 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { X } from "lucide-react"
 import styles from './BookOpeningAnimation.module.css' // Import the CSS module
 
 export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimationComplete: () => void }) {
   const [animationState, setAnimationState] = useState<"initial" | "opening" | "zooming" | "complete">("initial")
-  // const [showAnimation, setShowAnimation] = useState(true); // Controlled by parent
-
+  const [zoomPhase, setZoomPhase] = useState<number>(0) // 0-5 for page sequence
+  const [whiteFlash, setWhiteFlash] = useState<boolean>(false)
+  const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  
+  // Handle main animation sequence
   useEffect(() => {
-    // Sequence: initial -> opening -> zooming -> complete
-    let timeoutId: ReturnType<typeof setTimeout>
+    // Sequence: initial → opening → zooming → complete
     if (animationState === "initial") {
-      timeoutId = setTimeout(() => setAnimationState("opening"), 500)
+      timerRef.current = setTimeout(() => setAnimationState("opening"), 500)
     } else if (animationState === "opening") {
-      timeoutId = setTimeout(() => setAnimationState("zooming"), 1500) // After cover opening
+      timerRef.current = setTimeout(() => setAnimationState("zooming"), 1500) // After cover opening
     } else if (animationState === "zooming") {
-      timeoutId = setTimeout(() => setAnimationState("complete"), 2000) // Duration of final zoom
+      // Start zoom phase sequence
+      setZoomPhase(1)
+      // Add white flash near end of zoom
+      timerRef.current = setTimeout(() => setWhiteFlash(true), 2000)
+      timerRef.current = setTimeout(() => setAnimationState("complete"), 2400) // Longer zoom duration
     } else if (animationState === "complete") {
-      timeoutId = setTimeout(() => onAnimationComplete(), 500) // Fade out and complete
+      timerRef.current = setTimeout(() => onAnimationComplete(), 250) // Much faster transition to landing
     }
-    return () => clearTimeout(timeoutId)
+    
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current)
+    }
   }, [animationState, onAnimationComplete])
 
+  // Handle page zoom-through phases
+  useEffect(() => {
+    if (animationState !== "zooming" || zoomPhase === 0) return
+    
+    // Sequence through page phases
+    if (zoomPhase < 5) {
+      timerRef.current = setTimeout(() => setZoomPhase(prev => prev + 1), 350)
+    }
+    
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current)
+    }
+  }, [zoomPhase, animationState])
+
   const skipAnimation = () => {
+    if (timerRef.current) clearTimeout(timerRef.current)
+    setWhiteFlash(true)
     setAnimationState("complete") // This will trigger the onAnimationComplete via useEffect
   }
 
-  // if (!showAnimation) return null; // Parent controls visibility
+  // Get page zoom class based on zoom phase and page index
+  const getPageZoomClass = (pageIndex: number) => {
+    if (animationState !== "zooming") return ""
+    
+    // Apply zoom class based on current phase relationship to page
+    if (zoomPhase === pageIndex + 1) {
+      return styles.pageZoomThrough1
+    } else if (zoomPhase === pageIndex) {
+      return styles.pageZoomThrough2
+    } else if (zoomPhase === pageIndex - 1) {
+      return styles.pageZoomThrough3
+    } else if (zoomPhase === pageIndex - 2) {
+      return styles.pageZoomThrough4
+    } else if (zoomPhase === pageIndex - 3) {
+      return styles.pageZoomThrough5
+    }
+    
+    return ""
+  }
 
   return (
-    <div className={`${styles.animationOverlay} fixed inset-0 flex items-center justify-center bg-transparent z-50 overflow-hidden`}>
+    <div className={`${styles.animationOverlay} fixed inset-0 flex items-center justify-center ${whiteFlash ? styles.whiteFlash : 'bg-transparent'} z-50 overflow-hidden`}>
       <button
         onClick={skipAnimation}
         className={`${styles.skipButton} absolute top-4 right-4 p-2 rounded-full text-white hover:bg-gray-800 transition-colors`}
@@ -113,7 +156,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
 
           {/* Pages */}
           {Array.from({ length: 5 }).map((_, i) => (
-            <g key={`page-group-${i}`}>
+            <g key={`page-group-${i}`} className={getPageZoomClass(i)}>
               <rect
                 x={155 - i}
                 y={80 + i * 0.5}
@@ -123,18 +166,22 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
                 stroke="black"
                 className={`${styles.bookPage} ${styles.bookPageInitial}`}
               />
-              {/* Subtle page content illustration: 3 horizontal lines */}
-              {animationState === "zooming" && (
-                <g className={styles.pageLines} style={{ animationDelay: `${i * 0.2 + 0.1}s` }}>
+              {/* Subtle page content illustration: text-like lines */}
+              {(animationState === "zooming" || animationState === "complete") && (
+                <g className={`${styles.pageLines} ${animationState === "zooming" ? styles.pageLinesZoomThrough : ""}`} 
+                   style={{ animationDelay: `${i * 0.2 + 0.1}s` }}>
                   <line x1={160 - i} y1={100 + i * 0.5} x2={230 - i} y2={100 + i * 0.5} stroke="black" strokeWidth="0.3" />
                   <line x1={160 - i} y1={120 + i * 0.5} x2={225 - i} y2={120 + i * 0.5} stroke="black" strokeWidth="0.3" />
                   <line x1={160 - i} y1={140 + i * 0.5} x2={235 - i} y2={140 + i * 0.5} stroke="black" strokeWidth="0.3" />
+                  {/* Add more text-like details for pages to zoom through */}
+                  <line x1={165 - i} y1={160 + i * 0.5} x2={220 - i} y2={160 + i * 0.5} stroke="black" strokeWidth="0.3" />
+                  <line x1={170 - i} y1={180 + i * 0.5} x2={215 - i} y2={180 + i * 0.5} stroke="black" strokeWidth="0.3" />
                 </g>
               )}
             </g>
           ))}
 
-          {/* Sparkle/Dust Elements */}
+          {/* Sparkle/Dust Elements - Only show during opening */}
           {animationState === "opening" && (
             <g className={styles.sparklesContainer}>
               <circle cx="100" cy="100" r="2.5" fill="white" className={styles.sparkle1} />
