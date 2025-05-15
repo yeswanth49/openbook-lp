@@ -5,23 +5,22 @@ import { X } from "lucide-react"
 import styles from './BookOpeningAnimation.module.css' // Import the CSS module
 
 export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimationComplete: () => void }) {
-  const [animationState, setAnimationState] = useState<"initial" | "opening" | "fluttering" | "complete">("initial")
+  const [animationState, setAnimationState] = useState<"initial" | "opening" | "zooming" | "complete">("initial")
   // const [showAnimation, setShowAnimation] = useState(true); // Controlled by parent
 
   useEffect(() => {
-    // Start the animation sequence
+    // Sequence: initial -> opening -> zooming -> complete
+    let timeoutId: ReturnType<typeof setTimeout>
     if (animationState === "initial") {
-      setTimeout(() => setAnimationState("opening"), 500)
+      timeoutId = setTimeout(() => setAnimationState("opening"), 500)
     } else if (animationState === "opening") {
-      setTimeout(() => setAnimationState("fluttering"), 1500) // Duration of cover opening
-    } else if (animationState === "fluttering") {
-      setTimeout(() => setAnimationState("complete"), 2500) // Duration of page fluttering
+      timeoutId = setTimeout(() => setAnimationState("zooming"), 1500) // After cover opening
+    } else if (animationState === "zooming") {
+      timeoutId = setTimeout(() => setAnimationState("complete"), 2000) // Duration of final zoom
     } else if (animationState === "complete") {
-      setTimeout(() => {
-        // setShowAnimation(false); // Parent will handle this
-        onAnimationComplete();
-      }, 1000) // Duration for fade out or final state
+      timeoutId = setTimeout(() => onAnimationComplete(), 500) // Fade out and complete
     }
+    return () => clearTimeout(timeoutId)
   }, [animationState, onAnimationComplete])
 
   const skipAnimation = () => {
@@ -44,7 +43,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
         className={`${styles.bookAnimationContainer} ${
           animationState === "complete" ? styles.fadeOut : styles.fadeIn
         } ${
-          (animationState === "opening" || animationState === "fluttering") ? styles.closeupActive : ""
+          animationState === "zooming" ? styles.zoomActive : ""
         } ${styles.bookContainerOnTop}`}
       >
         <svg
@@ -69,7 +68,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
               stroke="white"
               strokeWidth="2"
               className={`${styles.bookCover} ${styles.bookLeftCover} ${
-                animationState === "opening" || animationState === "fluttering" || animationState === "complete" ? styles.bookLeftCoverOpen : ""
+                (animationState === "opening" || animationState === "zooming" || animationState === "complete") ? styles.bookLeftCoverOpen : ""
               }`}
             />
             <rect // Inner Left Cover Lining (visible when open)
@@ -79,7 +78,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
               height="150"
               fill="black" // Should be black
               className={`${styles.bookCoverLining} ${styles.bookLeftCover} ${
-                animationState === "opening" || animationState === "fluttering" || animationState === "complete" ? styles.bookLeftCoverOpen : ""
+                (animationState === "opening" || animationState === "zooming" || animationState === "complete") ? styles.bookLeftCoverOpen : ""
               }`}
               style={{ transformOrigin: '100% 50%', transform: 'scaleX(-1) translate(-95px, 0) translate(95px, 0)' }} // Flip and position for inside
             />
@@ -96,7 +95,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
               stroke="white"
               strokeWidth="2"
               className={`${styles.bookCover} ${styles.bookRightCover} ${
-                animationState === "opening" || animationState === "fluttering" || animationState === "complete" ? styles.bookRightCoverOpen : ""
+                (animationState === "opening" || animationState === "zooming" || animationState === "complete") ? styles.bookRightCoverOpen : ""
               }`}
             />
             <rect // Inner Right Cover Lining
@@ -106,7 +105,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
               height="150"
               fill="black" // Should be black
               className={`${styles.bookCoverLining} ${styles.bookRightCover} ${
-                animationState === "opening" || animationState === "fluttering" || animationState === "complete" ? styles.bookRightCoverOpen : ""
+                (animationState === "opening" || animationState === "zooming" || animationState === "complete") ? styles.bookRightCoverOpen : ""
               }`}
               style={{ transformOrigin: '0% 50%', transform: 'scaleX(-1) translate(95px, 0) translate(-95px, 0) ' }} // Flip and position for inside
             />
@@ -116,37 +115,27 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
           {Array.from({ length: 5 }).map((_, i) => (
             <g key={`page-group-${i}`}>
               <rect
-                key={i}
-                x={155 - i * 1}
+                x={155 - i}
                 y={80 + i * 0.5}
-                width={90 - i * 1}
-                height={140 - i * 1}
-                fill="black"
-                stroke="white"
-                strokeWidth="0.5"
-                className={`${styles.bookPage} ${
-                  animationState === "fluttering" || animationState === "complete"
-                    ? styles[`bookPageFlutter${i + 1}`]
-                    : styles.bookPageInitial
-                }`}
-                style={{
-                  transformOrigin: '155px 150px',
-                  animationDelay: animationState === 'fluttering' ? `${i * 0.2}s` : '0s'
-                }}
+                width={90 - i}
+                height={140 - i}
+                fill="white"
+                stroke="black"
+                className={`${styles.bookPage} ${styles.bookPageInitial}`}
               />
               {/* Subtle page content illustration: 3 horizontal lines */}
-              {(animationState === "fluttering" || animationState === "complete") && (
-                <g className={styles.pageLines} style={{ animationDelay: animationState === 'fluttering' ? `${i * 0.2 + 0.1}s` : '0s' }}>
-                  <line x1={160 - i * 1} y1={100 + i * 0.5} x2={230 - i * 1} y2={100 + i * 0.5} stroke="white" strokeWidth="0.3" />
-                  <line x1={160 - i * 1} y1={120 + i * 0.5} x2={225 - i * 1} y2={120 + i * 0.5} stroke="white" strokeWidth="0.3" />
-                  <line x1={160 - i * 1} y1={140 + i * 0.5} x2={235 - i * 1} y2={140 + i * 0.5} stroke="white" strokeWidth="0.3" />
+              {animationState === "zooming" && (
+                <g className={styles.pageLines} style={{ animationDelay: `${i * 0.2 + 0.1}s` }}>
+                  <line x1={160 - i} y1={100 + i * 0.5} x2={230 - i} y2={100 + i * 0.5} stroke="black" strokeWidth="0.3" />
+                  <line x1={160 - i} y1={120 + i * 0.5} x2={225 - i} y2={120 + i * 0.5} stroke="black" strokeWidth="0.3" />
+                  <line x1={160 - i} y1={140 + i * 0.5} x2={235 - i} y2={140 + i * 0.5} stroke="black" strokeWidth="0.3" />
                 </g>
               )}
             </g>
           ))}
 
           {/* Sparkle/Dust Elements */}
-          {(animationState === "opening" || animationState === "fluttering") && (
+          {animationState === "opening" && (
             <g className={styles.sparklesContainer}>
               <circle cx="100" cy="100" r="2.5" fill="white" className={styles.sparkle1} />
               <circle cx="120" cy="180" r="1.5" fill="white" className={styles.sparkle2} />
