@@ -1,15 +1,25 @@
 .animationOverlay {
   /* Styles for the main overlay, if any beyond Tailwind fixed/inset/bg */
+  /* overflow-hidden is now applied inline in TSX */
 }
 
 .skipButton {
   /* Styles for the skip button, if any beyond Tailwind absolute/top/right etc. */
+  z-index: 20; /* Ensure skip button is above particles */
 }
 
 .bookAnimationContainer {
   opacity: 0; /* Start hidden before fade-in */
   transition: opacity 0.5s ease-in-out, transform 2.5s cubic-bezier(0.645, 0.045, 0.355, 1); /* Added transform transition */
   transform: scale(1); /* Initial scale */
+  position: relative; /* Establish stacking context */
+  z-index: 10; /* Ensure book container is above general particles */
+}
+
+.bookContainerOnTop {
+  /* This class was added in TSX to the bookAnimationContainer div */
+  /* z-index: 10; already set on .bookAnimationContainer is likely sufficient */
+  /* If ParticleBackground component had its own z-index, we'd ensure this is higher */
 }
 
 .closeupActive {
@@ -62,7 +72,7 @@
 
 .bookPageInitial {
   transform: perspective(1500px) rotateY(0deg);
-  opacity: 0; /* Pages are initially not visible until fluttering */
+  opacity: 0.3; /* Pages are initially slightly visible */
 }
 
 /* Define fluttering animations for pages */
@@ -122,12 +132,18 @@
 /* Animation for page lines */
 .pageLines {
   opacity: 0;
-  animation: fadeInLines 0.5s ease-out forwards;
+  animation: fadeInAndSkewLines 0.7s ease-out forwards;
 }
 
 @keyframes fadeInLines {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+@keyframes fadeInAndSkewLines {
+  0% { opacity: 0; transform: skewY(0deg); }
+  50% { opacity: 0.7; transform: skewY(-5deg); }
+  100% { opacity: 1; transform: skewY(0deg); }
 }
 
 /* Animations for Sparkle/Dust Elements */

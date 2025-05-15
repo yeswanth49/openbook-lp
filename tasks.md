@@ -96,9 +96,9 @@ This document outlines the steps to create and integrate an illustration-based, 
 
 *   **Animation Style:** (Defined)
     *   Defined the specific visual style: clean lines, abstract shapes, or simple silhouettes for the book and its opening sequence.
-    *   Ensured the design adheres strictly to a black and white color palette (Initial version).
+    *   Current Theme: Inverted Black & White (Black background, white book elements).
 *   **Animation Sequence (Storyboard):** (Defined)
-    *   Keyframes: Closed book, cover lifting, pages turning, book fully open.
+    *   Keyframes: Closed book, cover lifting, pages turning, book fully open, closeup effect.
 *   **Technology Selection:** (Decided)
     *   React component with SVG and CSS Modules for animations.
 
@@ -107,11 +107,11 @@ This document outlines the steps to create and integrate an illustration-based, 
 *   **Component Structure:** (Completed)
     *   Created `components/animations/BookOpeningAnimation.tsx`.
     *   Created `components/animations/BookOpeningAnimation.module.css`.
-*   **Implement Animation Logic:** (Completed for v1)
+*   **Implement Animation Logic:** (Completed for v2 - Dark Mode, More Particles, Closeup, Inner Covers)
     *   Translated storyboard into code.
-    *   Implemented cover opening and page fluttering animations.
-*   **Styling:** (Completed for v1 - Light Mode)
-    *   Applied black and white styling.
+    *   Implemented cover opening, page fluttering, closeup, inner cover linings, more particles.
+*   **Styling:** (Completed for v2)
+    *   Applied inverted black and white styling.
     *   Ensured component is responsive (basic scaling via SVG viewport).
 
 ## 4. Integrate Animation with the Landing Page
@@ -125,50 +125,47 @@ This document outlines the steps to create and integrate an illustration-based, 
 *   **Placement:** (Completed)
     *   Animation invoked in `app/page.tsx`.
 
-## 5. Implement Dark Mode for Animation
+## 5. Enhance "Illustration-Based" Animation (Iterated)
 
+*   **Added Subtle Page Content Graphics:** (Completed - white lines on black pages)
+*   **Added Decorative "Sparkle" Elements:** (Completed - more/bigger white particles & swirls)
+*   **Added Inner Cover Linings:** (Completed - black inner covers for inverted theme)
+*   **Improved Initial Page Stack Visibility:** (Completed - initial opacity for page stack)
+
+## 6. Integrate Landing Page Particle Background into Animation
+
+*   **Analyze `ParticleBackground` Component (`app/page.tsx`):**
+    *   Determine how to reuse it within `BookOpeningAnimation.tsx`.
+    *   Check for props (e.g., color, density) that might need to be passed or adjusted for the animation context.
 *   **Modify `BookOpeningAnimation.tsx`:**
-    *   Change overlay background from `bg-white` to `bg-black` (or a suitable dark color).
-    *   Invert SVG element colors:
-        *   Spine: black to white.
-        *   Covers: white fill to dark fill (e.g., `bg-gray-900` or black), black stroke to white stroke.
-        *   Pages: white fill to dark fill, black stroke to white stroke.
-    *   Update skip button styling for dark background (e.g., `hover:bg-gray-800`).
-*   **Verify CSS Module:**
-    *   Ensure no color-specific overrides in `BookOpeningAnimation.module.css` conflict with dark mode.
-
-## 6. Enhance "Illustration-Based" Animation
-
-*   **Add Subtle Page Content Graphics:**
-    *   In `BookOpeningAnimation.tsx`, add simple SVG elements (lines, abstract shapes) within each page's `<rect>`.
-    *   These elements should be styled to fit the minimalist black/white (or inverted for dark mode) theme.
-    *   In `BookOpeningAnimation.module.css`, create new keyframes/classes to animate the opacity or subtle movement of these page graphics as the pages flutter. They should appear briefly during the turn.
-*   **Add Decorative "Sparkle" Elements:**
-    *   In `BookOpeningAnimation.tsx`, add a few small SVG `<circle>` or `<path>` elements around the book.
-    *   In `BookOpeningAnimation.module.css`, create keyframes for these elements to give a "twinkling" or "drifting" effect (e.g., animating opacity, scale, or slight position changes).
-    *   Timing: These could appear during the "opening" or "fluttering" states.
-*   **(Optional) Refine Existing Animations:**
-    *   Review and adjust easing functions or durations for cover opening and page fluttering for a more polished feel.
+    *   Import and render the `ParticleBackground` component.
+    *   Ensure it is positioned behind the book SVG and skip button (using appropriate z-indexing and styling).
+*   **Style `ParticleBackground` for Animation Context:**
+    *   Confirm particle colors match the animation's theme (e.g., white particles on black background).
+    *   Adjust density/behavior if needed (based on user clarification).
+    *   Decide interaction with closeup animation (based on user clarification).
+*   **Verify Overall Visual Cohesion:**
+    *   Ensure the added particle background blends well with existing animation particles and overall design.
 
 ## 7. Refine and Test (All Features)
 
 *   **Visual Polish:**
-    *   Ensure animation is smooth in both light (original) and dark mode.
+    *   Ensure animation is smooth with the integrated particle background.
     *   Confirm "illustration-based minimalist black and white/dark" criteria are met.
-    *   Check new illustrative elements (page graphics, sparkles) integrate well.
+    *   Check new illustrative elements (page graphics, sparkles) integrate well with the primary particle background.
 *   **Performance:**
-    *   Optimize any new SVG elements and animation code.
+    *   Monitor performance, as multiple particle systems can be demanding.
 *   **Cross-Browser/Device Testing:**
     *   Test on major browsers and different screen sizes.
 *   **Accessibility (Considerations):**
     *   Ensure skip animation button remains clear and functional.
-    *   Confirm color contrast is acceptable in dark mode.
+    *   Confirm color contrast is acceptable.
 
 ## 8. Update `learned-memories.mdc`
 
-*   Add decisions regarding dark mode implementation for animations.
-*   Document choices made for enhancing "illustration-based" aspects (e.g., types of new graphics, animation styles).
+*   Add decisions regarding integration of `ParticleBackground` into the animation.
+*   Document choices made for its styling and behavior within the animation context.
 
 ---
 
-**Next Steps:** Implement Dark Mode (Task 5), then Enhance Illustrations (Task 6). 
+**Next Steps:** Awaiting clarification on `ParticleBackground` integration details before proceeding with Task 6. 

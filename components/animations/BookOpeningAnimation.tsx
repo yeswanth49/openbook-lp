@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { X } from "lucide-react"
 import styles from './BookOpeningAnimation.module.css' // Import the CSS module
+import { ParticleBackground } from "@/components/particle-background" // Import ParticleBackground
 
 export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimationComplete: () => void }) {
   const [animationState, setAnimationState] = useState<"initial" | "opening" | "fluttering" | "complete">("initial")
@@ -31,7 +32,8 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
   // if (!showAnimation) return null; // Parent controls visibility
 
   return (
-    <div className={`${styles.animationOverlay} fixed inset-0 flex items-center justify-center bg-black z-50`}>
+    <div className={`${styles.animationOverlay} fixed inset-0 flex items-center justify-center bg-black z-50 overflow-hidden`}>
+      <ParticleBackground />
       <button
         onClick={skipAnimation}
         className={`${styles.skipButton} absolute top-4 right-4 p-2 rounded-full text-white hover:bg-gray-800 transition-colors`}
@@ -45,7 +47,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
           animationState === "complete" ? styles.fadeOut : styles.fadeIn
         } ${
           (animationState === "opening" || animationState === "fluttering") ? styles.closeupActive : ""
-        }`}
+        } ${styles.bookContainerOnTop}`}
       >
         <svg
           width="300"
@@ -59,32 +61,58 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
           <rect x="145" y="75" width="10" height="150" fill="white" />
 
           {/* Left cover (back of book) */}
-          <rect
-            x="50"
-            y="75"
-            width="95"
-            height="150"
-            fill="black"
-            stroke="white"
-            strokeWidth="2"
-            className={`${styles.bookCover} ${styles.bookLeftCover} ${
-              animationState === "opening" || animationState === "fluttering" || animationState === "complete" ? styles.bookLeftCoverOpen : ""
-            }`}
-          />
+          <g>
+            <rect // Outer Left Cover
+              x="50"
+              y="75"
+              width="95"
+              height="150"
+              fill="black"
+              stroke="white"
+              strokeWidth="2"
+              className={`${styles.bookCover} ${styles.bookLeftCover} ${
+                animationState === "opening" || animationState === "fluttering" || animationState === "complete" ? styles.bookLeftCoverOpen : ""
+              }`}
+            />
+            <rect // Inner Left Cover Lining (visible when open)
+              x="50"
+              y="75"
+              width="95"
+              height="150"
+              fill="black" // Should be black
+              className={`${styles.bookCoverLining} ${styles.bookLeftCover} ${
+                animationState === "opening" || animationState === "fluttering" || animationState === "complete" ? styles.bookLeftCoverOpen : ""
+              }`}
+              style={{ transformOrigin: '100% 50%', transform: 'scaleX(-1) translate(-95px, 0) translate(95px, 0)' }} // Flip and position for inside
+            />
+          </g>
 
           {/* Right cover (front of book) */}
-          <rect
-            x="155"
-            y="75"
-            width="95"
-            height="150"
-            fill="black"
-            stroke="white"
-            strokeWidth="2"
-            className={`${styles.bookCover} ${styles.bookRightCover} ${
-              animationState === "opening" || animationState === "fluttering" || animationState === "complete" ? styles.bookRightCoverOpen : ""
-            }`}
-          />
+          <g>
+            <rect // Outer Right Cover
+              x="155"
+              y="75"
+              width="95"
+              height="150"
+              fill="black"
+              stroke="white"
+              strokeWidth="2"
+              className={`${styles.bookCover} ${styles.bookRightCover} ${
+                animationState === "opening" || animationState === "fluttering" || animationState === "complete" ? styles.bookRightCoverOpen : ""
+              }`}
+            />
+            <rect // Inner Right Cover Lining
+              x="155"
+              y="75"
+              width="95"
+              height="150"
+              fill="black" // Should be black
+              className={`${styles.bookCoverLining} ${styles.bookRightCover} ${
+                animationState === "opening" || animationState === "fluttering" || animationState === "complete" ? styles.bookRightCoverOpen : ""
+              }`}
+              style={{ transformOrigin: '0% 50%', transform: 'scaleX(-1) translate(95px, 0) translate(-95px, 0) ' }} // Flip and position for inside
+            />
+          </g>
 
           {/* Pages */}
           {Array.from({ length: 5 }).map((_, i) => (
