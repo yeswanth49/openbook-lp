@@ -119,7 +119,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
 
           {/* Left cover (back of book) */}
           <g>
-            <rect // Outer Left Cover
+            <rect
               x="50"
               y="75"
               width="95"
@@ -131,22 +131,11 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
                 (animationState === "opening" || animationState === "zooming" || animationState === "complete") ? styles.bookLeftCoverOpen : ""
               }`}
             />
-            <rect // Inner Left Cover Lining (visible when open)
-              x="50"
-              y="75"
-              width="95"
-              height="150"
-              fill="black" // Should be black
-              className={`${styles.bookCoverLining} ${styles.bookLeftCover} ${
-                (animationState === "opening" || animationState === "zooming" || animationState === "complete") ? styles.bookLeftCoverOpen : ""
-              }`}
-              style={{ transformOrigin: '100% 50%', transform: 'scaleX(-1) translate(-95px, 0) translate(95px, 0)' }} // Flip and position for inside
-            />
           </g>
 
           {/* Right cover (front of book) */}
           <g>
-            <rect // Outer Right Cover
+            <rect
               x="155"
               y="75"
               width="95"
@@ -157,17 +146,6 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
               className={`${styles.bookCover} ${styles.bookRightCover} ${
                 (animationState === "opening" || animationState === "zooming" || animationState === "complete") ? styles.bookRightCoverOpen : ""
               }`}
-            />
-            <rect // Inner Right Cover Lining
-              x="155"
-              y="75"
-              width="95"
-              height="150"
-              fill="black" // Should be black
-              className={`${styles.bookCoverLining} ${styles.bookRightCover} ${
-                (animationState === "opening" || animationState === "zooming" || animationState === "complete") ? styles.bookRightCoverOpen : ""
-              }`}
-              style={{ transformOrigin: '0% 50%', transform: 'scaleX(-1) translate(95px, 0) translate(-95px, 0) ' }} // Flip and position for inside
             />
           </g>
 
