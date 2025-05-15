@@ -112,4 +112,55 @@
 .bookPageFlutter5 {
   animation: flutter5 1.2s ease-out forwards;
   opacity: 0;
+}
+
+/* Animation for page lines */
+.pageLines {
+  opacity: 0;
+  animation: fadeInLines 0.5s ease-out forwards;
+}
+
+@keyframes fadeInLines {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Animations for Sparkle/Dust Elements */
+.sparklesContainer {
+  /* Container for positioning if needed, or just for grouping */
+}
+
+@keyframes sparkleAnim {
+  0%, 100% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes swirlAnim {
+  0% { opacity: 0; transform: translateY(5px) rotate(0deg); }
+  50% { opacity: 0.7; transform: translateY(0px) rotate(180deg); }
+  100% { opacity: 0; transform: translateY(-5px) rotate(360deg); }
+}
+
+.sparkle1 {
+  animation: sparkleAnim 1.5s ease-in-out infinite;
+  animation-delay: 0s;
+}
+
+.sparkle2 {
+  animation: sparkleAnim 1.5s ease-in-out infinite;
+  animation-delay: 0.3s;
+}
+
+.sparkle3 {
+  animation: sparkleAnim 1.5s ease-in-out infinite;
+  animation-delay: 0.6s;
+}
+
+.sparkle4 {
+  animation: sparkleAnim 1.5s ease-in-out infinite;
+  animation-delay: 0.9s;
+}
+
+.swirl {
+  animation: swirlAnim 2s ease-in-out infinite;
 } 

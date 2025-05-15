@@ -86,76 +86,89 @@ This document outlines the steps to create and integrate an illustration-based, 
 
 ## 1. Understand Provided Components and Assets
 
-*   **Explore `.references/book-animation/`:**
-    *   Investigate the `components/` directory for any reusable UI elements or animation logic.
-    *   Check the `public/` directory for existing illustrations, SVGs, or image assets that can be used or adapted for the animation.
-    *   Review `styles/` for any theming or base styles relevant to a minimalist black and white aesthetic.
-    *   Examine `lib/` or `hooks/` for utility functions or custom hooks that might assist in animation or state management.
+*   **Explore `.references/book-animation/`:** (Completed)
+    *   Investigated the `components/` directory for any reusable UI elements or animation logic. (Found `book-opening-animation.tsx`)
+    *   Checked the `public/` directory for existing illustrations, SVGs, or image assets. (Found placeholders)
+    *   Reviewed `styles/` for any theming or base styles. (Found `globals.css` with Tailwind setup)
+    *   Examined `lib/` or `hooks/` for utility functions or custom hooks. (Found `utils.ts`, `use-mobile.tsx`, `use-toast.ts`)
 
 ## 2. Research and Design the Animation
 
-*   **Animation Style:**
-    *   Define the specific visual style: clean lines, abstract shapes, or simple silhouettes for the book and its opening sequence.
-    *   Ensure the design adheres strictly to a black and white color palette.
-*   **Animation Sequence (Storyboard):**
-    *   Sketch the keyframes:
-        1.  Closed book (initial state).
-        2.  Book cover subtly lifting.
-        3.  First page turning.
-        4.  A few more pages turning (can be stylized, not necessarily realistic page-by-page).
-        5.  Book fully open, perhaps revealing a blank page or a subtle transition element.
-*   **Technology Selection:**
-    *   Based on the assets in `.references/book-animation/` and the desired animation complexity, decide on the best approach:
-        *   **CSS Animations/Transitions:** For simpler, lightweight animations if suitable illustrations are available.
-        *   **SVG Animation (SMIL or CSS/JS):** If vector graphics are used and provide more control.
-        *   **JavaScript Animation Libraries (e.g., GSAP, Framer Motion):** For more complex sequences, finer control over easing, and timelines, especially if the Next.js project in `.references` already uses a compatible library.
-        *   **Lottie Animations:** If a vector animation is designed in software like Adobe After Effects and can be exported as a Lottie JSON.
+*   **Animation Style:** (Defined)
+    *   Defined the specific visual style: clean lines, abstract shapes, or simple silhouettes for the book and its opening sequence.
+    *   Ensured the design adheres strictly to a black and white color palette (Initial version).
+*   **Animation Sequence (Storyboard):** (Defined)
+    *   Keyframes: Closed book, cover lifting, pages turning, book fully open.
+*   **Technology Selection:** (Decided)
+    *   React component with SVG and CSS Modules for animations.
 
 ## 3. Develop the Animation Component
 
-*   **Component Structure:**
-    *   Create a new React component (e.g., `BookOpeningAnimation.tsx`) within the main project (not in `.references` unless that's the intention for it to be a shared library).
-    *   Structure the HTML/JSX for the book elements.
-*   **Implement Animation Logic:**
-    *   Translate the storyboard and design into code using the chosen technology.
-    *   Focus on smooth transitions and a minimalist feel.
-*   **Styling:**
-    *   Apply black and white styling.
-    *   Ensure the component is responsive or scales appropriately.
+*   **Component Structure:** (Completed)
+    *   Created `components/animations/BookOpeningAnimation.tsx`.
+    *   Created `components/animations/BookOpeningAnimation.module.css`.
+*   **Implement Animation Logic:** (Completed for v1)
+    *   Translated storyboard into code.
+    *   Implemented cover opening and page fluttering animations.
+*   **Styling:** (Completed for v1 - Light Mode)
+    *   Applied black and white styling.
+    *   Ensured component is responsive (basic scaling via SVG viewport).
 
 ## 4. Integrate Animation with the Landing Page
 
-*   **Display Logic:**
-    *   The animation should play automatically once when the website (presumably the root page) is first loaded by a user.
-    *   Consider using `localStorage` or `sessionStorage` to track if the animation has been played during the current session or on the first visit, to prevent it from playing on every navigation or refresh if not desired. (Clarify this requirement: play once ever, once per session, or every time the homepage is hit directly?)
-*   **Transition to Landing Page:**
-    *   After the animation completes, the main landing page content should be revealed.
-    *   This could involve:
-        *   Unmounting the animation component and mounting the landing page component.
-        *   Using CSS to fade out the animation and fade in the landing page.
-        *   A state change that conditionally renders the animation or the landing page.
-*   **Placement:**
-    *   Determine where to invoke the animation component within the Next.js page structure (e.g., in `app/page.tsx` or `app/layout.tsx` if it's a global intro).
+*   **Display Logic:** (Completed)
+    *   Animation plays automatically on landing page load (`app/page.tsx`).
+    *   State management (`showAnimation`, `showLandingContent`) handles visibility.
+    *   `onAnimationComplete` callback transitions to landing content.
+*   **Transition to Landing Page:** (Completed)
+    *   Animation component unmounts, landing content fades in.
+*   **Placement:** (Completed)
+    *   Animation invoked in `app/page.tsx`.
 
-## 5. Refine and Test
+## 5. Implement Dark Mode for Animation
+
+*   **Modify `BookOpeningAnimation.tsx`:**
+    *   Change overlay background from `bg-white` to `bg-black` (or a suitable dark color).
+    *   Invert SVG element colors:
+        *   Spine: black to white.
+        *   Covers: white fill to dark fill (e.g., `bg-gray-900` or black), black stroke to white stroke.
+        *   Pages: white fill to dark fill, black stroke to white stroke.
+    *   Update skip button styling for dark background (e.g., `hover:bg-gray-800`).
+*   **Verify CSS Module:**
+    *   Ensure no color-specific overrides in `BookOpeningAnimation.module.css` conflict with dark mode.
+
+## 6. Enhance "Illustration-Based" Animation
+
+*   **Add Subtle Page Content Graphics:**
+    *   In `BookOpeningAnimation.tsx`, add simple SVG elements (lines, abstract shapes) within each page's `<rect>`.
+    *   These elements should be styled to fit the minimalist black/white (or inverted for dark mode) theme.
+    *   In `BookOpeningAnimation.module.css`, create new keyframes/classes to animate the opacity or subtle movement of these page graphics as the pages flutter. They should appear briefly during the turn.
+*   **Add Decorative "Sparkle" Elements:**
+    *   In `BookOpeningAnimation.tsx`, add a few small SVG `<circle>` or `<path>` elements around the book.
+    *   In `BookOpeningAnimation.module.css`, create keyframes for these elements to give a "twinkling" or "drifting" effect (e.g., animating opacity, scale, or slight position changes).
+    *   Timing: These could appear during the "opening" or "fluttering" states.
+*   **(Optional) Refine Existing Animations:**
+    *   Review and adjust easing functions or durations for cover opening and page fluttering for a more polished feel.
+
+## 7. Refine and Test (All Features)
 
 *   **Visual Polish:**
-    *   Ensure the animation is smooth and visually appealing.
-    *   Confirm it meets the "illustration-based minimalist black and white" criteria.
+    *   Ensure animation is smooth in both light (original) and dark mode.
+    *   Confirm "illustration-based minimalist black and white/dark" criteria are met.
+    *   Check new illustrative elements (page graphics, sparkles) integrate well.
 *   **Performance:**
-    *   Optimize assets and animation code for fast loading and smooth playback.
-    *   Profile if necessary, especially on lower-powered devices.
+    *   Optimize any new SVG elements and animation code.
 *   **Cross-Browser/Device Testing:**
-    *   Test on major browsers (Chrome, Firefox, Safari, Edge).
-    *   Test on different screen sizes (desktop, tablet, mobile).
+    *   Test on major browsers and different screen sizes.
 *   **Accessibility (Considerations):**
-    *   Provide a way to skip the animation if it's lengthy or could be an issue for users with motion sensitivities (e.g., a "Skip Intro" button).
-    *   Ensure content is accessible even if the animation fails to play.
+    *   Ensure skip animation button remains clear and functional.
+    *   Confirm color contrast is acceptable in dark mode.
 
-## 6. Update `learned-memories.mdc`
+## 8. Update `learned-memories.mdc`
 
-*   Add any new project conventions or technical decisions made during this feature implementation to `.cursor/rules/learned-memories.mdc`. For example, the chosen animation library or specific styling approaches.
+*   Add decisions regarding dark mode implementation for animations.
+*   Document choices made for enhancing "illustration-based" aspects (e.g., types of new graphics, animation styles).
 
 ---
 
-**Next Steps:** Start with Task 1: Explore `.references/book-animation/`. 
+**Next Steps:** Implement Dark Mode (Task 5), then Enhance Illustrations (Task 6). 

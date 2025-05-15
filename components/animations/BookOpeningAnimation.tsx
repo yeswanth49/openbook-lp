@@ -31,10 +31,10 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
   // if (!showAnimation) return null; // Parent controls visibility
 
   return (
-    <div className={`${styles.animationOverlay} fixed inset-0 flex items-center justify-center bg-white z-50`}>
+    <div className={`${styles.animationOverlay} fixed inset-0 flex items-center justify-center bg-black z-50`}>
       <button
         onClick={skipAnimation}
-        className={`${styles.skipButton} absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors`}
+        className={`${styles.skipButton} absolute top-4 right-4 p-2 rounded-full text-white hover:bg-gray-800 transition-colors`}
         aria-label="Skip animation"
       >
         <X size={24} />
@@ -54,7 +54,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
           className={styles.bookSvg}
         >
           {/* Book spine */}
-          <rect x="145" y="75" width="10" height="150" fill="black" />
+          <rect x="145" y="75" width="10" height="150" fill="white" />
 
           {/* Left cover (back of book) */}
           <rect
@@ -62,8 +62,8 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
             y="75"
             width="95"
             height="150"
-            fill="white"
-            stroke="black"
+            fill="#111827"
+            stroke="white"
             strokeWidth="2"
             className={`${styles.bookCover} ${styles.bookLeftCover} ${
               animationState === "opening" || animationState === "fluttering" || animationState === "complete" ? styles.bookLeftCoverOpen : ""
@@ -76,8 +76,8 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
             y="75"
             width="95"
             height="150"
-            fill="white"
-            stroke="black"
+            fill="#111827"
+            stroke="white"
             strokeWidth="2"
             className={`${styles.bookCover} ${styles.bookRightCover} ${
               animationState === "opening" || animationState === "fluttering" || animationState === "complete" ? styles.bookRightCoverOpen : ""
@@ -86,28 +86,49 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
 
           {/* Pages */}
           {Array.from({ length: 5 }).map((_, i) => (
-            <rect
-              key={i}
-              x={155 - i * 1} // Adjusted for tighter packing
-              y={80 + i * 0.5} // Adjusted for tighter packing
-              width={90 - i * 1} // Adjusted
-              height={140 - i * 1} // Adjusted
-              fill="white"
-              stroke="black"
-              strokeWidth="0.5" // Thinner lines for pages
-              className={`${styles.bookPage} ${
-                animationState === "fluttering" || animationState === "complete"
-                  ? styles[`bookPageFlutter${i + 1}`]
-                  : styles.bookPageInitial
-              }`}
-              style={{
-                transformOrigin: '155px 150px', // Hinge on the right side of the spine for these pages
-                animationDelay: animationState === 'fluttering' ? `${i * 0.2}s` : '0s'
-              }}
-            />
+            <g key={`page-group-${i}`}>
+              <rect
+                key={i}
+                x={155 - i * 1}
+                y={80 + i * 0.5}
+                width={90 - i * 1}
+                height={140 - i * 1}
+                fill="#1f2937" // Darker gray (gray-800 for pages)
+                stroke="#d1d5db" // Lighter gray stroke for pages (gray-300)
+                strokeWidth="0.5"
+                className={`${styles.bookPage} ${
+                  animationState === "fluttering" || animationState === "complete"
+                    ? styles[`bookPageFlutter${i + 1}`]
+                    : styles.bookPageInitial
+                }`}
+                style={{
+                  transformOrigin: '155px 150px',
+                  animationDelay: animationState === 'fluttering' ? `${i * 0.2}s` : '0s'
+                }}
+              />
+              {/* Subtle page content illustration: 3 horizontal lines */}
+              {(animationState === "fluttering" || animationState === "complete") && (
+                <g className={styles.pageLines} style={{ animationDelay: animationState === 'fluttering' ? `${i * 0.2 + 0.1}s` : '0s' }}>
+                  <line x1={160 - i * 1} y1={100 + i * 0.5} x2={230 - i * 1} y2={100 + i * 0.5} stroke="#4b5563" strokeWidth="0.3" /> {/* gray-600 */}
+                  <line x1={160 - i * 1} y1={120 + i * 0.5} x2={225 - i * 1} y2={120 + i * 0.5} stroke="#4b5563" strokeWidth="0.3" />
+                  <line x1={160 - i * 1} y1={140 + i * 0.5} x2={235 - i * 1} y2={140 + i * 0.5} stroke="#4b5563" strokeWidth="0.3" />
+                </g>
+              )}
+            </g>
           ))}
+
+          {/* Sparkle/Dust Elements */}
+          {(animationState === "opening" || animationState === "fluttering") && (
+            <g className={styles.sparklesContainer}>
+              <circle cx="100" cy="100" r="1.5" fill="white" className={styles.sparkle1} />
+              <circle cx="120" cy="180" r="1" fill="white" className={styles.sparkle2} />
+              <circle cx="200" cy="90" r="1.5" fill="white" className={styles.sparkle3} />
+              <circle cx="220" cy="190" r="1" fill="white" className={styles.sparkle4} />
+              <path d="M 150 60 q 5 -10 10 0 t 10 0" stroke="white" strokeWidth="0.5" fill="none" className={styles.swirl} />
+            </g>
+          )}
         </svg>
       </div>
     </div>
   )
-} 
+}
