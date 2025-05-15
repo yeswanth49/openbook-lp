@@ -276,4 +276,26 @@
 .swirl3 {
   animation: swirlAnim 2.2s ease-in-out infinite;
   animation-delay: 0.7s;
+}
+
+/* Add paused state styles */
+.paused {
+  animation-play-state: paused !important;
+}
+
+.paused .bookLeftCover,
+.paused .bookRightCover,
+.paused .bookPage,
+.paused .pageLines,
+.paused .sparkle1,
+.paused .sparkle2,
+.paused .sparkle3,
+.paused .sparkle4,
+.paused .sparkle5,
+.paused .sparkle6,
+.paused .sparkle7,
+.paused .swirl,
+.paused .swirl2,
+.paused .swirl3 {
+  animation-play-state: paused !important;
 } 

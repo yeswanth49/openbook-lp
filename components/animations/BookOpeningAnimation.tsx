@@ -1,17 +1,20 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { X } from "lucide-react"
+import { X, Pause, Play } from "lucide-react"
 import styles from './BookOpeningAnimation.module.css' // Import the CSS module
 
 export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimationComplete: () => void }) {
   const [animationState, setAnimationState] = useState<"initial" | "opening" | "zooming" | "complete">("initial")
   const [zoomPhase, setZoomPhase] = useState<number>(0) // 0-5 for page sequence
   const [whiteFlash, setWhiteFlash] = useState<boolean>(false)
+  const [isPaused, setIsPaused] = useState<boolean>(false)
   const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   
   // Handle main animation sequence
   useEffect(() => {
+    if (isPaused) return // Don't progress animation if paused
+    
     // Sequence: initial → opening → zooming → complete
     if (animationState === "initial") {
       timerRef.current = setTimeout(() => setAnimationState("opening"), 500)
@@ -30,10 +33,11 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current)
     }
-  }, [animationState, onAnimationComplete])
+  }, [animationState, onAnimationComplete, isPaused])
 
   // Handle page zoom-through phases
   useEffect(() => {
+    if (isPaused) return // Don't progress zoom phases if paused
     if (animationState !== "zooming" || zoomPhase === 0) return
     
     // Sequence through page phases
@@ -44,12 +48,16 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current)
     }
-  }, [zoomPhase, animationState])
+  }, [zoomPhase, animationState, isPaused])
 
   const skipAnimation = () => {
     if (timerRef.current) clearTimeout(timerRef.current)
     setWhiteFlash(true)
     setAnimationState("complete") // This will trigger the onAnimationComplete via useEffect
+  }
+
+  const togglePause = () => {
+    setIsPaused(prev => !prev)
   }
 
   // Get page zoom class based on zoom phase and page index
@@ -74,20 +82,29 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
 
   return (
     <div className={`${styles.animationOverlay} fixed inset-0 flex items-center justify-center ${whiteFlash ? styles.whiteFlash : 'bg-transparent'} z-50 overflow-hidden`}>
-      <button
-        onClick={skipAnimation}
-        className={`${styles.skipButton} absolute top-4 right-4 p-2 rounded-full text-white hover:bg-gray-800 transition-colors`}
-        aria-label="Skip animation"
-      >
-        <X size={24} />
-      </button>
+      <div className="absolute top-4 right-4 flex gap-2">
+        <button
+          onClick={togglePause}
+          className={`${styles.skipButton} p-2 rounded-full text-white hover:bg-gray-800 transition-colors`}
+          aria-label={isPaused ? "Resume animation" : "Pause animation"}
+        >
+          {isPaused ? <Play size={24} /> : <Pause size={24} />}
+        </button>
+        <button
+          onClick={skipAnimation}
+          className={`${styles.skipButton} p-2 rounded-full text-white hover:bg-gray-800 transition-colors`}
+          aria-label="Skip animation"
+        >
+          <X size={24} />
+        </button>
+      </div>
 
       <div
         className={`${styles.bookAnimationContainer} ${
           animationState === "complete" ? styles.fadeOut : styles.fadeIn
         } ${
           animationState === "zooming" ? styles.zoomActive : ""
-        } ${styles.bookContainerOnTop}`}
+        } ${styles.bookContainerOnTop} ${isPaused ? styles.paused : ""}`}
       >
         <svg
           width="300"
