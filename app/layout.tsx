@@ -3,6 +3,7 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import { Dancing_Script, Kalam } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
+import { ParticleBackground } from '@/components/particle-background'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -43,7 +44,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <div className="relative bg-background min-h-screen">
+            <ParticleBackground />
+            <div className="relative z-10">
+              {children}
+            </div>
+          </div>
         </ThemeProvider>
       </body>
     </html>

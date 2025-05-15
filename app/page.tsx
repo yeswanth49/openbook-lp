@@ -33,87 +33,82 @@ export default function LandingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <ParticleBackground />
-      </div>
-
-      <Header />
-
-      {showAnimation && (
+    <div>
+      {showAnimation ? (
         <BookOpeningAnimation onAnimationComplete={handleAnimationComplete} />
-      )}
-
-      {showLandingContent && (
-        <div className="landing-content animate-fadeIn">
-          {/* Hero Section */}
-          <section className="relative overflow-hidden py-24 md:py-32">
-            <div className="container mx-auto px-4 md:px-6">
-              <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
-                <AnimateInView>
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 gradient-text">
-                    AI Powered Notebook, Built to Learn Faster
-                  </h1>
-                  <p className="text-lg md:text-xl mb-8 text-muted-foreground max-w-2xl mx-auto">
-                    OpenBook is an AI-native notebook that helps you learn, retain, and apply knowledge more effectively than ever before.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Button size="lg" className="bg-white text-black hover:bg-gray-200 group">
-                      Get Started
-                      <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </Button>
-                    <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10">
-                      See How It Works
-                    </Button>
-                  </div>
-                </AnimateInView>
+      ) : (
+        <>
+          {showLandingContent && <Header />}
+          <div className="landing-content animate-fadeIn">
+            {/* Hero Section */}
+            <section className="relative overflow-hidden py-24 md:py-32">
+              <div className="container mx-auto px-4 md:px-6">
+                <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
+                  <AnimateInView>
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 gradient-text">
+                      AI Powered Notebook, Built to Learn Faster
+                    </h1>
+                    <p className="text-lg md:text-xl mb-8 text-muted-foreground max-w-2xl mx-auto">
+                      OpenBook is an AI-native notebook that helps you learn, retain, and apply knowledge more effectively than ever before.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                      <Button size="lg" className="bg-white text-black hover:bg-gray-200 group">
+                        Get Started
+                        <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </Button>
+                      <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                        See How It Works
+                      </Button>
+                    </div>
+                  </AnimateInView>
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
 
-          {/* Key Features Section */}
-          <section className="py-20 bg-background/50">
-            <div className="container mx-auto px-4 md:px-6">
-              <SectionHeading
-                title="Speed Is Everything"
-                description="Designed for students and lifelong learners who value their time"
-              />
-              
-              <div className="mt-12 mb-16">
-                <AnimateInView>
-                  <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl">
-                    <div className="aspect-video bg-gradient-to-br from-black to-gray-900 p-6 md:p-8">
-                      <div className="flex flex-col h-full">
-                        <div className="bg-black/40 backdrop-blur-sm rounded-lg p-4 mb-4 border border-white/10">
-                          <div className="flex items-center mb-4">
-                            <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
-                            <div className="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
-                            <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                            <div className="ml-4 text-sm text-white/60">OpenBook Interface</div>
-                          </div>
-                          <div className="space-y-4">
-                            <div className="flex">
-                              <div className="w-1/3 pr-4">
-                                <div className="h-8 bg-white/5 rounded"></div>
-                                <div className="mt-2 space-y-2">
-                                  <div className="h-6 bg-white/5 rounded w-3/4"></div>
-                                  <div className="h-6 bg-white/5 rounded"></div>
-                                  <div className="h-6 bg-white/5 rounded w-5/6"></div>
-                                </div>
-                              </div>
-                              <div className="w-2/3 pl-4 border-l border-white/10">
-                                <div className="h-8 bg-white/5 rounded mb-4"></div>
-                                <div className="relative bg-white/5 rounded-lg p-4">
-                                  <div className="text-sm text-white/80">How does photosynthesis work?</div>
-                                  <div className="mt-3 space-y-2">
-                                    <div className="h-4 bg-white/10 rounded w-full"></div>
-                                    <div className="h-4 bg-white/10 rounded w-11/12"></div>
-                                    <div className="h-4 bg-white/10 rounded w-3/4"></div>
+            {/* Key Features Section */}
+            <section className="py-20 bg-background/50">
+              <div className="container mx-auto px-4 md:px-6">
+                <SectionHeading
+                  title="Speed Is Everything"
+                  description="Designed for students and lifelong learners who value their time"
+                />
+                
+                <div className="mt-12 mb-16">
+                  <AnimateInView>
+                    <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl">
+                      <div className="aspect-video bg-gradient-to-br from-black to-gray-900 p-6 md:p-8">
+                        <div className="flex flex-col h-full">
+                          <div className="bg-black/40 backdrop-blur-sm rounded-lg p-4 mb-4 border border-white/10">
+                            <div className="flex items-center mb-4">
+                              <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                              <div className="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                              <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                              <div className="ml-4 text-sm text-white/60">OpenBook Interface</div>
+                            </div>
+                            <div className="space-y-4">
+                              <div className="flex">
+                                <div className="w-1/3 pr-4">
+                                  <div className="h-8 bg-white/5 rounded"></div>
+                                  <div className="mt-2 space-y-2">
+                                    <div className="h-6 bg-white/5 rounded w-3/4"></div>
+                                    <div className="h-6 bg-white/5 rounded"></div>
+                                    <div className="h-6 bg-white/5 rounded w-5/6"></div>
                                   </div>
-                                  <div className="mt-4 flex space-x-3">
-                                    <div className="px-3 py-1 bg-white/10 rounded-full text-xs text-white/60">Detailed</div>
-                                    <div className="px-3 py-1 bg-white/10 rounded-full text-xs text-white/60">Simple</div>
-                                    <div className="px-3 py-1 bg-white/10 rounded-full text-xs text-white/60">Visual</div>
+                                </div>
+                                <div className="w-2/3 pl-4 border-l border-white/10">
+                                  <div className="h-8 bg-white/5 rounded mb-4"></div>
+                                  <div className="relative bg-white/5 rounded-lg p-4">
+                                    <div className="text-sm text-white/80">How does photosynthesis work?</div>
+                                    <div className="mt-3 space-y-2">
+                                      <div className="h-4 bg-white/10 rounded w-full"></div>
+                                      <div className="h-4 bg-white/10 rounded w-11/12"></div>
+                                      <div className="h-4 bg-white/10 rounded w-3/4"></div>
+                                    </div>
+                                    <div className="mt-4 flex space-x-3">
+                                      <div className="px-3 py-1 bg-white/10 rounded-full text-xs text-white/60">Detailed</div>
+                                      <div className="px-3 py-1 bg-white/10 rounded-full text-xs text-white/60">Simple</div>
+                                      <div className="px-3 py-1 bg-white/10 rounded-full text-xs text-white/60">Visual</div>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -122,292 +117,291 @@ export default function LandingPage() {
                         </div>
                       </div>
                     </div>
-                  </div>
-                </AnimateInView>
+                  </AnimateInView>
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
 
-          {/* Core Features Grid */}
-          <section className="py-20">
-            <div className="container mx-auto px-4 md:px-6">
-              <div className="grid md:grid-cols-3 gap-8">
-                <AnimateInView delay={0.1}>
-                  <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm h-full">
-                    <KeyRound className="h-12 w-12 mb-5 text-white/80" />
-                    <h3 className="text-xl font-bold mb-3">Lightning-Fast Interface</h3>
-                    <p className="text-muted-foreground mb-4">
-                      Navigate your entire notebook using just your keyboard. Process and organize information in seconds.
-                    </p>
-                    <div className="mt-auto">
-                      <Button variant="ghost" className="p-0 h-auto text-white/70 hover:text-white">
-                        Learn more <ChevronRight className="ml-1 h-4 w-4" />
-                      </Button>
-                    </div>
-                  </Card>
-                </AnimateInView>
-                
-                <AnimateInView delay={0.2}>
-                  <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm h-full">
-                    <Brain className="h-12 w-12 mb-5 text-white/80" />
-                    <h3 className="text-xl font-bold mb-3">AI-Powered Learning</h3>
-                    <p className="text-muted-foreground mb-4">
-                      Let our AI generate explanations, create practice questions, and provide personalized study materials.
-                    </p>
-                    <div className="mt-auto">
-                      <Button variant="ghost" className="p-0 h-auto text-white/70 hover:text-white">
-                        Learn more <ChevronRight className="ml-1 h-4 w-4" />
-                      </Button>
-                    </div>
-                  </Card>
-                </AnimateInView>
-                
-                <AnimateInView delay={0.3}>
-                  <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm h-full">
-                    <Search className="h-12 w-12 mb-5 text-white/80" />
-                    <h3 className="text-xl font-bold mb-3">Smart Search</h3>
-                    <p className="text-muted-foreground mb-4">
-                      Create personalized learning flows that match exactly how you study, memorize, and process information.
-                    </p>
-                    <div className="mt-auto">
-                      <Button variant="ghost" className="p-0 h-auto text-white/70 hover:text-white">
-                        Learn more <ChevronRight className="ml-1 h-4 w-4" />
-                      </Button>
-                    </div>
-                  </Card>
-                </AnimateInView>
+            {/* Core Features Grid */}
+            <section className="py-20">
+              <div className="container mx-auto px-4 md:px-6">
+                <div className="grid md:grid-cols-3 gap-8">
+                  <AnimateInView delay={0.1}>
+                    <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm h-full">
+                      <KeyRound className="h-12 w-12 mb-5 text-white/80" />
+                      <h3 className="text-xl font-bold mb-3">Lightning-Fast Interface</h3>
+                      <p className="text-muted-foreground mb-4">
+                        Navigate your entire notebook using just your keyboard. Process and organize information in seconds.
+                      </p>
+                      <div className="mt-auto">
+                        <Button variant="ghost" className="p-0 h-auto text-white/70 hover:text-white">
+                          Learn more <ChevronRight className="ml-1 h-4 w-4" />
+                        </Button>
+                      </div>
+                    </Card>
+                  </AnimateInView>
+                  
+                  <AnimateInView delay={0.2}>
+                    <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm h-full">
+                      <Brain className="h-12 w-12 mb-5 text-white/80" />
+                      <h3 className="text-xl font-bold mb-3">AI-Powered Learning</h3>
+                      <p className="text-muted-foreground mb-4">
+                        Let our AI generate explanations, create practice questions, and provide personalized study materials.
+                      </p>
+                      <div className="mt-auto">
+                        <Button variant="ghost" className="p-0 h-auto text-white/70 hover:text-white">
+                          Learn more <ChevronRight className="ml-1 h-4 w-4" />
+                        </Button>
+                      </div>
+                    </Card>
+                  </AnimateInView>
+                  
+                  <AnimateInView delay={0.3}>
+                    <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm h-full">
+                      <Search className="h-12 w-12 mb-5 text-white/80" />
+                      <h3 className="text-xl font-bold mb-3">Smart Search</h3>
+                      <p className="text-muted-foreground mb-4">
+                        Create personalized learning flows that match exactly how you study, memorize, and process information.
+                      </p>
+                      <div className="mt-auto">
+                        <Button variant="ghost" className="p-0 h-auto text-white/70 hover:text-white">
+                          Learn more <ChevronRight className="ml-1 h-4 w-4" />
+                        </Button>
+                      </div>
+                    </Card>
+                  </AnimateInView>
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
 
-          {/* Interface Preview Section */}
-          <section className="py-20 bg-background/50">
-            <div className="container mx-auto px-4 md:px-6">
-              <SectionHeading
-                title="Designed for Better Learning"
-                description="A clean interface that helps you focus on what matters most"
-                highlightWords={[
-                  {
-                    word: "Better",
-                    className: "font-script text-white text-5xl md:text-6xl relative text-3d mx-2",
-                  },
-                  {
-                    word: "Learning",
-                    className: "font-script text-white text-5xl md:text-6xl relative textured-underline text-3d",
-                  }
-                ]}
-              />
-              
-              <div className="mt-12">
-                <AnimateInView>
-                  <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl">
-                    <div className="bg-gradient-to-br from-black to-gray-900 p-6 md:p-8">
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div className="space-y-6">
-                          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
-                            <h4 className="text-sm font-medium text-white/70 mb-2">Smart Organization</h4>
-                            <div className="space-y-2">
-                              <div className="h-6 bg-white/10 rounded w-full"></div>
-                              <div className="h-6 bg-white/10 rounded w-3/4"></div>
+            {/* Interface Preview Section */}
+            <section className="py-20 bg-background/50">
+              <div className="container mx-auto px-4 md:px-6">
+                <SectionHeading
+                  title="Designed for Better Learning"
+                  description="A clean interface that helps you focus on what matters most"
+                  highlightWords={[
+                    {
+                      word: "Better",
+                      className: "font-script text-white text-5xl md:text-6xl relative text-3d mx-2",
+                    },
+                    {
+                      word: "Learning",
+                      className: "font-script text-white text-5xl md:text-6xl relative textured-underline text-3d",
+                    }
+                  ]}
+                />
+                
+                <div className="mt-12">
+                  <AnimateInView>
+                    <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl">
+                      <div className="bg-gradient-to-br from-black to-gray-900 p-6 md:p-8">
+                        <div className="grid md:grid-cols-2 gap-6">
+                          <div className="space-y-6">
+                            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
+                              <h4 className="text-sm font-medium text-white/70 mb-2">Smart Organization</h4>
+                              <div className="space-y-2">
+                                <div className="h-6 bg-white/10 rounded w-full"></div>
+                                <div className="h-6 bg-white/10 rounded w-3/4"></div>
+                              </div>
+                            </div>
+                            
+                            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
+                              <h4 className="text-sm font-medium text-white/70 mb-2">Flexible Note-Taking</h4>
+                              <div className="space-y-2">
+                                <div className="h-6 bg-white/10 rounded w-full"></div>
+                                <div className="h-6 bg-white/10 rounded w-5/6"></div>
+                              </div>
+                            </div>
+                            
+                            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
+                              <h4 className="text-sm font-medium text-white/70 mb-2">Resource Management</h4>
+                              <div className="space-y-2">
+                                <div className="h-6 bg-white/10 rounded w-full"></div>
+                                <div className="h-6 bg-white/10 rounded w-4/5"></div>
+                              </div>
                             </div>
                           </div>
                           
-                          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
-                            <h4 className="text-sm font-medium text-white/70 mb-2">Flexible Note-Taking</h4>
-                            <div className="space-y-2">
-                              <div className="h-6 bg-white/10 rounded w-full"></div>
-                              <div className="h-6 bg-white/10 rounded w-5/6"></div>
+                          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4 h-full">
+                            <h4 className="text-sm font-medium text-white/70 mb-4">Interactive Learning Experience</h4>
+                            <div className="space-y-4">
+                              <div className="p-3 bg-white/10 rounded-lg">
+                                <div className="flex items-center">
+                                  <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-3">
+                                    <Brain className="h-4 w-4 text-white/60" />
+                                  </div>
+                                  <div className="flex-1">
+                                    <div className="h-4 bg-white/15 rounded w-3/4"></div>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <div className="p-3 bg-white/10 rounded-lg">
+                                <div className="flex items-center">
+                                  <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-3">
+                                    <Lightbulb className="h-4 w-4 text-white/60" />
+                                  </div>
+                                  <div className="flex-1">
+                                    <div className="h-4 bg-white/15 rounded w-full"></div>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <div className="p-3 bg-white/10 rounded-lg">
+                                <div className="flex items-center">
+                                  <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-3">
+                                    <Edit className="h-4 w-4 text-white/60" />
+                                  </div>
+                                  <div className="flex-1">
+                                    <div className="h-4 bg-white/15 rounded w-5/6"></div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                          
-                          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
-                            <h4 className="text-sm font-medium text-white/70 mb-2">Resource Management</h4>
-                            <div className="space-y-2">
-                              <div className="h-6 bg-white/10 rounded w-full"></div>
-                              <div className="h-6 bg-white/10 rounded w-4/5"></div>
-                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </AnimateInView>
+                </div>
+              </div>
+            </section>
+
+            {/* Natural Language Interaction */}
+            <section className="py-20">
+              <div className="container mx-auto px-4 md:px-6">
+                <SectionHeading
+                  title="AI notebook chat with natural language"
+                  description="Ask away"
+                />
+                
+                <div className="mt-10 max-w-3xl mx-auto">
+                  <AnimateInView>
+                    <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm">
+                      <div className="space-y-4">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                            <PenTool className="h-4 w-4 text-white/60" />
+                          </div>
+                          <div className="flex-1 p-3 rounded-lg bg-white/10">
+                            <p className="text-white/80">Explain quantum computing for beginners</p>
                           </div>
                         </div>
                         
-                        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4 h-full">
-                          <h4 className="text-sm font-medium text-white/70 mb-4">Interactive Learning Experience</h4>
-                          <div className="space-y-4">
-                            <div className="p-3 bg-white/10 rounded-lg">
-                              <div className="flex items-center">
-                                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-3">
-                                  <Brain className="h-4 w-4 text-white/60" />
-                                </div>
-                                <div className="flex-1">
-                                  <div className="h-4 bg-white/15 rounded w-3/4"></div>
-                                </div>
-                              </div>
-                            </div>
-                            
-                            <div className="p-3 bg-white/10 rounded-lg">
-                              <div className="flex items-center">
-                                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-3">
-                                  <Lightbulb className="h-4 w-4 text-white/60" />
-                                </div>
-                                <div className="flex-1">
-                                  <div className="h-4 bg-white/15 rounded w-full"></div>
-                                </div>
-                              </div>
-                            </div>
-                            
-                            <div className="p-3 bg-white/10 rounded-lg">
-                              <div className="flex items-center">
-                                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-3">
-                                  <Edit className="h-4 w-4 text-white/60" />
-                                </div>
-                                <div className="flex-1">
-                                  <div className="h-4 bg-white/15 rounded w-5/6"></div>
-                                </div>
-                              </div>
-                            </div>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                            <PenTool className="h-4 w-4 text-white/60" />
+                          </div>
+                          <div className="flex-1 p-3 rounded-lg bg-white/10">
+                            <p className="text-white/80">Generate practice questions about cell biology</p>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center space-x-3">
+                          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                            <PenTool className="h-4 w-4 text-white/60" />
+                          </div>
+                          <div className="flex-1 p-3 rounded-lg bg-white/10">
+                            <p className="text-white/80">Create a study schedule for my calculus exam</p>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center space-x-3">
+                          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                            <PenTool className="h-4 w-4 text-white/60" />
+                          </div>
+                          <div className="flex-1 p-3 rounded-lg bg-white/10">
+                            <p className="text-white/80">Find my notes on Renaissance art</p>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center space-x-3">
+                          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                            <PenTool className="h-4 w-4 text-white/60" />
+                          </div>
+                          <div className="flex-1 p-3 rounded-lg bg-white/10">
+                            <p className="text-white/80">Summarize all my notes on machine learning</p>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </AnimateInView>
+                    </Card>
+                  </AnimateInView>
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
 
-          {/* Natural Language Interaction */}
-          <section className="py-20">
-            <div className="container mx-auto px-4 md:px-6">
-              <SectionHeading
-                title="AI notebook chat with natural language"
-                description="Ask away"
-              />
-              
-              <div className="mt-10 max-w-3xl mx-auto">
-                <AnimateInView>
-                  <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm">
-                    <div className="space-y-4">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                          <PenTool className="h-4 w-4 text-white/60" />
-                        </div>
-                        <div className="flex-1 p-3 rounded-lg bg-white/10">
-                          <p className="text-white/80">Explain quantum computing for beginners</p>
-                        </div>
+            {/* Productivity Benefits Section */}
+            <section className="py-20 bg-background/50">
+              <div className="container mx-auto px-4 md:px-6">
+                <div className="max-w-3xl mx-auto text-center">
+                  <AnimateInView>
+                    <div className="inline-flex p-1 bg-white/10 rounded-full mb-6">
+                      <div className="flex items-center space-x-2 px-4 py-2 bg-white/10 rounded-full">
+                        <Clock className="h-4 w-4 text-white/60" />
+                        <span className="text-sm font-medium text-white/80">Productivity Benefits</span>
                       </div>
-                      
-                      <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                          <PenTool className="h-4 w-4 text-white/60" />
-                        </div>
-                        <div className="flex-1 p-3 rounded-lg bg-white/10">
-                          <p className="text-white/80">Generate practice questions about cell biology</p>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                          <PenTool className="h-4 w-4 text-white/60" />
-                        </div>
-                        <div className="flex-1 p-3 rounded-lg bg-white/10">
-                          <p className="text-white/80">Create a study schedule for my calculus exam</p>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                          <PenTool className="h-4 w-4 text-white/60" />
-                        </div>
-                        <div className="flex-1 p-3 rounded-lg bg-white/10">
-                          <p className="text-white/80">Find my notes on Renaissance art</p>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                          <PenTool className="h-4 w-4 text-white/60" />
-                        </div>
-                        <div className="flex-1 p-3 rounded-lg bg-white/10">
-                          <p className="text-white/80">Summarize all my notes on machine learning</p>
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-                </AnimateInView>
-              </div>
-            </div>
-          </section>
-
-          {/* Productivity Benefits Section */}
-          <section className="py-20 bg-background/50">
-            <div className="container mx-auto px-4 md:px-6">
-              <div className="max-w-3xl mx-auto text-center">
-                <AnimateInView>
-                  <div className="inline-flex p-1 bg-white/10 rounded-full mb-6">
-                    <div className="flex items-center space-x-2 px-4 py-2 bg-white/10 rounded-full">
-                      <Clock className="h-4 w-4 text-white/60" />
-                      <span className="text-sm font-medium text-white/80">Productivity Benefits</span>
-                    </div>
-                  </div>
-                  
-                  <h2 className="text-3xl md:text-4xl font-bold mb-6 gradient-text">
-                    Learn smarter, not harder
-                  </h2>
-                  
-                  <p className="text-lg text-muted-foreground mb-8">
-                    Automate repetitive study tasks with smart templates, scheduled reviews, memory-optimized learning paths, and personalized practice that save hours every week while boosting retention.
-                  </p>
-                  
-                  <div className="flex flex-wrap justify-center gap-4">
-                    <div className="flex items-center space-x-2">
-                      <Sparkles className="h-5 w-5 text-white/60" />
-                      <span className="text-white/80">Spaced repetition</span>
                     </div>
                     
-                    <div className="flex items-center space-x-2">
-                      <Sparkles className="h-5 w-5 text-white/60" />
-                      <span className="text-white/80">Active recall</span>
-                    </div>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-6 gradient-text">
+                      Learn smarter, not harder
+                    </h2>
                     
-                    <div className="flex items-center space-x-2">
-                      <Sparkles className="h-5 w-5 text-white/60" />
-                      <span className="text-white/80">Concept mapping</span>
-                    </div>
+                    <p className="text-lg text-muted-foreground mb-8">
+                      Automate repetitive study tasks with smart templates, scheduled reviews, memory-optimized learning paths, and personalized practice that save hours every week while boosting retention.
+                    </p>
                     
-                    <div className="flex items-center space-x-2">
-                      <Sparkles className="h-5 w-5 text-white/60" />
-                      <span className="text-white/80">Knowledge synthesis</span>
+                    <div className="flex flex-wrap justify-center gap-4">
+                      <div className="flex items-center space-x-2">
+                        <Sparkles className="h-5 w-5 text-white/60" />
+                        <span className="text-white/80">Spaced repetition</span>
+                      </div>
+                      
+                      <div className="flex items-center space-x-2">
+                        <Sparkles className="h-5 w-5 text-white/60" />
+                        <span className="text-white/80">Active recall</span>
+                      </div>
+                      
+                      <div className="flex items-center space-x-2">
+                        <Sparkles className="h-5 w-5 text-white/60" />
+                        <span className="text-white/80">Concept mapping</span>
+                      </div>
+                      
+                      <div className="flex items-center space-x-2">
+                        <Sparkles className="h-5 w-5 text-white/60" />
+                        <span className="text-white/80">Knowledge synthesis</span>
+                      </div>
                     </div>
-                  </div>
-                </AnimateInView>
+                  </AnimateInView>
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
 
-          {/* Call to Action Section */}
-          <section className="py-32 md:py-40 bg-background/50">
-            <div className="container mx-auto px-4 md:px-6">
-              <div className="max-w-4xl mx-auto text-center">
-                <AnimateInView>
-                  <h2 className="inline-block bg-gradient-to-b from-[#FFFFFF] to-[#1a1a19] bg-clip-text text-center text-4xl font-bold text-transparent md:text-6xl lg:text-7xl" style={{ opacity: 1, transform: 'none' }}>
-                    Experience the Future of <br />Learning Today
-                  </h2>
-                  <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
-                    Watch how OpenBook helps you learn in a fraction of the time.
-                  </p>
-                  <div className="flex justify-center">
-                    <Button size="lg" className="bg-white text-black hover:bg-gray-200 group">
-                      Get Started
-                      <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </Button>
-                  </div>
-                </AnimateInView>
+            {/* Call to Action Section */}
+            <section className="py-32 md:py-40 bg-background/50">
+              <div className="container mx-auto px-4 md:px-6">
+                <div className="max-w-4xl mx-auto text-center">
+                  <AnimateInView>
+                    <h2 className="inline-block bg-gradient-to-b from-[#FFFFFF] to-[#1a1a19] bg-clip-text text-center text-4xl font-bold text-transparent md:text-6xl lg:text-7xl" style={{ opacity: 1, transform: 'none' }}>
+                      Experience the Future of <br />Learning Today
+                    </h2>
+                    <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
+                      Watch how OpenBook helps you learn in a fraction of the time.
+                    </p>
+                    <div className="flex justify-center">
+                      <Button size="lg" className="bg-white text-black hover:bg-gray-200 group">
+                        Get Started
+                        <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </Button>
+                    </div>
+                  </AnimateInView>
+                </div>
               </div>
-            </div>
-          </section>
-        </div>
+            </section>
+          </div>
+          {showLandingContent && <CombinedFooter />}
+        </>
       )}
-
-      <CombinedFooter />
 
       {/* Basic styles for fadeIn animation of landing content */}
       <style jsx global>{`

@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react"
 import { X } from "lucide-react"
 import styles from './BookOpeningAnimation.module.css' // Import the CSS module
-import { ParticleBackground } from "@/components/particle-background" // Import ParticleBackground
 
 export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimationComplete: () => void }) {
   const [animationState, setAnimationState] = useState<"initial" | "opening" | "fluttering" | "complete">("initial")
@@ -32,8 +31,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
   // if (!showAnimation) return null; // Parent controls visibility
 
   return (
-    <div className={`${styles.animationOverlay} fixed inset-0 flex items-center justify-center bg-background z-50 overflow-hidden`}>
-      <ParticleBackground />
+    <div className={`${styles.animationOverlay} fixed inset-0 flex items-center justify-center bg-transparent z-50 overflow-hidden`}>
       <button
         onClick={skipAnimation}
         className={`${styles.skipButton} absolute top-4 right-4 p-2 rounded-full text-white hover:bg-gray-800 transition-colors`}

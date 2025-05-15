@@ -132,20 +132,23 @@ This document outlines the steps to create and integrate an illustration-based, 
 *   **Added Inner Cover Linings:** (Completed - black inner covers for inverted theme)
 *   **Improved Initial Page Stack Visibility:** (Completed - initial opacity for page stack)
 
-## 6. Integrate Landing Page Particle Background into Animation
+## 6. Unify Particle Background Presence Across Animation and Landing Page
 
-*   **Analyze `ParticleBackground` Component (`app/page.tsx`):**
-    *   Determine how to reuse it within `BookOpeningAnimation.tsx`.
-    *   Check for props (e.g., color, density) that might need to be passed or adjusted for the animation context.
-*   **Modify `BookOpeningAnimation.tsx`:**
-    *   Import and render the `ParticleBackground` component.
-    *   Ensure it is positioned behind the book SVG and skip button (using appropriate z-indexing and styling).
-*   **Style `ParticleBackground` for Animation Context:**
-    *   Confirm particle colors match the animation's theme (e.g., white particles on black background).
-    *   Adjust density/behavior if needed (based on user clarification).
-    *   Decide interaction with closeup animation (based on user clarification).
-*   **Verify Overall Visual Cohesion:**
-    *   Ensure the added particle background blends well with existing animation particles and overall design.
+*   **Implementation (Global Approach):**
+    *   Refactored `RootLayout` in `app/layout.tsx`:
+        *   Imported and rendered `ParticleBackground` inside a `<div className="relative">` wrapper.
+        *   Wrapped `{children}` in a `<div className="relative z-10">` so both the intro and landing page content render above the background.
+    *   Removed local `ParticleBackground` import and rendering from `BookOpeningAnimation.tsx`, since it's now global.
+    *   Ensured z-index layering:
+        *   Canvas background (`z-0`) behind all content.
+        *   Animation container (`z-50`) and skip button (`z-20`) render on top.
+
+---
+
+**Next Steps:**
+1.  Visual test the intro animation and landing page to confirm the particle background is consistent and properly layered.
+2.  Refine any performance or styling issues now that the particle background is global.
+3.  Mark Task 6 as complete and move to final testing and polish.
 
 ## 7. Refine and Test (All Features)
 
