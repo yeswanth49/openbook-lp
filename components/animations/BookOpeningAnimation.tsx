@@ -32,7 +32,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
   // if (!showAnimation) return null; // Parent controls visibility
 
   return (
-    <div className={`${styles.animationOverlay} fixed inset-0 flex items-center justify-center bg-black z-50 overflow-hidden`}>
+    <div className={`${styles.animationOverlay} fixed inset-0 flex items-center justify-center bg-background z-50 overflow-hidden`}>
       <ParticleBackground />
       <button
         onClick={skipAnimation}
