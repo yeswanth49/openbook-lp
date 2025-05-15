@@ -1,0 +1,115 @@
+.animationOverlay {
+  /* Styles for the main overlay, if any beyond Tailwind fixed/inset/bg */
+}
+
+.skipButton {
+  /* Styles for the skip button, if any beyond Tailwind absolute/top/right etc. */
+}
+
+.bookAnimationContainer {
+  opacity: 0; /* Start hidden before fade-in */
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fadeIn {
+  opacity: 1;
+}
+
+.fadeOut {
+  opacity: 0;
+}
+
+.bookSvg {
+  /* No specific styles needed here unless overriding SVG defaults */
+  overflow: visible; /* Ensure transforms outside the initial viewbox are seen */
+}
+
+.bookCover {
+  transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1); /* easeInOutCubic for opening */
+}
+
+.bookLeftCover {
+  transform-origin: 100% 50%; /* Hinge on the right edge of the left cover */
+  /* Initial state: closed, on top of the right cover from viewer's perspective if slightly ajar */
+}
+
+.bookLeftCoverOpen {
+  transform: perspective(1000px) rotateY(120deg);
+}
+
+.bookRightCover {
+  transform-origin: 0% 50%; /* Hinge on the left edge of the right cover */
+}
+
+.bookRightCoverOpen {
+  /* This cover opens in the opposite direction */
+  transform: perspective(1000px) rotateY(-120deg);
+}
+
+.bookPage {
+  fill: white;
+  stroke: black;
+  stroke-width: 0.5px;
+  transition: transform 1s ease-out;
+  /* transform-origin set inline for individual pages, near spine */
+  opacity: 1;
+}
+
+.bookPageInitial {
+  transform: perspective(1500px) rotateY(0deg);
+  opacity: 0; /* Pages are initially not visible until fluttering */
+}
+
+/* Define fluttering animations for pages */
+/* We need up to bookPageFlutter5 from the TSX */
+
+@keyframes flutter1 {
+  0% { transform: perspective(1500px) rotateY(5deg); opacity: 1; }
+  50% { transform: perspective(1500px) rotateY(-90deg) translateX(-10px); opacity: 1; }
+  100% { transform: perspective(1500px) rotateY(-170deg) translateX(-20px); opacity: 0; }
+}
+
+@keyframes flutter2 {
+  0% { transform: perspective(1500px) rotateY(5deg); opacity: 1; }
+  50% { transform: perspective(1500px) rotateY(-85deg) translateX(-8px); opacity: 1; }
+  100% { transform: perspective(1500px) rotateY(-165deg) translateX(-18px); opacity: 0; }
+}
+
+@keyframes flutter3 {
+  0% { transform: perspective(1500px) rotateY(5deg); opacity: 1; }
+  50% { transform: perspective(1500px) rotateY(-80deg) translateX(-6px); opacity: 1; }
+  100% { transform: perspective(1500px) rotateY(-160deg) translateX(-16px); opacity: 0; }
+}
+
+@keyframes flutter4 {
+  0% { transform: perspective(1500px) rotateY(5deg); opacity: 1; }
+  50% { transform: perspective(1500px) rotateY(-75deg) translateX(-4px); opacity: 1; }
+  100% { transform: perspective(1500px) rotateY(-155deg) translateX(-14px); opacity: 0; }
+}
+
+@keyframes flutter5 {
+  0% { transform: perspective(1500px) rotateY(5deg); opacity: 1; }
+  50% { transform: perspective(1500px) rotateY(-70deg) translateX(-2px); opacity: 1; }
+  100% { transform: perspective(1500px) rotateY(-150deg) translateX(-12px); opacity: 0; }
+}
+
+.bookPageFlutter1 {
+  animation: flutter1 1.2s ease-out forwards;
+  opacity: 0; /* Start transparent, animation handles fade in/out */
+}
+.bookPageFlutter2 {
+  animation: flutter2 1.2s ease-out forwards;
+  opacity: 0;
+}
+.bookPageFlutter3 {
+  animation: flutter3 1.2s ease-out forwards;
+  opacity: 0;
+}
+.bookPageFlutter4 {
+  animation: flutter4 1.2s ease-out forwards;
+  opacity: 0;
+}
+.bookPageFlutter5 {
+  animation: flutter5 1.2s ease-out forwards;
+  opacity: 0;
+} 

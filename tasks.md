@@ -78,4 +78,84 @@ Based on the screenshot and codebase analysis:
 1. Should the "OpenBook" background text be fully visible or partially visible?
 2. What is the preferred position of the background text (top, center, bottom)?
 3. Should the background effects (grid and gradient) be more or less prominent?
-4. Are there any specific responsive behaviors needed for mobile views? 
+4. Are there any specific responsive behaviors needed for mobile views?
+
+# Action Plan: Book Opening Animation
+
+This document outlines the steps to create and integrate an illustration-based, minimalist, black and white book opening animation for the website.
+
+## 1. Understand Provided Components and Assets
+
+*   **Explore `.references/book-animation/`:**
+    *   Investigate the `components/` directory for any reusable UI elements or animation logic.
+    *   Check the `public/` directory for existing illustrations, SVGs, or image assets that can be used or adapted for the animation.
+    *   Review `styles/` for any theming or base styles relevant to a minimalist black and white aesthetic.
+    *   Examine `lib/` or `hooks/` for utility functions or custom hooks that might assist in animation or state management.
+
+## 2. Research and Design the Animation
+
+*   **Animation Style:**
+    *   Define the specific visual style: clean lines, abstract shapes, or simple silhouettes for the book and its opening sequence.
+    *   Ensure the design adheres strictly to a black and white color palette.
+*   **Animation Sequence (Storyboard):**
+    *   Sketch the keyframes:
+        1.  Closed book (initial state).
+        2.  Book cover subtly lifting.
+        3.  First page turning.
+        4.  A few more pages turning (can be stylized, not necessarily realistic page-by-page).
+        5.  Book fully open, perhaps revealing a blank page or a subtle transition element.
+*   **Technology Selection:**
+    *   Based on the assets in `.references/book-animation/` and the desired animation complexity, decide on the best approach:
+        *   **CSS Animations/Transitions:** For simpler, lightweight animations if suitable illustrations are available.
+        *   **SVG Animation (SMIL or CSS/JS):** If vector graphics are used and provide more control.
+        *   **JavaScript Animation Libraries (e.g., GSAP, Framer Motion):** For more complex sequences, finer control over easing, and timelines, especially if the Next.js project in `.references` already uses a compatible library.
+        *   **Lottie Animations:** If a vector animation is designed in software like Adobe After Effects and can be exported as a Lottie JSON.
+
+## 3. Develop the Animation Component
+
+*   **Component Structure:**
+    *   Create a new React component (e.g., `BookOpeningAnimation.tsx`) within the main project (not in `.references` unless that's the intention for it to be a shared library).
+    *   Structure the HTML/JSX for the book elements.
+*   **Implement Animation Logic:**
+    *   Translate the storyboard and design into code using the chosen technology.
+    *   Focus on smooth transitions and a minimalist feel.
+*   **Styling:**
+    *   Apply black and white styling.
+    *   Ensure the component is responsive or scales appropriately.
+
+## 4. Integrate Animation with the Landing Page
+
+*   **Display Logic:**
+    *   The animation should play automatically once when the website (presumably the root page) is first loaded by a user.
+    *   Consider using `localStorage` or `sessionStorage` to track if the animation has been played during the current session or on the first visit, to prevent it from playing on every navigation or refresh if not desired. (Clarify this requirement: play once ever, once per session, or every time the homepage is hit directly?)
+*   **Transition to Landing Page:**
+    *   After the animation completes, the main landing page content should be revealed.
+    *   This could involve:
+        *   Unmounting the animation component and mounting the landing page component.
+        *   Using CSS to fade out the animation and fade in the landing page.
+        *   A state change that conditionally renders the animation or the landing page.
+*   **Placement:**
+    *   Determine where to invoke the animation component within the Next.js page structure (e.g., in `app/page.tsx` or `app/layout.tsx` if it's a global intro).
+
+## 5. Refine and Test
+
+*   **Visual Polish:**
+    *   Ensure the animation is smooth and visually appealing.
+    *   Confirm it meets the "illustration-based minimalist black and white" criteria.
+*   **Performance:**
+    *   Optimize assets and animation code for fast loading and smooth playback.
+    *   Profile if necessary, especially on lower-powered devices.
+*   **Cross-Browser/Device Testing:**
+    *   Test on major browsers (Chrome, Firefox, Safari, Edge).
+    *   Test on different screen sizes (desktop, tablet, mobile).
+*   **Accessibility (Considerations):**
+    *   Provide a way to skip the animation if it's lengthy or could be an issue for users with motion sensitivities (e.g., a "Skip Intro" button).
+    *   Ensure content is accessible even if the animation fails to play.
+
+## 6. Update `learned-memories.mdc`
+
+*   Add any new project conventions or technical decisions made during this feature implementation to `.cursor/rules/learned-memories.mdc`. For example, the chosen animation library or specific styling approaches.
+
+---
+
+**Next Steps:** Start with Task 1: Explore `.references/book-animation/`. 
