@@ -14,12 +14,16 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
     "complete"
   >("initial")
   const [zoomPhase, setZoomPhase] = useState<number>(0) // 0-5 for page sequence
+  const [rollingPageIndex, setRollingPageIndex] = useState<number>(0) // 0: not rolling, 1-5: page turning
   const [whiteFlash, setWhiteFlash] = useState<boolean>(false)
   const [isPaused, setIsPaused] = useState<boolean>(false)
   const [progress, setProgress] = useState<number>(0) // 0-100 for progress indicator
   const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const animationStartTimeRef = useRef<number | null>(null)
   const TOTAL_ANIMATION_DURATION = 4400 // Total duration in ms
+  const NUM_PAGES = 5; // Define number of pages
+  const PAGE_TURN_DURATION = 800; // Duration of one page flutter animation (must match CSS)
+  const PAGE_TURN_STAGGER = 200; // Delay between start of each page turn
 
   // Animation timeline controller
   const updateProgress = useCallback(() => {
@@ -46,13 +50,17 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
   useEffect(() => {
     if (isPaused) return // Don't progress animation if paused
 
-    // Sequence: initial → opening → rolling → zooming → transitioning → complete
+    // Sequence: initial → opening → rolling → (pages turn) → zooming → transitioning → complete
     if (animationState === "initial") {
       timerRef.current = setTimeout(() => setAnimationState("opening"), 500)
     } else if (animationState === "opening") {
-      timerRef.current = setTimeout(() => setAnimationState("rolling"), 1500)
+      timerRef.current = setTimeout(() => {
+        setAnimationState("rolling");
+        setRollingPageIndex(1); // Start turning the first page
+      }, 1500)
     } else if (animationState === "rolling") {
-      timerRef.current = setTimeout(() => setAnimationState("zooming"), 1000)
+      // Page turning is handled by the rollingPageIndex useEffect
+      // Transition to zooming is also handled there after all pages turn
     } else if (animationState === "zooming") {
       // Start zoom phase sequence
       setZoomPhase(1)
@@ -69,6 +77,44 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
       if (timerRef.current) clearTimeout(timerRef.current)
     }
   }, [animationState, onAnimationComplete, isPaused])
+
+  // Handle sequential page turning during "rolling" state
+  useEffect(() => {
+    if (isPaused || animationState !== "rolling" || rollingPageIndex === 0 || rollingPageIndex > NUM_PAGES) {
+      return;
+    }
+
+    // If current page index is within the number of pages, set timeout for the next page
+    if (rollingPageIndex <= NUM_PAGES) {
+      timerRef.current = setTimeout(() => {
+        setRollingPageIndex(prev => prev + 1);
+      }, PAGE_TURN_STAGGER); 
+    }
+    
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [rollingPageIndex, animationState, isPaused]);
+
+  // Effect to transition from rolling to zooming after all pages have had a chance to start turning
+  useEffect(() => {
+    if (isPaused || animationState !== "rolling") return;
+
+    if (rollingPageIndex > NUM_PAGES) {
+       // All pages have been triggered to turn. Wait for the last page animation to substantially complete.
+       // The last page starts at (NUM_PAGES-1)*PAGE_TURN_STAGGER. It takes PAGE_TURN_DURATION.
+       // We transition a bit before it fully finishes to blend.
+      const timeForLastPageToStart = (NUM_PAGES -1) * PAGE_TURN_STAGGER;
+      const timeToTransition = timeForLastPageToStart + PAGE_TURN_DURATION - PAGE_TURN_STAGGER; // Start transition as last page is mostly done.
+      
+      timerRef.current = setTimeout(() => {
+        setAnimationState("zooming");
+      }, PAGE_TURN_DURATION); // Wait for the last initiated page animation to complete
+    }
+     return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [rollingPageIndex, animationState, isPaused]);
 
   // Handle page zoom-through phases
   useEffect(() => {
@@ -129,6 +175,25 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
     
     return ""
   }
+
+  const getPageAnimationClass = (pageOrder: number) => { // pageOrder is 1-based
+    if (animationState === "rolling") {
+      if (rollingPageIndex >= pageOrder) {
+        // This page should be animating or have finished animating
+        // The flutter animation classes are 1-indexed (bookPageFlutter1, bookPageFlutter2, etc.)
+        return styles[`bookPageFlutter${pageOrder}` as keyof typeof styles] || "";
+      }
+      // If page has not started turning yet, or if it's an invalid index.
+      // Pages are initially styled with bookPage and bookPageInitial (opacity 0.3)
+      // The flutter animations start with opacity 1, so they will become fully visible when their turn comes.
+      return styles.bookPageInitial; 
+    }
+    if (animationState === "zooming") {
+      return getPageZoomClass(pageOrder -1); // getPageZoomClass expects 0-indexed
+    }
+    // if opening, initial, transitioning, complete etc, apply initial style
+    return styles.bookPageInitial; 
+  };
 
   return (
     <div className={`${styles.animationOverlay} fixed inset-0 flex items-center justify-center ${whiteFlash ? styles.whiteFlash : 'bg-transparent'} z-50 overflow-hidden`}>
@@ -213,9 +278,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
               y="80"
               width="90"
               height="140"
-              className={`${styles.bookPage} ${
-                animationState === "rolling" ? styles.bookPageRolling : ""
-              } ${animationState === "zooming" ? getPageZoomClass(1) : ""}`}
+              className={`${styles.bookPage} ${getPageAnimationClass(1)}`}
             />
 
             {/* Page 2 */}
@@ -224,9 +287,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
               y="81"
               width="89"
               height="138"
-              className={`${styles.bookPage} ${
-                animationState === "rolling" ? styles.bookPageRolling : ""
-              } ${animationState === "zooming" ? getPageZoomClass(2) : ""}`}
+              className={`${styles.bookPage} ${getPageAnimationClass(2)}`}
             />
 
             {/* Page 3 */}
@@ -235,9 +296,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
               y="82"
               width="88"
               height="136"
-              className={`${styles.bookPage} ${
-                animationState === "rolling" ? styles.bookPageRolling : ""
-              } ${animationState === "zooming" ? getPageZoomClass(3) : ""}`}
+              className={`${styles.bookPage} ${getPageAnimationClass(3)}`}
             />
 
             {/* Page 4 */}
@@ -246,9 +305,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
               y="83"
               width="87"
               height="134"
-              className={`${styles.bookPage} ${
-                animationState === "rolling" ? styles.bookPageRolling : ""
-              } ${animationState === "zooming" ? getPageZoomClass(4) : ""}`}
+              className={`${styles.bookPage} ${getPageAnimationClass(4)}`}
             />
 
             {/* Page 5 - innermost page */}
@@ -257,9 +314,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
               y="84"
               width="86"
               height="132"
-              className={`${styles.bookPage} ${
-                animationState === "rolling" ? styles.bookPageRolling : ""
-              } ${animationState === "zooming" ? getPageZoomClass(5) : ""}`}
+              className={`${styles.bookPage} ${getPageAnimationClass(5)}`}
             />
 
             {/* Page content - very minimal lines */}

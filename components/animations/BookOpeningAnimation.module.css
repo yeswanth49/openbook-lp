@@ -170,23 +170,23 @@
 }
 
 .bookPageFlutter1 {
-  animation: flutter1 1.2s ease-out forwards;
+  animation: flutter1 0.8s ease-out forwards;
   opacity: 0; /* Start transparent, animation handles fade in/out */
 }
 .bookPageFlutter2 {
-  animation: flutter2 1.2s ease-out forwards;
+  animation: flutter2 0.8s ease-out forwards;
   opacity: 0;
 }
 .bookPageFlutter3 {
-  animation: flutter3 1.2s ease-out forwards;
+  animation: flutter3 0.8s ease-out forwards;
   opacity: 0;
 }
 .bookPageFlutter4 {
-  animation: flutter4 1.2s ease-out forwards;
+  animation: flutter4 0.8s ease-out forwards;
   opacity: 0;
 }
 .bookPageFlutter5 {
-  animation: flutter5 1.2s ease-out forwards;
+  animation: flutter5 0.8s ease-out forwards;
   opacity: 0;
 }
 
