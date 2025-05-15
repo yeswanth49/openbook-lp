@@ -230,8 +230,8 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
         } ${styles.bookContainerOnTop} ${isPaused ? styles.paused : ""}`}
       >
         <svg
-          width="300"
-          height="300"
+          width="360"
+          height="360"
           viewBox="0 0 300 300"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -249,7 +249,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
               y="75"
               width="95"
               height="150"
-              fill="black"
+              fill="#2D2D2D"
               className={`${styles.bookCover} ${styles.bookLeftCover} ${
                 (animationState === "opening" || animationState === "zooming" || animationState === "complete") ? styles.bookLeftCoverOpen : ""
               }`}
@@ -263,11 +263,38 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
               y="75"
               width="95"
               height="150"
-              fill="black"
+              fill="#2D2D2D"
               className={`${styles.bookCover} ${styles.bookRightCover} ${
                 (animationState === "opening" || animationState === "zooming" || animationState === "complete") ? styles.bookRightCoverOpen : ""
               }`}
             />
+          </g>
+
+          {/* Swirling particles - appear during opening/closing transitions */}
+          <g className={`${styles.swirlParticlesContainer} ${(animationState === "opening" || animationState === "rolling") ? styles.swirlParticlesActive : ""}`}>
+            {/* Particles near the center/spine when book opens */}
+            <circle cx="150" cy="100" r="1.5" fill="white" className={styles.swirlParticle1} />
+            <circle cx="152" cy="120" r="1.2" fill="white" className={styles.swirlParticle2} />
+            <circle cx="148" cy="140" r="1.0" fill="white" className={styles.swirlParticle3} />
+            <circle cx="153" cy="160" r="1.3" fill="white" className={styles.swirlParticle4} />
+            <circle cx="147" cy="180" r="0.8" fill="white" className={styles.swirlParticle5} />
+            <circle cx="151" cy="200" r="1.1" fill="white" className={styles.swirlParticle6} />
+            <circle cx="146" cy="110" r="0.7" fill="white" className={styles.swirlParticle7} />
+            <circle cx="154" cy="130" r="0.9" fill="white" className={styles.swirlParticle8} />
+            <circle cx="149" cy="150" r="1.4" fill="white" className={styles.swirlParticle9} />
+            <circle cx="155" cy="170" r="1.0" fill="white" className={styles.swirlParticle10} />
+            <circle cx="145" cy="190" r="0.6" fill="white" className={styles.swirlParticle11} />
+            
+            {/* Additional particles with more dramatic motion */}
+            <circle cx="160" cy="100" r="1.0" fill="white" className={styles.swirlParticle12} />
+            <circle cx="140" cy="120" r="0.8" fill="white" className={styles.swirlParticle13} />
+            <circle cx="165" cy="140" r="1.2" fill="white" className={styles.swirlParticle14} />
+            <circle cx="135" cy="160" r="0.9" fill="white" className={styles.swirlParticle15} />
+            <circle cx="170" cy="180" r="1.1" fill="white" className={styles.swirlParticle16} />
+            <circle cx="130" cy="200" r="0.7" fill="white" className={styles.swirlParticle17} />
+            <circle cx="175" cy="110" r="1.3" fill="white" className={styles.swirlParticle18} />
+            <circle cx="125" cy="130" r="0.5" fill="white" className={styles.swirlParticle19} />
+            <circle cx="180" cy="150" r="1.0" fill="white" className={styles.swirlParticle20} />
           </g>
 
           {/* Pages - simplified */}

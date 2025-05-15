@@ -487,4 +487,154 @@
     opacity: 1;
     stroke-dashoffset: 0;
   }
+}
+
+/* Swirl particles styles */
+.swirlParticlesContainer {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  pointer-events: none;
+}
+
+.swirlParticlesActive {
+  opacity: 1;
+}
+
+/* Base styles for all swirl particles */
+.swirlParticle1, .swirlParticle2, .swirlParticle3, .swirlParticle4, .swirlParticle5,
+.swirlParticle6, .swirlParticle7, .swirlParticle8, .swirlParticle9, .swirlParticle10,
+.swirlParticle11, .swirlParticle12, .swirlParticle13, .swirlParticle14, .swirlParticle15,
+.swirlParticle16, .swirlParticle17, .swirlParticle18, .swirlParticle19, .swirlParticle20 {
+  opacity: 0;
+  transform-origin: center;
+}
+
+/* First row of particles - gentle swirl */
+.swirlParticle1 {
+  animation: swirlOut 1.5s ease-in-out 0.1s forwards;
+}
+
+.swirlParticle2 {
+  animation: swirlOut 1.5s ease-in-out 0.2s forwards;
+}
+
+.swirlParticle3 {
+  animation: swirlOut 1.5s ease-in-out 0.15s forwards;
+}
+
+.swirlParticle4 {
+  animation: swirlOut 1.5s ease-in-out 0.25s forwards;
+}
+
+.swirlParticle5 {
+  animation: swirlOut 1.5s ease-in-out 0.1s forwards;
+}
+
+.swirlParticle6 {
+  animation: swirlOut 1.5s ease-in-out 0.3s forwards;
+}
+
+.swirlParticle7 {
+  animation: swirlOut 1.5s ease-in-out 0.18s forwards;
+}
+
+.swirlParticle8 {
+  animation: swirlOut 1.5s ease-in-out 0.22s forwards;
+}
+
+.swirlParticle9 {
+  animation: swirlOut 1.5s ease-in-out 0.12s forwards;
+}
+
+.swirlParticle10 {
+  animation: swirlOut 1.5s ease-in-out 0.28s forwards;
+}
+
+.swirlParticle11 {
+  animation: swirlOut 1.5s ease-in-out 0.18s forwards;
+}
+
+/* Second row of particles - more dramatic swirl */
+.swirlParticle12 {
+  animation: swirlOutWide 1.8s ease-in-out 0.2s forwards;
+}
+
+.swirlParticle13 {
+  animation: swirlOutWide 1.8s ease-in-out 0.25s forwards;
+}
+
+.swirlParticle14 {
+  animation: swirlOutWide 1.8s ease-in-out 0.15s forwards;
+}
+
+.swirlParticle15 {
+  animation: swirlOutWide 1.8s ease-in-out 0.3s forwards;
+}
+
+.swirlParticle16 {
+  animation: swirlOutWide 1.8s ease-in-out 0.18s forwards;
+}
+
+.swirlParticle17 {
+  animation: swirlOutWide 1.8s ease-in-out 0.22s forwards;
+}
+
+.swirlParticle18 {
+  animation: swirlOutWide 1.8s ease-in-out 0.28s forwards;
+}
+
+.swirlParticle19 {
+  animation: swirlOutWide 1.8s ease-in-out 0.12s forwards;
+}
+
+.swirlParticle20 {
+  animation: swirlOutWide 1.8s ease-in-out 0.32s forwards;
+}
+
+/* Swirl animations */
+@keyframes swirlOut {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.3) rotate(0deg);
+  }
+  30% {
+    opacity: 1;
+    transform: translate(5px, -5px) scale(1) rotate(120deg);
+  }
+  70% {
+    opacity: 0.8;
+    transform: translate(15px, -10px) scale(1.2) rotate(240deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(30px, -15px) scale(0.5) rotate(360deg);
+  }
+}
+
+@keyframes swirlOutWide {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.3) rotate(0deg);
+  }
+  30% {
+    opacity: 1;
+    transform: translate(10px, -15px) scale(1) rotate(180deg);
+  }
+  70% {
+    opacity: 0.8;
+    transform: translate(30px, -25px) scale(1.5) rotate(360deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(50px, -20px) scale(0.7) rotate(540deg);
+  }
+}
+
+/* Book cover particle styles - removed as per user request */
+
+/* Animation for particles when book is opening */
+.bookLeftCoverOpen .coverParticles,
+.bookRightCoverOpen .coverParticles {
+  opacity: 0.5; /* Reduced opacity during open state */
+  transition: opacity 2s ease-out;
 } 
