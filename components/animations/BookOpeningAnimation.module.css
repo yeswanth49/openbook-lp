@@ -7,6 +7,12 @@
 .skipButton {
   /* Styles for the skip button, if any beyond Tailwind absolute/top/right etc. */
   z-index: 20; /* Ensure skip button is above particles */
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.skipButton:hover {
+  opacity: 1;
 }
 
 /* Add white flash transition class */
@@ -28,6 +34,7 @@
   /* This class was added in TSX to the bookAnimationContainer div */
   /* z-index: 10; already set on .bookAnimationContainer is likely sufficient */
   /* If ParticleBackground component had its own z-index, we'd ensure this is higher */
+  z-index: 10;
 }
 
 .closeupActive {
@@ -35,12 +42,11 @@
 }
 
 .zoomActive {
-  transform-origin: 67% 50%;
-  transform: scale(15) translateZ(0);
-  transition: transform 2.5s cubic-bezier(0.19, 1, 0.22, 1);
-  filter: blur(0);
+  transform-origin: 67% 50%; /* Center on pages for full zoom */
+  transform: scale(15); /* Extreme zoom to dissolve into landing page */
+  transition: transform 2.5s cubic-bezier(0.19, 1, 0.22, 1); /* Exponential easing */
+  filter: blur(0); /* Start with no blur */
   animation: zoomAndBlur 2.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-  will-change: transform, filter;
 }
 
 @keyframes zoomAndBlur {
@@ -87,15 +93,25 @@
   transform: perspective(1000px) rotateY(-120deg);
 }
 
+/* Cover Decorations */
+.coverDecoration {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.bookLeftCoverOpen ~ .coverDecoration,
+.bookRightCoverOpen ~ .coverDecoration {
+  opacity: 1;
+}
+
 /* Page Styles */
 .bookPage {
   fill: white;
   stroke: black;
-  stroke-width: 0.3px;
-  transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1);
-  transform-origin: 155px 150px;
-  will-change: transform, opacity;
-  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.2));
+  stroke-width: 0.5px;
+  transition: transform 1s ease-out, opacity 0.8s ease-in-out;
+  transform-origin: 155px 150px; /* Center of page area */
+  will-change: transform, opacity; /* Optimize for performance */
 }
 
 .bookPageInitial {
@@ -106,35 +122,30 @@
 /* Page sequence for zoom-through effect */
 .pageZoomThrough1 {
   opacity: 1;
-  transform: translateZ(0);
-  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: opacity 0.6s ease-in-out;
 }
 
 .pageZoomThrough2 {
   opacity: 0.8;
-  transform: translateZ(20px);
-  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: opacity 0.6s ease-in-out;
   transition-delay: 0.2s;
 }
 
 .pageZoomThrough3 {
-  opacity: 0.6;
-  transform: translateZ(40px);
-  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  opacity: 0.6;  
+  transition: opacity 0.6s ease-in-out;
   transition-delay: 0.4s;
 }
 
 .pageZoomThrough4 {
   opacity: 0.4;
-  transform: translateZ(60px);
-  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: opacity 0.6s ease-in-out;
   transition-delay: 0.6s;
 }
 
 .pageZoomThrough5 {
   opacity: 0.2;
-  transform: translateZ(80px);
-  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: opacity 0.6s ease-in-out;
   transition-delay: 0.8s;
 }
 
@@ -222,32 +233,19 @@
 /* Animations for Sparkle/Dust Elements */
 .sparklesContainer {
   /* Container for positioning if needed, or just for grouping */
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in-out forwards;
 }
 
 @keyframes sparkleAnim {
-  0%, 100% { 
-    opacity: 0; 
-    transform: scale(0.5) rotate(0deg); 
-  }
-  50% { 
-    opacity: 1; 
-    transform: scale(1.2) rotate(180deg); 
-  }
+  0%, 100% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1.2); }
 }
 
 @keyframes swirlAnim {
-  0% { 
-    opacity: 0; 
-    transform: translateY(5px) rotate(0deg) scale(0.8); 
-  }
-  50% { 
-    opacity: 0.7; 
-    transform: translateY(0px) rotate(180deg) scale(1.2); 
-  }
-  100% { 
-    opacity: 0; 
-    transform: translateY(-5px) rotate(360deg) scale(0.8); 
-  }
+  0% { opacity: 0; transform: translateY(5px) rotate(0deg); }
+  50% { opacity: 0.7; transform: translateY(0px) rotate(180deg); }
+  100% { opacity: 0; transform: translateY(-5px) rotate(360deg); }
 }
 
 .sparkle1 {
@@ -322,179 +320,19 @@
   animation-play-state: paused !important;
 }
 
-/* Book Page Rolling Styles */
-.bookPageRolling {
-  animation: rollPage 1s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
-  transform-origin: 67% 50%;
-}
-
-@keyframes rollPage {
-  0% {
-    transform: perspective(1000px) rotateY(0deg) translateZ(0);
-    opacity: 1;
-  }
-  50% {
-    transform: perspective(1000px) rotateY(-60deg) translateZ(20px);
-    opacity: 0.8;
-  }
-  100% {
-    transform: perspective(1000px) rotateY(-120deg) translateZ(40px);
-    opacity: 0;
-  }
-}
-
-/* Progress bar animation */
-@keyframes progressGlow {
+@keyframes sparkleFloat {
   0%, 100% {
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-  }
-  50% {
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-  }
-}
-
-.progressBar {
-  height: 2px;
-  background: white;
-  animation: progressGlow 2s ease-in-out infinite;
-}
-
-/* Enhanced paused state */
-.paused * {
-  animation-play-state: paused !important;
-  transition: none !important;
-}
-
-/* Transition state styles */
-.transitioning {
-  animation: transitionOut 0.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-}
-
-@keyframes transitionOut {
-  0% {
+    transform: translate(0, 0);
     opacity: 1;
-    filter: blur(5px);
-  }
-  100% {
-    opacity: 0;
-    filter: blur(20px);
-  }
-}
-
-/* Book spine styles */
-.bookSpine {
-  transform-origin: center;
-  transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-.spineText {
-  opacity: 0.8;
-  font-family: monospace;
-  letter-spacing: 1px;
-}
-
-/* Decorative elements */
-.decorativeBorder {
-  opacity: 0.6;
-  transition: all 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-.cornerFlourish {
-  opacity: 0.8;
-  transition: all 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-.coverTitle {
-  font-family: monospace;
-  letter-spacing: 2px;
-  opacity: 0.9;
-  transition: all 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-.titleUnderline {
-  opacity: 0.6;
-  transition: all 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-.decorativeSymbol {
-  opacity: 0.7;
-  transition: all 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-.decorativeSwirl {
-  opacity: 0;
-  animation: swirlFadeIn 2s ease-in-out infinite;
-}
-
-@keyframes swirlFadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(5px) scale(0.95);
   }
   50% {
-    opacity: 0.7;
-    transform: translateY(0) scale(1.05);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-5px) scale(0.95);
+    transform: translate(3px, -3px);
+    opacity: 0.6;
   }
 }
 
-/* Enhanced book cover animations */
-.bookLeftCoverOpen .decorativeBorder,
-.bookLeftCoverOpen .cornerFlourish,
-.bookRightCoverOpen .decorativeBorder,
-.bookRightCoverOpen .cornerFlourish,
-.bookRightCoverOpen .coverTitle,
-.bookRightCoverOpen .titleUnderline,
-.bookRightCoverOpen .decorativeSymbol {
-  opacity: 1;
-}
-
-/* Enhanced page styles */
-.bookPage {
-  fill: white;
-  stroke: black;
-  stroke-width: 0.3px;
-  transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1);
-  transform-origin: 155px 150px;
-  will-change: transform, opacity;
-  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.2));
-}
-
-/* Enhanced page content styles */
-.pageLines line {
-  transition: all 0.5s ease-out;
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-  animation: drawLine 1s ease-out forwards;
-}
-
-@keyframes drawLine {
+@keyframes drawSwirl {
   to {
     stroke-dashoffset: 0;
-  }
-}
-
-/* Enhanced sparkle animations */
-.sparklesContainer path {
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-  animation: drawPath 2s ease-out infinite;
-}
-
-@keyframes drawPath {
-  0% {
-    stroke-dashoffset: 100;
-    opacity: 0;
-  }
-  50% {
-    stroke-dashoffset: 0;
-    opacity: 0.8;
-  }
-  100% {
-    stroke-dashoffset: -100;
-    opacity: 0;
   }
 } 
