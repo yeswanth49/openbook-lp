@@ -43,6 +43,8 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
       <div
         className={`${styles.bookAnimationContainer} ${
           animationState === "complete" ? styles.fadeOut : styles.fadeIn
+        } ${
+          (animationState === "opening" || animationState === "fluttering") ? styles.closeupActive : ""
         }`}
       >
         <svg
@@ -62,7 +64,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
             y="75"
             width="95"
             height="150"
-            fill="#111827"
+            fill="black"
             stroke="white"
             strokeWidth="2"
             className={`${styles.bookCover} ${styles.bookLeftCover} ${
@@ -76,7 +78,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
             y="75"
             width="95"
             height="150"
-            fill="#111827"
+            fill="black"
             stroke="white"
             strokeWidth="2"
             className={`${styles.bookCover} ${styles.bookRightCover} ${
@@ -93,8 +95,8 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
                 y={80 + i * 0.5}
                 width={90 - i * 1}
                 height={140 - i * 1}
-                fill="#1f2937" // Darker gray (gray-800 for pages)
-                stroke="#d1d5db" // Lighter gray stroke for pages (gray-300)
+                fill="black"
+                stroke="white"
                 strokeWidth="0.5"
                 className={`${styles.bookPage} ${
                   animationState === "fluttering" || animationState === "complete"
@@ -109,9 +111,9 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
               {/* Subtle page content illustration: 3 horizontal lines */}
               {(animationState === "fluttering" || animationState === "complete") && (
                 <g className={styles.pageLines} style={{ animationDelay: animationState === 'fluttering' ? `${i * 0.2 + 0.1}s` : '0s' }}>
-                  <line x1={160 - i * 1} y1={100 + i * 0.5} x2={230 - i * 1} y2={100 + i * 0.5} stroke="#4b5563" strokeWidth="0.3" /> {/* gray-600 */}
-                  <line x1={160 - i * 1} y1={120 + i * 0.5} x2={225 - i * 1} y2={120 + i * 0.5} stroke="#4b5563" strokeWidth="0.3" />
-                  <line x1={160 - i * 1} y1={140 + i * 0.5} x2={235 - i * 1} y2={140 + i * 0.5} stroke="#4b5563" strokeWidth="0.3" />
+                  <line x1={160 - i * 1} y1={100 + i * 0.5} x2={230 - i * 1} y2={100 + i * 0.5} stroke="white" strokeWidth="0.3" />
+                  <line x1={160 - i * 1} y1={120 + i * 0.5} x2={225 - i * 1} y2={120 + i * 0.5} stroke="white" strokeWidth="0.3" />
+                  <line x1={160 - i * 1} y1={140 + i * 0.5} x2={235 - i * 1} y2={140 + i * 0.5} stroke="white" strokeWidth="0.3" />
                 </g>
               )}
             </g>
@@ -120,11 +122,18 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
           {/* Sparkle/Dust Elements */}
           {(animationState === "opening" || animationState === "fluttering") && (
             <g className={styles.sparklesContainer}>
-              <circle cx="100" cy="100" r="1.5" fill="white" className={styles.sparkle1} />
-              <circle cx="120" cy="180" r="1" fill="white" className={styles.sparkle2} />
-              <circle cx="200" cy="90" r="1.5" fill="white" className={styles.sparkle3} />
-              <circle cx="220" cy="190" r="1" fill="white" className={styles.sparkle4} />
-              <path d="M 150 60 q 5 -10 10 0 t 10 0" stroke="white" strokeWidth="0.5" fill="none" className={styles.swirl} />
+              <circle cx="100" cy="100" r="2.5" fill="white" className={styles.sparkle1} />
+              <circle cx="120" cy="180" r="1.5" fill="white" className={styles.sparkle2} />
+              <circle cx="200" cy="90" r="2" fill="white" className={styles.sparkle3} />
+              <circle cx="220" cy="190" r="1.5" fill="white" className={styles.sparkle4} />
+              <path d="M 150 60 q 5 -10 10 0 t 10 0" stroke="white" strokeWidth="0.7" fill="none" className={styles.swirl} />
+
+              <circle cx="80" cy="150" r="2" fill="white" className={styles.sparkle5} />
+              <circle cx="230" cy="130" r="1.5" fill="white" className={styles.sparkle6} />
+              <circle cx="150" cy="230" r="2.2" fill="white" className={styles.sparkle7} />
+
+              <path d="M 70 80 C 75 70, 85 70, 90 80" stroke="white" strokeWidth="0.5" fill="none" className={styles.swirl2} />
+              <path d="M 210 220 C 215 210, 225 210, 230 220 S 235 230, 230 240" stroke="white" strokeWidth="0.5" fill="none" className={styles.swirl3} />
             </g>
           )}
         </svg>

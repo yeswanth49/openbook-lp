@@ -8,7 +8,12 @@
 
 .bookAnimationContainer {
   opacity: 0; /* Start hidden before fade-in */
-  transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out, transform 2.5s cubic-bezier(0.645, 0.045, 0.355, 1); /* Added transform transition */
+  transform: scale(1); /* Initial scale */
+}
+
+.closeupActive {
+  transform: scale(1.3); /* Zoomed-in scale */
 }
 
 .fadeIn {
@@ -163,4 +168,30 @@
 
 .swirl {
   animation: swirlAnim 2s ease-in-out infinite;
+}
+
+/* Styles for new particles */
+.sparkle5 {
+  animation: sparkleAnim 1.8s ease-in-out infinite;
+  animation-delay: 0.2s;
+}
+
+.sparkle6 {
+  animation: sparkleAnim 1.6s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+.sparkle7 {
+  animation: sparkleAnim 1.7s ease-in-out infinite;
+  animation-delay: 0.8s;
+}
+
+.swirl2 {
+  animation: swirlAnim 2.5s ease-in-out infinite;
+  animation-delay: 0.4s;
+}
+
+.swirl3 {
+  animation: swirlAnim 2.2s ease-in-out infinite;
+  animation-delay: 0.7s;
 } 
