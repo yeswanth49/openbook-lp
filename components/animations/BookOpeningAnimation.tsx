@@ -237,33 +237,33 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
           xmlns="http://www.w3.org/2000/svg"
           className={styles.bookSvg}
         >
-          {/* Book spine - plain */}
+          {/* Book spine - dark gray now (was white) */}
           <g className={styles.bookSpine}>
-            <rect x="145" y="75" width="10" height="150" fill="white" />
+            <rect x="145" y="75" width="10" height="150" fill="#2D2D2D" />
           </g>
 
-          {/* Left cover (back of book) - plain */}
+          {/* Left cover (back of book) - white now (was dark) */}
           <g>
             <rect
               x="50"
               y="75"
               width="95"
               height="150"
-              fill="#2D2D2D"
+              fill="white"
               className={`${styles.bookCover} ${styles.bookLeftCover} ${
                 (animationState === "opening" || animationState === "zooming" || animationState === "complete") ? styles.bookLeftCoverOpen : ""
               }`}
             />
           </g>
 
-          {/* Right cover (front of book) - plain */}
+          {/* Right cover (front of book) - white now (was dark) */}
           <g>
             <rect
               x="155"
               y="75"
               width="95"
               height="150"
-              fill="#2D2D2D"
+              fill="white"
               className={`${styles.bookCover} ${styles.bookRightCover} ${
                 (animationState === "opening" || animationState === "zooming" || animationState === "complete") ? styles.bookRightCoverOpen : ""
               }`}
@@ -297,7 +297,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
             <circle cx="180" cy="150" r="1.0" fill="white" className={styles.swirlParticle20} />
           </g>
 
-          {/* Pages - simplified */}
+          {/* Pages - dark gray now (were white) */}
           <g className={styles.pagesContainer}>
             {/* Page 1 - frontmost page */}
             <rect
@@ -305,6 +305,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
               y="80"
               width="90"
               height="140"
+              fill="#2D2D2D"
               className={`${styles.bookPage} ${getPageAnimationClass(1)}`}
             />
 
@@ -314,6 +315,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
               y="81"
               width="89"
               height="138"
+              fill="#2D2D2D"
               className={`${styles.bookPage} ${getPageAnimationClass(2)}`}
             />
 
@@ -323,6 +325,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
               y="82"
               width="88"
               height="136"
+              fill="#2D2D2D"
               className={`${styles.bookPage} ${getPageAnimationClass(3)}`}
             />
 
@@ -332,6 +335,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
               y="83"
               width="87"
               height="134"
+              fill="#2D2D2D"
               className={`${styles.bookPage} ${getPageAnimationClass(4)}`}
             />
 
@@ -341,10 +345,11 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
               y="84"
               width="86"
               height="132"
+              fill="#2D2D2D"
               className={`${styles.bookPage} ${getPageAnimationClass(5)}`}
             />
 
-            {/* Page content - very minimal lines */}
+            {/* Page content - very minimal lines - changed to white for better visibility on dark pages */}
             <g className={`${styles.pageLines} ${animationState === "zooming" ? styles.pageLinesZoomThrough : ""}`}>
               {/* Create pattern of horizontal lines to represent text */}
               {Array.from({ length: 8 }).map((_, i) => (
@@ -354,7 +359,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
                   y1={100 + i * 15} 
                   x2={230}
                   y2={100 + i * 15} 
-                  stroke="black" 
+                  stroke="white" 
                   strokeWidth="0.3" 
                 />
               ))}
