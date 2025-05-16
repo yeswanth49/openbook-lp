@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
+import withMDX from '@next/mdx'
+import remarkGfm from 'remark-gfm'
+
 const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
@@ -9,6 +12,12 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
 }
 
-export default nextConfig
+const mdx = withMDX({
+  extension: /\\.mdx?$/,
+  options: { remarkPlugins: [remarkGfm] },
+})
+
+export default mdx(nextConfig)

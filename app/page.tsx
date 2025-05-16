@@ -11,10 +11,12 @@ import { ParticleBackground } from "@/components/particle-background"
 import { motion } from "framer-motion"
 import { useState, useEffect } from 'react'
 import BookOpeningAnimation from '@/components/animations/BookOpeningAnimation'
+import BlogCard from '@/components/blog-card'
 
 export default function LandingPage() {
   const [showAnimation, setShowAnimation] = useState(true)
   const [showLandingContent, setShowLandingContent] = useState(false)
+  const [latestPosts, setLatestPosts] = useState<any[]>([])
 
   useEffect(() => {
     // Optional: Check if animation was already played this session
@@ -23,6 +25,12 @@ export default function LandingPage() {
     //   setShowAnimation(false)
     //   setShowLandingContent(true)
     // }
+  }, [])
+
+  useEffect(() => {
+    fetch('/api/blogs')
+      .then(res => res.json())
+      .then(data => setLatestPosts(data.slice(0, 3)))
   }, [])
 
   const handleAnimationComplete = () => {
@@ -373,6 +381,35 @@ export default function LandingPage() {
                       </div>
                     </div>
                   </AnimateInView>
+                </div>
+              </div>
+            </section>
+
+            {/* Blog Section */}
+            <section className="py-20">
+              <div className="container mx-auto px-4 md:px-6">
+                <SectionHeading title="From Our Blog" description="Latest articles and insights" />
+
+                <div className="mt-12 grid md:grid-cols-3 gap-8">
+                  {latestPosts.map((post, index) => (
+                    <AnimateInView key={post.slug} delay={0.1 * index}>
+                      <BlogCard
+                        title={post.title}
+                        excerpt={post.excerpt}
+                        date={post.date}
+                        readTime={post.readTime || ''}
+                        author={post.author}
+                        image={post.image || '/placeholder.svg'}
+                        slug={post.slug}
+                      />
+                    </AnimateInView>
+                  ))}
+                </div>
+
+                <div className="mt-8 text-center">
+                  <Button variant="outline" className="border-white/20 text-white hover:bg-white/10" onClick={() => window.location.href = '/blog'}>
+                    View All Articles <ChevronRight className="ml-2 h-4 w-4 inline-block" />
+                  </Button>
                 </div>
               </div>
             </section>
