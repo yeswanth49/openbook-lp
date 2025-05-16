@@ -115,6 +115,7 @@
   opacity: 1;
   transform: translateZ(0);
   transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  fill: transparent;
 }
 
 .pageZoomThrough2 {
@@ -122,6 +123,7 @@
   transform: translateZ(20px);
   transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
   transition-delay: 0.2s;
+  fill: transparent;
 }
 
 .pageZoomThrough3 {
@@ -129,6 +131,7 @@
   transform: translateZ(40px);
   transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
   transition-delay: 0.4s;
+  fill: transparent;
 }
 
 .pageZoomThrough4 {
@@ -136,6 +139,7 @@
   transform: translateZ(60px);
   transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
   transition-delay: 0.6s;
+  fill: transparent;
 }
 
 .pageZoomThrough5 {
@@ -143,6 +147,7 @@
   transform: translateZ(80px);
   transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
   transition-delay: 0.8s;
+  fill: transparent;
 }
 
 /* Page flutter animations preserved for reference */

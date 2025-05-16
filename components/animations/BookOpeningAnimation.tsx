@@ -231,7 +231,7 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
         className={`${styles.bookAnimationContainer} ${
           animationState === "complete" ? styles.fadeOut : styles.fadeIn
         } ${
-          animationState === "zooming" ? styles.zoomActive : ""
+          (animationState === "zooming" || animationState === "complete") ? styles.zoomActive : ""
         } ${
           animationState === "transitioning" ? styles.transitioningContainer : ""
         } ${styles.bookContainerOnTop} ${isPaused ? styles.paused : ""}`}
