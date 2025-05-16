@@ -3,3 +3,27 @@ description:
 globs:
 alwaysApply: false
 ---
+# Project Memory
+
+This file stores project-specific knowledge, conventions, and user preferences learned by the AI assistant.
+
+## User Preferences
+
+- Dark theme is used throughout the site with a dot pattern background
+- Particle background should be visible on all pages
+
+## Technical Decisions
+
+- Using Next.js App Router with page.tsx files
+- Using Tailwind CSS for styling
+- Header component is reused across pages
+- ParticleBackground component is included in the root layout and should be visible throughout all pages
+- Page components should not override the background or add containers that hide the particle effect
+
+## Project Conventions
+
+- Design system emphasizes dark background with gradient text accents and particle animations
+- "gradient-text" class is used for headline emphasis
+- Content is organized in section blocks with consistent spacing (mb-24)
+- About page contains: Mission, Why We Started, Open Source, Founders, Contact sections
+- Page content should be wrapped in relative z-10 containers to appear above the particle background
