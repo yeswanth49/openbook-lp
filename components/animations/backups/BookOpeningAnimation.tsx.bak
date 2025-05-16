@@ -66,16 +66,11 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
       setZoomPhase(1)
       // Add white flash near end of zoom
       timerRef.current = setTimeout(() => setWhiteFlash(true), 2000)
-      // Call onAnimationComplete as soon as the white flash happens
-      timerRef.current = setTimeout(() => {
-        onAnimationComplete();
-        setAnimationState("transitioning");
-      }, 2300)
+      timerRef.current = setTimeout(() => setAnimationState("transitioning"), 2400)
     } else if (animationState === "transitioning") {
-      // Make this almost instant to avoid the flickering issue
-      timerRef.current = setTimeout(() => setAnimationState("complete"), 10)
+      timerRef.current = setTimeout(() => setAnimationState("complete"), 500)
     } else if (animationState === "complete") {
-      // Complete state is now just for cleanup, no visual transition
+      timerRef.current = setTimeout(() => onAnimationComplete(), 250)
     }
 
     return () => {
@@ -232,8 +227,6 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
           animationState === "complete" ? styles.fadeOut : styles.fadeIn
         } ${
           animationState === "zooming" ? styles.zoomActive : ""
-        } ${
-          animationState === "transitioning" ? styles.transitioningContainer : ""
         } ${styles.bookContainerOnTop} ${isPaused ? styles.paused : ""}`}
       >
         <svg

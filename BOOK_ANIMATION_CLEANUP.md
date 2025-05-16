@@ -51,3 +51,12 @@ There are duplicate black rectangular elements in the book animation that need t
    - Complete state
 2. Verify visual appearance matches the original design
 3. Check for any performance improvements 
+
+### CSS Changes
+- Added opacity and transition to the transitioning state:
+  ```css
+  .transitioningState .pagesContainer {
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+  }
+  ``` 
