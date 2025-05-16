@@ -16,8 +16,13 @@ export function ParticleBackground() {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
+    // Set canvas to cover the entire viewport
+    const setCanvasDimensions = () => {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+    }
+    
+    setCanvasDimensions()
 
     // PARTICLE EFFECT: This creates the subtle starry background
     // To remove, you can set particles.length = 0 or return early from this useEffect
@@ -87,8 +92,7 @@ export function ParticleBackground() {
     }
 
     const handleResize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
+      setCanvasDimensions()
       particles.length = 0
       createParticles()
     }
@@ -106,7 +110,7 @@ export function ParticleBackground() {
   return (
     <motion.canvas
       ref={canvasRef}
-      className="absolute inset-0 z-0"
+      className="fixed inset-0 w-full h-full -z-10"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 2 }}

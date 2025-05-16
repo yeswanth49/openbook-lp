@@ -44,11 +44,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="relative bg-background min-h-screen">
-            <ParticleBackground />
-            <div className="relative z-10">
-              {children}
-            </div>
+          <ParticleBackground />
+          <div className="relative z-10">
+            {children}
           </div>
         </ThemeProvider>
       </body>
