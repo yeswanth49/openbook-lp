@@ -279,6 +279,10 @@ export default function BookOpeningAnimation({ onAnimationComplete }: { onAnimat
 
           {/* Swirling particles - appear during opening/closing transitions */}
           <g className={`${styles.swirlParticlesContainer} ${(animationState === "opening" || animationState === "rolling") ? styles.swirlParticlesActive : ""}`}>
+            {/* Swirl paths for decorative swirl effect */}
+            <path d="M 150 60 q 5 -10 10 0 t 10 0" stroke="white" strokeWidth="0.7" fill="none" className={styles.swirl} />
+            <path d="M 70 80 C 75 70, 85 70, 90 80" stroke="white" strokeWidth="0.5" fill="none" className={styles.swirl2} />
+            <path d="M 210 220 C 215 210, 225 210, 230 220 S 235 230, 230 240" stroke="white" strokeWidth="0.5" fill="none" className={styles.swirl3} />
             {/* Particles near the center/spine when book opens */}
             <circle cx="150" cy="100" r="1.5" fill="white" className={styles.swirlParticle1} />
             <circle cx="152" cy="120" r="1.2" fill="white" className={styles.swirlParticle2} />
