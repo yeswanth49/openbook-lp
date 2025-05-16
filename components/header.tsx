@@ -15,6 +15,17 @@ import {
 } from "@/components/ui/navigation-menu"
 import { cn } from "@/lib/utils"
 
+// Animation variants for hover effects
+const hoverAnimation = {
+  scale: 1.03,
+  transition: { duration: 0.2 }
+}
+
+const buttonHoverAnimation = {
+  y: -2,
+  transition: { duration: 0.2 }
+}
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -25,13 +36,13 @@ export default function Header() {
       transition={{ duration: 0.5 }}
       className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm"
     >
-      <nav className="border-input/50 bg-popover flex w-full max-w-3xl mx-auto items-center justify-between gap-2 rounded-xl border p-2 px-4 md:my-4 my-2">
-        <div className="flex items-center gap-4 md:gap-6">
-          <Link className="relative cursor-pointer flex items-center gap-1 md:gap-2" href="/">
+      <nav className="border-input/50 bg-popover flex w-full max-w-3xl mx-auto items-center justify-between gap-2 rounded-xl border p-2 px-4 my-4">
+        <div className="flex items-center gap-6">
+          <Link className="relative cursor-pointer flex items-center gap-2" href="/">
             <motion.div whileHover={{ rotate: 10 }} transition={{ type: "spring", stiffness: 400 }}>
-              <BookOpen className="h-5 w-5 md:h-[22px] md:w-[22px]" />
+              <BookOpen className="h-[22px] w-[22px]" />
             </motion.div>
-            <span className="text-base md:text-lg font-bold tracking-tight">OpenBook</span>
+            <span className="text-lg font-bold tracking-tight">OpenBook</span>
           </Link>
           
           <NavigationMenu className="hidden md:flex">
@@ -42,14 +53,18 @@ export default function Header() {
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className="bg-popover rounded-lg border shadow-md">
                   <div className="grid gap-3 p-4 w-[400px]">
-                    <Link href="/about" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
-                      <div className="text-sm font-medium">About</div>
-                      <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">Learn about our mission and values</div>
-                    </Link>
-                    <Link href="#team" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
-                      <div className="text-sm font-medium">Team</div>
-                      <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">Meet the people behind OpenBook</div>
-                    </Link>
+                    <motion.div whileHover={hoverAnimation}>
+                      <Link href="/about" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
+                        <div className="text-sm font-medium">About</div>
+                        <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">Learn about our mission and values</div>
+                      </Link>
+                    </motion.div>
+                    <motion.div whileHover={hoverAnimation}>
+                      <Link href="#team" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
+                        <div className="text-sm font-medium">Team</div>
+                        <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">Meet the people behind OpenBook</div>
+                      </Link>
+                    </motion.div>
                   </div>
                 </NavigationMenuContent>
               </NavigationMenuItem>
@@ -60,53 +75,72 @@ export default function Header() {
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className="bg-popover rounded-lg border shadow-md">
                   <div className="grid gap-3 p-4 w-[400px]">
-                    <Link href="#features" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
-                      <div className="text-sm font-medium">Features</div>
-                      <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">Explore our platform features</div>
-                    </Link>
-                    <Link href="#how-it-works" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
-                      <div className="text-sm font-medium">How It Works</div>
-                      <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">Learn how our platform works</div>
-                    </Link>
-                    <Link href="#blog" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
-                      <div className="text-sm font-medium">Blog</div>
-                      <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">Read our latest articles</div>
-                    </Link>
-                    <Link href="/styled-demo" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
-                      <div className="text-sm font-medium">Styled Text Demo</div>
-                      <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">See examples of styled text components</div>
-                    </Link>
+                    <motion.div whileHover={hoverAnimation}>
+                      <Link href="#features" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
+                        <div className="text-sm font-medium">Features</div>
+                        <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">Explore our platform features</div>
+                      </Link>
+                    </motion.div>
+                    <motion.div whileHover={hoverAnimation}>
+                      <Link href="#how-it-works" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
+                        <div className="text-sm font-medium">How It Works</div>
+                        <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">Learn how our platform works</div>
+                      </Link>
+                    </motion.div>
+                    <motion.div whileHover={hoverAnimation}>
+                      <Link href="#blog" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
+                        <div className="text-sm font-medium">Blog</div>
+                        <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">Read our latest articles</div>
+                      </Link>
+                    </motion.div>
+                    <motion.div whileHover={hoverAnimation}>
+                      <Link href="/styled-demo" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
+                        <div className="text-sm font-medium">Styled Text Demo</div>
+                        <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">See examples of styled text components</div>
+                      </Link>
+                    </motion.div>
                   </div>
                 </NavigationMenuContent>
               </NavigationMenuItem>
               
               <NavigationMenuItem>
-                <Link target="_blank" href="https://x.com/GoOpenBook">
-                  <Button variant="ghost" className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:text-accent-foreground px-3 py-1.5 h-7">
-                    Twitter
-                  </Button>
-                </Link>
+                <motion.div whileHover={buttonHoverAnimation}>
+                  <Link target="_blank" href="https://x.com/GoOpenBook">
+                    <Button variant="ghost" className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:text-accent-foreground px-3 py-1.5 h-7">
+                      Twitter
+                    </Button>
+                  </Link>
+                </motion.div>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
         </div>
         
         <div className="hidden md:flex gap-2">
-        <Link target="_blank" href="https://cal.com/team/0">
-            <Button variant="ghost" className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:text-accent-foreground px-4 py-2 h-8">
-              Contact Us
-            </Button>
-          </Link>
-          <Link href="https://goopenbook.in">
-            <Button className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 h-8">
-              Sign In
-            </Button>
-          </Link>
+          <motion.div whileHover={buttonHoverAnimation}>
+            <Link target="_blank" href="https://cal.com/team/0">
+              <Button variant="ghost" className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:text-accent-foreground px-4 py-2 h-8">
+                Contact Us
+              </Button>
+            </Link>
+          </motion.div>
+          <motion.div whileHover={buttonHoverAnimation}>
+            <Link href="https://goopenbook.in">
+              <Button className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 h-8">
+                Sign In
+              </Button>
+            </Link>
+          </motion.div>
         </div>
 
-        <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-          {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <motion.button 
+          className="md:hidden" 
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </motion.button>
       </nav>
 
       {/* Mobile menu */}
@@ -116,77 +150,93 @@ export default function Header() {
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.3 }}
-          className="md:hidden bg-popover border-t border-input/50 mx-4 rounded-xl mb-2"
+          className="md:hidden bg-popover border-t border-input/50 mx-4 rounded-xl mb-4"
         >
-          <div className="p-2 space-y-2">
-            <div className="flex flex-wrap gap-x-4 gap-y-1">
-              <div className="font-medium text-xs w-full mb-1">Company</div>
-              <Link
-                href="/about"
-                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                About
-              </Link>
-              <Link
-                href="#team"
-                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Team
-              </Link>
+          <div className="p-4 space-y-4">
+            <div className="space-y-2">
+              <div className="font-medium mb-1">Company</div>
+              <motion.div whileHover={{ x: 2 }}>
+                <Link
+                  href="/about"
+                  className="block py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  About
+                </Link>
+              </motion.div>
+              <motion.div whileHover={{ x: 2 }}>
+                <Link
+                  href="#team"
+                  className="block py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Team
+                </Link>
+              </motion.div>
             </div>
 
-            <div className="flex flex-wrap gap-x-4 gap-y-1">
-              <div className="font-medium text-xs w-full mb-1">Resources</div>
-              <Link
-                href="#features"
-                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Features
-              </Link>
-              <Link
-                href="#how-it-works"
-                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                How It Works
-              </Link>
-              <Link
-                href="#blog"
-                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Blog
-              </Link>
-              <Link
-                href="/styled-demo"
-                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Styled Text Demo
-              </Link>
+            <div className="space-y-2">
+              <div className="font-medium mb-1">Resources</div>
+              <motion.div whileHover={{ x: 2 }}>
+                <Link
+                  href="#features"
+                  className="block py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Features
+                </Link>
+              </motion.div>
+              <motion.div whileHover={{ x: 2 }}>
+                <Link
+                  href="#how-it-works"
+                  className="block py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  How It Works
+                </Link>
+              </motion.div>
+              <motion.div whileHover={{ x: 2 }}>
+                <Link
+                  href="#blog"
+                  className="block py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Blog
+                </Link>
+              </motion.div>
+              <motion.div whileHover={{ x: 2 }}>
+                <Link
+                  href="/styled-demo"
+                  className="block py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Styled Text Demo
+                </Link>
+              </motion.div>
             </div>
 
-            <div className="flex items-center justify-between">
+            <motion.div whileHover={{ x: 2 }}>
               <Link
                 target="_blank"
                 href="https://x.com/GoOpenBook"
-                className="text-xs font-medium text-foreground transition-colors"
+                className="block py-2 text-sm font-medium text-foreground transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Twitter
               </Link>
+            </motion.div>
 
-              <div className="flex gap-2">
-                <Button variant="ghost" size="sm" className="text-xs h-6 px-2 rounded-none">
+            <div className="pt-4 border-t border-input/50 flex flex-col space-y-3">
+              <motion.div whileHover={buttonHoverAnimation}>
+                <Button variant="ghost" size="sm" className="justify-center rounded-none">
                   Sign In
                 </Button>
-                <Button size="sm" className="text-xs h-6 px-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
+              </motion.div>
+              <motion.div whileHover={buttonHoverAnimation}>
+                <Button size="sm" className="justify-center bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
                   Contact Us
                 </Button>
-              </div>
+              </motion.div>
             </div>
           </div>
         </motion.div>
