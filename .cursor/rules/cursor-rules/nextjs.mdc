@@ -1,7 +1,7 @@
 ---
-description: This rule explains Next.js conventions and best practices for fullstack development.
-globs: **/*.js,**/*.jsx,**/*.ts,**/*.tsx
-alwaysApply: false
+description: 
+globs: 
+alwaysApply: true
 ---
 
 # Next.js rules

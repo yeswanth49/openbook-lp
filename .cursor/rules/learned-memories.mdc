@@ -1,7 +1,7 @@
 ---
-description:
-globs:
-alwaysApply: false
+description: 
+globs: 
+alwaysApply: true
 ---
 # Project Memory
 
@@ -27,3 +27,4 @@ This file stores project-specific knowledge, conventions, and user preferences l
 - Content is organized in section blocks with consistent spacing (mb-24)
 - About page contains: Mission, Why We Started, Open Source, Founders, Contact sections
 - Page content should be wrapped in relative z-10 containers to appear above the particle background
+- Any markdown file created to store implementation plans should be stored in the `plans` folder.

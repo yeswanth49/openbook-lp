@@ -1,7 +1,7 @@
 ---
-description: This rule explains how to create and manage task lists to track project progress.
-globs: *
-alwaysApply: false
+description: 
+globs: 
+alwaysApply: true
 ---
 
 # Task List Management

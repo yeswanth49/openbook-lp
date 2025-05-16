@@ -1,7 +1,7 @@
 ---
-description: This rule explains Tailwind CSS 4 changes, new features, and best practices for modern UI development.
-globs: *
-alwaysApply: false
+description: 
+globs: 
+alwaysApply: true
 ---
 
 # Tailwind CSS 4 rules
