@@ -12,6 +12,7 @@ import { motion } from "framer-motion"
 import { useState, useEffect } from 'react'
 import BookOpeningAnimation from '@/components/animations/BookOpeningAnimation'
 import BlogCard from '@/components/blog-card'
+import FeatureCard from '@/components/feature-card'
 
 export default function LandingPage() {
   // Set this to true to skip the book opening animation during development
@@ -138,48 +139,30 @@ export default function LandingPage() {
               <div className="container mx-auto px-4 md:px-6">
                 <div className="grid md:grid-cols-3 gap-8">
                   <AnimateInView delay={0.1}>
-                    <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm h-full">
-                      <KeyRound className="h-12 w-12 mb-5 text-white/80" />
-                      <h3 className="text-xl font-bold mb-3">Lightning-Fast Interface</h3>
-                      <p className="text-muted-foreground mb-4">
-                        Navigate your entire notebook using just your keyboard. Process and organize information in seconds.
-                      </p>
-                      <div className="mt-auto">
-                        <Button variant="ghost" className="p-0 h-auto text-white/70 hover:text-white">
-                          Learn more <ChevronRight className="ml-1 h-4 w-4" />
-                        </Button>
-                      </div>
-                    </Card>
+                    <FeatureCard
+                      id="lightning-fast-interface"
+                      icon={KeyRound}
+                      title="Lightning-Fast Interface"
+                      description="Navigate your entire notebook using just your keyboard. Process and organize information in seconds."
+                    />
                   </AnimateInView>
                   
                   <AnimateInView delay={0.2}>
-                    <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm h-full">
-                      <Brain className="h-12 w-12 mb-5 text-white/80" />
-                      <h3 className="text-xl font-bold mb-3">AI-Powered Learning</h3>
-                      <p className="text-muted-foreground mb-4">
-                        Let our AI generate explanations, create practice questions, and provide personalized study materials.
-                      </p>
-                      <div className="mt-auto">
-                        <Button variant="ghost" className="p-0 h-auto text-white/70 hover:text-white">
-                          Learn more <ChevronRight className="ml-1 h-4 w-4" />
-                        </Button>
-                      </div>
-                    </Card>
+                    <FeatureCard
+                      id="ai-powered-learning"
+                      icon={Brain}
+                      title="AI-Powered Learning"
+                      description="Let our AI generate explanations, create practice questions, and provide personalized study materials."
+                    />
                   </AnimateInView>
                   
                   <AnimateInView delay={0.3}>
-                    <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm h-full">
-                      <Search className="h-12 w-12 mb-5 text-white/80" />
-                      <h3 className="text-xl font-bold mb-3">Smart Search</h3>
-                      <p className="text-muted-foreground mb-4">
-                        Create personalized learning flows that match exactly how you study, memorize, and process information.
-                      </p>
-                      <div className="mt-auto">
-                        <Button variant="ghost" className="p-0 h-auto text-white/70 hover:text-white">
-                          Learn more <ChevronRight className="ml-1 h-4 w-4" />
-                        </Button>
-                      </div>
-                    </Card>
+                    <FeatureCard
+                      id="smart-search"
+                      icon={Search}
+                      title="Smart Search"
+                      description="Create personalized learning flows that match exactly how you study, memorize, and process information."
+                    />
                   </AnimateInView>
                 </div>
               </div>

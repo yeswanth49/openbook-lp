@@ -1,32 +1,49 @@
 "use client"
 
-import { Card, CardContent } from "@/components/ui/card"
-import { motion } from "framer-motion"
-import type { ReactNode } from "react"
+import { useState } from 'react'
+import { Card } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { ChevronRight } from "lucide-react"
+import { LucideIcon } from "lucide-react"
+import { FeaturePopup } from './feature-popup'
 
 interface FeatureCardProps {
-  icon: ReactNode
+  id: string
+  icon: LucideIcon
   title: string
   description: string
+  delay?: number
 }
 
-export default function FeatureCard({ icon, title, description }: FeatureCardProps) {
+export function FeatureCard({ id, icon: Icon, title, description, delay = 0 }: FeatureCardProps) {
+  const [isPopupOpen, setIsPopupOpen] = useState(false)
+
   return (
-    <motion.div whileHover={{ y: -5 }} transition={{ type: "spring", stiffness: 300 }}>
-      <Card className="overflow-hidden transition-all hover:shadow-md h-full border-white/10 bg-white/5 backdrop-blur-sm">
-        <CardContent className="p-6 h-full flex flex-col">
-          <motion.div
-            className="mb-4 text-white"
-            initial={{ scale: 1 }}
-            whileHover={{ scale: 1.1 }}
-            transition={{ type: "spring", stiffness: 400 }}
+    <>
+      <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm h-full">
+        <Icon className="h-12 w-12 mb-5 text-white/80" />
+        <h3 className="text-xl font-bold mb-3">{title}</h3>
+        <p className="text-muted-foreground mb-4">
+          {description}
+        </p>
+        <div className="mt-auto">
+          <Button 
+            variant="ghost" 
+            className="p-0 h-auto text-white/70 hover:text-white"
+            onClick={() => setIsPopupOpen(true)}
           >
-            {icon}
-          </motion.div>
-          <h3 className="text-xl font-bold mb-2">{title}</h3>
-          <p className="text-muted-foreground">{description}</p>
-        </CardContent>
+            Learn more <ChevronRight className="ml-1 h-4 w-4" />
+          </Button>
+        </div>
       </Card>
-    </motion.div>
+
+      <FeaturePopup 
+        isOpen={isPopupOpen} 
+        onClose={() => setIsPopupOpen(false)} 
+        featureId={id} 
+      />
+    </>
   )
 }
+
+export default FeatureCard
