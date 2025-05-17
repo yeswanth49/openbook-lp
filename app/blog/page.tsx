@@ -5,6 +5,7 @@ import BlogCard from '@/components/blog-card'
 import AnimateInView from '@/components/animate-in-view'
 import { ChevronRight } from 'lucide-react'
 import '@/styles/scrollbar.css'
+import { HorizontalScrollArea } from '@/components/HorizontalScrollArea'
 
 export const metadata: Metadata = {
   title: 'Blog - OpenBook',
@@ -44,14 +45,9 @@ export default function BlogIndexPage() {
             
             {/* Horizontal scrolling container */}
             <div className="relative">
-              {/* Scrollable container with multiple methods to hide scrollbar */}
-              <div 
-                className="overflow-x-auto hide-scrollbar scrollbar-hide pb-6" 
-                style={{
-                  WebkitOverflowScrolling: 'touch',
-                  scrollbarWidth: 'none',
-                  msOverflowStyle: 'none'
-                }}
+              {/* Wrap the scrollable content with HorizontalScrollArea */}
+              <HorizontalScrollArea 
+                className="overflow-x-auto hide-scrollbar scrollbar-hide pb-6"
               >
                 {/* Content container */}
                 <div className="flex gap-6">
@@ -78,7 +74,7 @@ export default function BlogIndexPage() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </HorizontalScrollArea>
               
               {/* Show scroll indicators if there are more than 4 posts */}
               {hasMorePosts && (

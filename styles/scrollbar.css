@@ -11,4 +11,22 @@
 .scrollbar-hide {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+}
+
+/* Smooth scrolling styles */
+.smooth-horizontal-scroll {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+}
+
+.smooth-horizontal-scroll > div > div {
+  scroll-snap-align: start;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .smooth-horizontal-scroll {
+    scroll-behavior: auto;
+  }
 } 
