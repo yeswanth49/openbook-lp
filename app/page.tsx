@@ -14,8 +14,11 @@ import BookOpeningAnimation from '@/components/animations/BookOpeningAnimation'
 import BlogCard from '@/components/blog-card'
 
 export default function LandingPage() {
-  const [showAnimation, setShowAnimation] = useState(true)
-  const [showLandingContent, setShowLandingContent] = useState(false)
+  // Set this to true to skip the book opening animation during development
+  const SKIP_ANIMATION = true
+  
+  const [showAnimation, setShowAnimation] = useState(!SKIP_ANIMATION)
+  const [showLandingContent, setShowLandingContent] = useState(SKIP_ANIMATION)
   const [latestPosts, setLatestPosts] = useState<any[]>([])
 
   useEffect(() => {
