@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { ChevronRight, Brain, Search, Edit, PenTool, KeyRound, Lightbulb, Clock, Sparkles } from "lucide-react"
 import Header from "@/components/header"
-import CombinedFooter from "@/components/CombinedFooter"
 import AnimateInView from "@/components/animate-in-view"
 import SectionHeading from "@/components/section-heading"
 import { ParticleBackground } from "@/components/particle-background"
@@ -492,7 +491,6 @@ export default function LandingPage() {
               </div>
             </section>
           </div>
-          {showLandingContent && <CombinedFooter />}
         </>
       )}
 
