@@ -137,7 +137,7 @@ async function PostContentLoader({ slug, category }: { slug: string; category: s
     );
   }
 
-  const dirPath = path.join(process.cwd(), 'app/blog/content', category)
+  const dirPath = path.join(process.cwd(), 'content', category)
   const filePath = path.join(dirPath, `${slug}.mdx`)
   
   let source: string;
