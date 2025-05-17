@@ -25,6 +25,7 @@ interface BlogPost {
   image?: string
   slug: string
   category: string
+  featured?: boolean
 }
 
 export default function LandingPage() {
@@ -48,9 +49,19 @@ export default function LandingPage() {
   }, [])
 
   useEffect(() => {
-    fetch('/api/blogs')
+    fetch('/api/blogs?featured=true')
       .then(res => res.json())
-      .then(data => setLatestPosts(data.slice(0, 3)))
+      .then(data => {
+        // If there are featured posts, use them
+        const featuredPosts = data.filter((post: BlogPost) => post.featured)
+        if (featuredPosts.length > 0) {
+          // Take up to 3 featured posts
+          setLatestPosts(featuredPosts.slice(0, 3))
+        } else {
+          // Fallback to latest posts if no featured ones
+          setLatestPosts(data.slice(0, 3))
+        }
+      })
       .catch((err) => {
         console.error('Failed to fetch blog posts:', err)
         setBlogError('Failed to load blog posts. Please try again later.')

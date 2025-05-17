@@ -11,6 +11,7 @@ export interface Post {
   image?: string
   slug: string
   category: string
+  featured?: boolean
 }
 
 const contentDir = path.join(process.cwd(), 'content')
@@ -38,6 +39,7 @@ export function getAllPosts(): Post[] {
           image: data.image,
           slug,
           category,
+          featured: data.featured || false,
         })
       }
     })

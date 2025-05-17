@@ -32,8 +32,8 @@ function createCacheKey(category: string, slug: string): string {
   return `${category}-${slug}`;
 }
 
-interface BlogPostPageParams { // Renamed from Params to avoid potential conflicts if Params is generic
-  params: { slug: string }
+interface BlogPostPageParams {
+  params: Promise<{ slug: string }>
 }
 
 export async function generateStaticParams() {
@@ -43,7 +43,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: BlogPostPageParams): Promise<Metadata> {
   try {
-    const { slug } = params
+    const { slug } = await params
     const posts = getAllPosts()
     const post = posts.find((p) => p.slug === slug)
     if (!post) {
@@ -136,7 +136,7 @@ async function PostContentLoader({ slug, category }: { slug: string; category: s
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageParams) {
-  const { slug } = params
+  const { slug } = await params
   
   // It's good to get postMeta here to check existence and pass necessary info (like category)
   // This avoids calling getAllPosts() inside PostContentLoader repeatedly if it were structured differently.
