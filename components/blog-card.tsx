@@ -1,6 +1,7 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { CalendarIcon, Clock, User } from "lucide-react"
 import Link from "next/link"
+import { LucideIcon } from "lucide-react"
 
 interface BlogCardProps {
   title: string
@@ -8,19 +9,27 @@ interface BlogCardProps {
   date: string
   readTime: string
   author: string
-  image: string
+  image?: string
+  icon?: LucideIcon
+  iconClassName?: string
   slug: string
 }
 
-export default function BlogCard({ title, excerpt, date, readTime, author, image, slug }: BlogCardProps) {
+export default function BlogCard({ title, excerpt, date, readTime, author, image, icon: Icon, iconClassName, slug }: BlogCardProps) {
   return (
     <Card className="overflow-hidden transition-all hover:shadow-md h-full flex flex-col border-white/10 bg-white/5 backdrop-blur-sm">
       <div className="relative h-48 overflow-hidden">
-        <img
-          src={image || "/placeholder.svg"}
-          alt={title}
-          className="w-full h-full object-cover transition-transform hover:scale-105 opacity-80"
-        />
+        {Icon ? (
+          <div className="w-full h-full flex items-center justify-center bg-white/5">
+            <Icon className={`h-24 w-24 text-white/60 ${iconClassName || ''}`} />
+          </div>
+        ) : (
+          <img
+            src={image || "/placeholder.svg"}
+            alt={title}
+            className="w-full h-full object-cover transition-transform hover:scale-105 opacity-80"
+          />
+        )}
       </div>
       <CardContent className="p-6 flex-grow">
         <div className="flex items-center text-sm text-muted-foreground mb-3 space-x-4">

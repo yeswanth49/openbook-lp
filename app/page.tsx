@@ -394,19 +394,58 @@ export default function LandingPage() {
                 <SectionHeading title="From Our Blog" description="Latest articles and insights" />
 
                 <div className="mt-12 grid md:grid-cols-3 gap-8">
-                  {latestPosts.map((post, index) => (
-                    <AnimateInView key={post.slug} delay={0.1 * index}>
-                      <BlogCard
-                        title={post.title}
-                        excerpt={post.excerpt}
-                        date={post.date}
-                        readTime={post.readTime || ''}
-                        author={post.author}
-                        image={post.image || '/placeholder.svg'}
-                        slug={post.slug}
-                      />
-                    </AnimateInView>
-                  ))}
+                  {latestPosts.length > 0 ? (
+                    latestPosts.map((post, index) => (
+                      <AnimateInView key={post.slug} delay={0.1 * index}>
+                        <BlogCard
+                          title={post.title}
+                          excerpt={post.excerpt}
+                          date={post.date}
+                          readTime={post.readTime || ''}
+                          author={post.author}
+                          icon={index === 0 ? Brain : index === 1 ? Lightbulb : PenTool}
+                          slug={post.slug}
+                        />
+                      </AnimateInView>
+                    ))
+                  ) : (
+                    // Fallback for when no posts are loaded
+                    <>
+                      <AnimateInView delay={0.1}>
+                        <BlogCard
+                          title="Learning with AI"
+                          excerpt="Discover how AI is transforming the education landscape and helping students learn more effectively."
+                          date="2023-06-15"
+                          readTime="5 min read"
+                          author="OpenBook Team"
+                          icon={Brain}
+                          slug="learning-with-ai"
+                        />
+                      </AnimateInView>
+                      <AnimateInView delay={0.2}>
+                        <BlogCard
+                          title="The Science of Memory"
+                          excerpt="Understanding how the brain processes and retains information can help you optimize your study habits."
+                          date="2023-06-10"
+                          readTime="4 min read"
+                          author="OpenBook Team"
+                          icon={Lightbulb}
+                          slug="science-of-memory"
+                        />
+                      </AnimateInView>
+                      <AnimateInView delay={0.3}>
+                        <BlogCard
+                          title="Note-Taking Strategies"
+                          excerpt="Effective note-taking methods that can help you capture and organize information for better recall."
+                          date="2023-06-05"
+                          readTime="3 min read"
+                          author="OpenBook Team"
+                          icon={PenTool}
+                          slug="note-taking-strategies"
+                        />
+                      </AnimateInView>
+                    </>
+                  )}
                 </div>
 
                 <div className="mt-8 text-center">
