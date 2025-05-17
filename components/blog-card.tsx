@@ -19,16 +19,20 @@ export default function BlogCard({ title, excerpt, date, readTime, author, image
   return (
     <Card className="overflow-hidden transition-all hover:shadow-md h-full flex flex-col border-white/10 bg-white/5 backdrop-blur-sm">
       <div className="relative h-48 overflow-hidden">
-        {Icon ? (
+        {image ? (
+          <img
+            src={image}
+            alt={title}
+            className="w-full h-full object-cover transition-transform hover:scale-105 opacity-80"
+          />
+        ) : Icon ? (
           <div className="w-full h-full flex items-center justify-center bg-white/5">
             <Icon className={`h-24 w-24 text-white/60 ${iconClassName || ''}`} />
           </div>
         ) : (
-          <img
-            src={image || "/placeholder.svg"}
-            alt={title}
-            className="w-full h-full object-cover transition-transform hover:scale-105 opacity-80"
-          />
+          <div className="w-full h-full flex items-center justify-center bg-white/5">
+            <span className="text-white/60 text-xl font-bold">{title.charAt(0)}</span>
+          </div>
         )}
       </div>
       <CardContent className="p-6 flex-grow">
