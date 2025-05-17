@@ -64,6 +64,7 @@
     "recharts": "2.15.0",
     "remark-gfm": "^4.0.1",
     "sonner": "^1.7.1",
+    "sugar-high": "^0.9.3",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "tsparticles": "^3.8.1",
