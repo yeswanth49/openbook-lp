@@ -1,6 +1,7 @@
-import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import Header from "@/components/header"
+import { CallToAction } from "@/components/call-to-action"
+import { BackButton } from "@/components/back-button"
 
 export default function AboutPage() {
   return (
@@ -8,10 +9,7 @@ export default function AboutPage() {
       <Header />
       <main className="min-h-screen">
         <div className="container mx-auto max-w-5xl px-4 py-12">
-          <Link href="/" className="inline-flex items-center mb-12 text-sm font-medium hover:text-muted-foreground">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back
-          </Link>
+          <BackButton />
 
           <h1 className="text-4xl font-bold text-center mb-24">About Us</h1>
 
@@ -78,15 +76,12 @@ export default function AboutPage() {
           </section>
         </div>
 
-        <div className="py-20">
-          <div className="container mx-auto max-w-5xl px-4 text-center">
-            <h2 className="text-5xl font-bold mb-8 gradient-text">Experience the Future of Learning Today</h2>
-            <p className="text-xl mb-12">Watch how OpenBook helps you learn in a fraction of the time.</p>
-            <Link href="/" className="inline-block rounded-md bg-primary text-primary-foreground font-medium px-8 py-3 hover:bg-primary/90 transition-colors">
-              Get Started
-            </Link>
-          </div>
-        </div>
+        <CallToAction 
+          title="Experience the Future of Learning Today"
+          description="Watch how OpenBook helps you learn in a fraction of the time."
+          buttonText="Get Started"
+          buttonHref="/"
+        />
       </main>
     </>
   )
