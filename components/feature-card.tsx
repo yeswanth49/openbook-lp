@@ -12,10 +12,9 @@ interface FeatureCardProps {
   icon: LucideIcon
   title: string
   description: string
-  delay?: number
 }
 
-export function FeatureCard({ id, icon: Icon, title, description, delay = 0 }: FeatureCardProps) {
+export function FeatureCard({ id, icon: Icon, title, description }: FeatureCardProps) {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
 
   return (
@@ -31,6 +30,8 @@ export function FeatureCard({ id, icon: Icon, title, description, delay = 0 }: F
             variant="ghost" 
             className="p-0 h-auto text-white/70 hover:text-white"
             onClick={() => setIsPopupOpen(true)}
+            aria-haspopup="dialog"
+            aria-controls={`feature-popup-${id}`}
           >
             Learn more <ChevronRight className="ml-1 h-4 w-4" />
           </Button>
@@ -45,5 +46,3 @@ export function FeatureCard({ id, icon: Icon, title, description, delay = 0 }: F
     </>
   )
 }
-
-export default FeatureCard

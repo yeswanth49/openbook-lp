@@ -74,6 +74,7 @@ export function FeaturePopup({ isOpen, onClose, featureId }: FeaturePopupProps) 
             aria-modal="true"
             aria-labelledby="feature-popup-title"
             tabIndex={-1}
+            id={`feature-popup-${featureId}`}
           >
             <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl shadow-2xl overflow-hidden">
               {/* Header */}

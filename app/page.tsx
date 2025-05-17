@@ -12,15 +12,31 @@ import { motion } from "framer-motion"
 import { useState, useEffect } from 'react'
 import BookOpeningAnimation from '@/components/animations/BookOpeningAnimation'
 import BlogCard from '@/components/blog-card'
-import FeatureCard from '@/components/feature-card'
+import { FeatureCard } from '@/components/feature-card'
+import { useRouter } from 'next/navigation'
+
+// Blog post interface for type safety
+interface BlogPost {
+  title: string
+  excerpt: string
+  date: string
+  readTime?: string
+  author: string
+  image?: string
+  slug: string
+  category: string
+}
 
 export default function LandingPage() {
+  const router = useRouter();
+  
   // Set this to true to skip the book opening animation during development
   const SKIP_ANIMATION = true
   
   const [showAnimation, setShowAnimation] = useState(!SKIP_ANIMATION)
   const [showLandingContent, setShowLandingContent] = useState(SKIP_ANIMATION)
-  const [latestPosts, setLatestPosts] = useState<any[]>([])
+  const [latestPosts, setLatestPosts] = useState<BlogPost[]>([])
+  const [blogError, setBlogError] = useState<string | null>(null)
 
   useEffect(() => {
     // Optional: Check if animation was already played this session
@@ -35,6 +51,10 @@ export default function LandingPage() {
     fetch('/api/blogs')
       .then(res => res.json())
       .then(data => setLatestPosts(data.slice(0, 3)))
+      .catch((err) => {
+        console.error('Failed to fetch blog posts:', err)
+        setBlogError('Failed to load blog posts. Please try again later.')
+      })
   }, [])
 
   const handleAnimationComplete = () => {
@@ -432,7 +452,7 @@ export default function LandingPage() {
                 </div>
 
                 <div className="mt-8 text-center">
-                  <Button variant="outline" className="border-white/20 text-white hover:bg-white/10" onClick={() => window.location.href = '/blog'}>
+                  <Button variant="outline" className="border-white/20 text-white hover:bg-white/10" onClick={() => router.push('/blog')}>
                     View All Articles <ChevronRight className="ml-2 h-4 w-4 inline-block" />
                   </Button>
                 </div>
