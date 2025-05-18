@@ -1,7 +1,7 @@
 ---
-description: 
-globs: 
-alwaysApply: true
+description:
+globs:
+alwaysApply: false
 ---
 # Project Memory
 
@@ -11,6 +11,8 @@ This file stores project-specific knowledge, conventions, and user preferences l
 
 - Dark theme is used throughout the site with a dot pattern background
 - Particle background should be visible on all pages
+- Theme toggle is available to switch between dark and warm light modes
+- Avoid using pure white; use warm, off-white tones (30° hue) for light mode
 
 ## Technical Decisions
 
@@ -19,11 +21,15 @@ This file stores project-specific knowledge, conventions, and user preferences l
 - Header component is reused across pages
 - ParticleBackground component is included in the root layout and should be visible throughout all pages
 - Page components should not override the background or add containers that hide the particle effect
+- ThemeToggle component provides the ability to switch between dark and warm light modes
+- Both dark and warm light themes have their own specific color variables defined in globals.css
+- Light theme uses warm tones with 30° hue to avoid pure white and create a comfortable reading experience
 
 ## Project Conventions
 
-- Design system emphasizes dark background with gradient text accents and particle animations
-- "gradient-text" class is used for headline emphasis
+- Design system emphasizes dark background with gradient text accents and particle animations in dark mode
+- Light mode uses warm off-white background with brown accents and the same layout structure
+- "gradient-text" class is used for headline emphasis and adapts to the current theme
 - Content is organized in section blocks with consistent spacing (mb-24)
 - About page contains: Mission, Why We Started, Open Source, Founders, Contact sections
 - Page content should be wrapped in relative z-10 containers to appear above the particle background

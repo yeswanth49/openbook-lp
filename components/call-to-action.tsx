@@ -23,7 +23,7 @@ export function CallToAction({
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-4xl mx-auto text-center">
           <AnimateInView>
-            <h2 className="inline-block bg-gradient-to-b from-[#FFFFFF] to-[#1a1a19] bg-clip-text text-center text-4xl font-bold text-transparent md:text-6xl lg:text-7xl" style={{ opacity: 1, transform: 'none' }}>
+            <h2 className="inline-block cta-gradient-text text-center text-4xl font-bold text-transparent md:text-6xl lg:text-7xl" style={{ opacity: 1, transform: 'none' }}>
               {withBreak ? (
                 <>
                   {title.split(' ').slice(0, -3).join(' ')} <br />
@@ -36,7 +36,7 @@ export function CallToAction({
             </p>
             <div className="flex justify-center">
               <Link href={buttonHref}>
-                <Button size="lg" className="bg-white text-black hover:bg-gray-200 group">
+                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 group">
                   {buttonText}
                   <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>

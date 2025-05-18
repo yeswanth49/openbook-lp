@@ -96,11 +96,11 @@ export default function LandingPage() {
                       OpenBook is an AI-native notebook that helps you learn, retain, and apply knowledge more effectively than ever before.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                      <Button size="lg" className="bg-white text-black hover:bg-gray-200 group">
+                      <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 group">
                         Get Started
                         <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                       </Button>
-                      <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                      <Button size="lg" variant="outline" className="border-border text-foreground hover:bg-foreground/10">
                         See How It Works
                       </Button>
                     </div>
@@ -211,50 +211,44 @@ export default function LandingPage() {
                 
                 <div className="mt-10 max-w-3xl mx-auto">
                   <AnimateInView>
-                    <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm">
+                    <Card className="p-6 bg-card/80 border-border/20 backdrop-blur-sm">
                       <div className="space-y-4">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                            <PenTool className="h-4 w-4 text-white/60" />
-                          </div>
-                          <div className="flex-1 p-3 rounded-lg bg-white/10">
-                            <p className="text-white/80">Explain quantum computing for beginners</p>
-                          </div>
-                        </div>
-                        
-                        <div className="flex items-center space-x-3">
-                          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                            <PenTool className="h-4 w-4 text-white/60" />
-                          </div>
-                          <div className="flex-1 p-3 rounded-lg bg-white/10">
-                            <p className="text-white/80">Generate practice questions about cell biology</p>
-                          </div>
-                        </div>
-                        
-                        <div className="flex items-center space-x-3">
-                          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                            <PenTool className="h-4 w-4 text-white/60" />
-                          </div>
-                          <div className="flex-1 p-3 rounded-lg bg-white/10">
-                            <p className="text-white/80">Create a study schedule for my calculus exam</p>
-                          </div>
-                        </div>
-                        
-                        <div className="flex items-center space-x-3">
-                          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                            <PenTool className="h-4 w-4 text-white/60" />
-                          </div>
-                          <div className="flex-1 p-3 rounded-lg bg-white/10">
-                            <p className="text-white/80">Find my notes on Renaissance art</p>
-                          </div>
-                        </div>
-                        
-                        <div className="flex items-center space-x-3">
-                          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                            <PenTool className="h-4 w-4 text-white/60" />
-                          </div>
-                          <div className="flex-1 p-3 rounded-lg bg-white/10">
-                            <p className="text-white/80">Summarize all my notes on machine learning</p>
+                        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mt-8">
+                          <div className="lg:col-span-3 space-y-6">
+                            <div className="flex items-start space-x-4 p-4 rounded-lg bg-accent/30">
+                              <PenTool className="h-4 w-4 text-foreground/60" />
+                              <div className="flex-1">
+                                <p className="text-foreground/80">Explain quantum computing for beginners</p>
+                              </div>
+                            </div>
+                            
+                            <div className="flex items-start space-x-4 p-4 rounded-lg bg-accent/30">
+                              <PenTool className="h-4 w-4 text-foreground/60" />
+                              <div className="flex-1">
+                                <p className="text-foreground/80">Generate practice questions about cell biology</p>
+                              </div>
+                            </div>
+                            
+                            <div className="flex items-start space-x-4 p-4 rounded-lg bg-accent/30">
+                              <PenTool className="h-4 w-4 text-foreground/60" />
+                              <div className="flex-1">
+                                <p className="text-foreground/80">Create a study schedule for my calculus exam</p>
+                              </div>
+                            </div>
+                            
+                            <div className="flex items-start space-x-4 p-4 rounded-lg bg-accent/30">
+                              <PenTool className="h-4 w-4 text-foreground/60" />
+                              <div className="flex-1">
+                                <p className="text-foreground/80">Find my notes on Renaissance art</p>
+                              </div>
+                            </div>
+                            
+                            <div className="flex items-start space-x-4 p-4 rounded-lg bg-accent/30">
+                              <PenTool className="h-4 w-4 text-foreground/60" />
+                              <div className="flex-1">
+                                <p className="text-foreground/80">Summarize all my notes on machine learning</p>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -269,10 +263,10 @@ export default function LandingPage() {
               <div className="container mx-auto px-4 md:px-6">
                 <div className="max-w-3xl mx-auto text-center">
                   <AnimateInView>
-                    <div className="inline-flex p-1 bg-white/10 rounded-full mb-6">
-                      <div className="flex items-center space-x-2 px-4 py-2 bg-white/10 rounded-full">
-                        <Clock className="h-4 w-4 text-white/60" />
-                        <span className="text-sm font-medium text-white/80">Productivity Benefits</span>
+                    <div className="inline-flex p-1 bg-accent/20 rounded-full mb-6">
+                      <div className="flex items-center space-x-2 px-4 py-2 bg-accent/20 rounded-full">
+                        <Clock className="h-4 w-4 text-foreground/60" />
+                        <span className="text-sm font-medium text-foreground/80">Productivity Benefits</span>
                       </div>
                     </div>
                     
@@ -286,23 +280,23 @@ export default function LandingPage() {
                     
                     <div className="flex flex-wrap justify-center gap-4">
                       <div className="flex items-center space-x-2">
-                        <Sparkles className="h-5 w-5 text-white/60" />
-                        <span className="text-white/80">Spaced repetition</span>
+                        <Sparkles className="h-5 w-5 text-foreground/60" />
+                        <span className="text-foreground/80">Spaced repetition</span>
                       </div>
                       
                       <div className="flex items-center space-x-2">
-                        <Sparkles className="h-5 w-5 text-white/60" />
-                        <span className="text-white/80">Active recall</span>
+                        <Sparkles className="h-5 w-5 text-foreground/60" />
+                        <span className="text-foreground/80">Active recall</span>
                       </div>
                       
                       <div className="flex items-center space-x-2">
-                        <Sparkles className="h-5 w-5 text-white/60" />
-                        <span className="text-white/80">Concept mapping</span>
+                        <Sparkles className="h-5 w-5 text-foreground/60" />
+                        <span className="text-foreground/80">Concept mapping</span>
                       </div>
                       
                       <div className="flex items-center space-x-2">
-                        <Sparkles className="h-5 w-5 text-white/60" />
-                        <span className="text-white/80">Knowledge synthesis</span>
+                        <Sparkles className="h-5 w-5 text-foreground/60" />
+                        <span className="text-foreground/80">Knowledge synthesis</span>
                       </div>
                     </div>
                   </AnimateInView>
@@ -371,7 +365,7 @@ export default function LandingPage() {
                 </div>
 
                 <div className="mt-8 text-center">
-                  <Button variant="outline" className="border-white/20 text-white hover:bg-white/10" onClick={() => router.push('/blog')}>
+                  <Button variant="outline" className="border-border text-foreground hover:bg-foreground/10" onClick={() => router.push('/blog')}>
                     View All Articles <ChevronRight className="ml-2 h-4 w-4 inline-block" />
                   </Button>
                 </div>

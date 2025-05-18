@@ -1,17 +1,25 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
+import { useTheme } from "next-themes"
 
 export function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const { theme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  // Ensure component is mounted before accessing theme
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Add comments to identify the particle background gradient
   // This is a subtle effect that creates the starry background
 
   useEffect(() => {
     const canvas = canvasRef.current
-    if (!canvas) return
+    if (!canvas || !mounted) return
 
     const ctx = canvas.getContext("2d")
     if (!ctx) return
@@ -50,6 +58,10 @@ export function ParticleBackground() {
       }
     }
 
+    // Determine particle color based on theme
+    const particleColor = theme === 'light' ? '101, 67, 33' : '255, 255, 255'
+    const lineColor = theme === 'light' ? '101, 67, 33' : '255, 255, 255'
+
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
@@ -67,7 +79,7 @@ export function ParticleBackground() {
 
         ctx.beginPath()
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(255, 255, 255, ${particle.opacity})`
+        ctx.fillStyle = `rgba(${particleColor}, ${particle.opacity})`
         ctx.fill()
 
         // Draw connections
@@ -81,7 +93,7 @@ export function ParticleBackground() {
               ctx.beginPath()
               ctx.moveTo(particle.x, particle.y)
               ctx.lineTo(otherParticle.x, otherParticle.y)
-              ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - distance / 100)})`
+              ctx.strokeStyle = `rgba(${lineColor}, ${0.1 * (1 - distance / 100)})`
               ctx.stroke()
             }
           }
@@ -105,7 +117,11 @@ export function ParticleBackground() {
     return () => {
       window.removeEventListener("resize", handleResize)
     }
-  }, [])
+  }, [theme, mounted])
+
+  if (!mounted) {
+    return null
+  }
 
   return (
     <motion.canvas

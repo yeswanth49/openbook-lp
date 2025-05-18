@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Dark theme by default */
 :root {
   --background: 0 0% 7%;
   --foreground: 0 0% 98%;
@@ -25,6 +26,30 @@
   --radius: 0.5rem;
 }
 
+/* Light theme variables */
+.light {
+  --background: 30 20% 96%;
+  --foreground: 220 10% 7%;
+  --card: 30 25% 98%;
+  --card-foreground: 220 10% 7%;
+  --popover: 30 25% 98%;
+  --popover-foreground: 220 10% 7%;
+  --primary: 220 10% 7%;
+  --primary-foreground: 30 20% 96%;
+  --secondary: 30 10% 92%;
+  --secondary-foreground: 220 10% 7%;
+  --muted: 30 10% 92%;
+  --muted-foreground: 220 10% 45%;
+  --accent: 30 10% 92%;
+  --accent-foreground: 220 10% 7%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 30 20% 96%;
+  --border: 30 10% 85%;
+  --input: 30 10% 85%;
+  --ring: 220 10% 14%;
+  --radius: 0.5rem;
+}
+
 html, body {
   min-height: 100vh;
   overflow-x: hidden;
@@ -45,33 +70,48 @@ body {
 }
 
 .gradient-text {
-  background: linear-gradient(to right, #ffffff, #a0a0a0);
+  background: linear-gradient(to right, hsl(var(--foreground)), hsl(var(--muted-foreground)));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.split-text {
+.cta-gradient-text {
   background: linear-gradient(to bottom, 
-    #ffffff 40%, 
-    rgba(255, 255, 255, 0.8) 45%,
-    rgba(255, 255, 255, 0.6) 47%,
-    rgba(255, 255, 255, 0.4) 48%,
-    rgba(255, 255, 255, 0.2) 49%,
-    rgba(0, 0, 0, 0.2) 51%,
-    rgba(0, 0, 0, 0.4) 52%,
-    rgba(0, 0, 0, 0.6) 53%,
-    rgba(0, 0, 0, 0.8) 55%,
-    #000000 60%
+    hsl(var(--foreground)) 0%, 
+    hsl(var(--foreground)) 80%, 
+    hsl(var(--background)) 100%
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+.split-text {
+  background: linear-gradient(to bottom, 
+    hsl(var(--foreground)) 40%, 
+    hsla(var(--foreground)/0.8) 45%,
+    hsla(var(--foreground)/0.6) 47%,
+    hsla(var(--foreground)/0.4) 48%,
+    hsla(var(--foreground)/0.2) 49%,
+    hsla(var(--background)/0.2) 51%,
+    hsla(var(--background)/0.4) 52%,
+    hsla(var(--background)/0.6) 53%,
+    hsla(var(--background)/0.8) 55%,
+    hsl(var(--background)) 60%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 1px 1px hsla(var(--foreground)/0.1);
 }
 
 .dot-pattern {
   background-color: hsl(var(--background));
-  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23222' fill-opacity='0.4' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='1'/%3E%3Ccircle cx='13' cy='13' r='1'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23444' fill-opacity='0.3' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='1'/%3E%3Ccircle cx='13' cy='13' r='1'/%3E%3Ccircle cx='3' cy='13' r='1'/%3E%3Ccircle cx='13' cy='3' r='1'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.light .dot-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23654321' fill-opacity='0.3' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='1'/%3E%3Ccircle cx='13' cy='13' r='1'/%3E%3Ccircle cx='3' cy='13' r='1'/%3E%3Ccircle cx='13' cy='3' r='1'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 /* Custom scrollbar for the popups */

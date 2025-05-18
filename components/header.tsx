@@ -14,6 +14,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
 import { cn } from "@/lib/utils"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 // Animation variants for hover effects
 const hoverAnimation = {
@@ -36,7 +37,7 @@ export default function Header() {
       transition={{ duration: 0.5 }}
       className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm"
     >
-      <nav className="border-input/50 bg-popover flex w-full max-w-3xl mx-auto items-center justify-between gap-2 rounded-xl border p-2 px-4 my-4">
+      <nav className="border-input/50 bg-popover flex w-full max-w-3xl mx-auto items-center justify-between gap-2 rounded-xl border p-2 px-4 mt-4 mb-2">
         <div className="flex items-center gap-6">
           <Link className="relative cursor-pointer flex items-center gap-2" href="/">
             <motion.div whileHover={{ rotate: 10 }} transition={{ type: "spring", stiffness: 400 }}>
@@ -116,7 +117,10 @@ export default function Header() {
           </NavigationMenu>
         </div>
         
-        <div className="hidden md:flex gap-2">
+        <div className="hidden md:flex items-center gap-2">
+          <motion.div whileHover={buttonHoverAnimation}>
+            <ThemeToggle />
+          </motion.div>
           <motion.div whileHover={buttonHoverAnimation}>
             <Link target="_blank" href="https://cal.com/team/0">
               <Button variant="ghost" className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:text-accent-foreground px-4 py-2 h-8">
@@ -227,6 +231,9 @@ export default function Header() {
             </motion.div>
 
             <div className="pt-4 border-t border-input/50 flex flex-col space-y-3">
+              <div className="flex items-center justify-center mb-2">
+                <ThemeToggle />
+              </div>
               <motion.div whileHover={buttonHoverAnimation}>
                 <Button variant="ghost" size="sm" className="justify-center rounded-none">
                   Sign In
