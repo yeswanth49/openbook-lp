@@ -1,18 +1,10 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { BookOpen, ChevronDown, Menu, X } from "lucide-react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu"
 import { cn } from "@/lib/utils"
 import { ThemeToggle } from "@/components/theme-toggle"
 
@@ -29,15 +21,25 @@ const buttonHoverAnimation = {
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [activeItem, setActiveItem] = useState<string | null>(null)
+
+  // Handle hover for dropdown menus
+  const handleMouseEnter = (item: string) => {
+    setActiveItem(item)
+  }
+
+  const handleMouseLeave = () => {
+    setActiveItem(null)
+  }
 
   return (
     <motion.header
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="sticky top-0 header-layer w-full"
+      className="fixed top-0 header-layer w-full"
     >
-      <nav className="border-input/50 bg-popover/90 backdrop-blur-md flex w-full max-w-3xl mx-auto items-center justify-between gap-2 rounded-xl border p-2 px-4 mt-4 mb-2">
+      <nav className="border-input/50 bg-popover/95 backdrop-blur-lg flex w-full max-w-3xl mx-auto items-center justify-between gap-2 rounded-xl border p-2 px-4 mt-4 mb-2">
         <div className="flex items-center gap-6">
           <Link className="relative cursor-pointer flex items-center gap-2" href="/">
             <motion.div whileHover={{ rotate: 10 }} transition={{ type: "spring", stiffness: 400 }}>
@@ -46,14 +48,24 @@ export default function Header() {
             <span className="text-lg font-bold tracking-tight">OpenBook</span>
           </Link>
           
-          <NavigationMenu className="hidden md:flex">
-            <NavigationMenuList className="group flex flex-1 list-none items-center justify-center space-x-1 gap-1">
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="group inline-flex h-9 w-max items-center justify-center text-sm font-medium transition-colors hover:text-accent-foreground focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=open]:text-accent-foreground group bg-transparent rounded-none border-none shadow-none data-[state=open]:bg-transparent hover:bg-transparent focus:bg-transparent">
+          <div className="hidden md:block">
+            <div className="flex items-center space-x-1 gap-1">
+              <div 
+                className="relative"
+                onMouseEnter={() => handleMouseEnter('company')}
+                onMouseLeave={handleMouseLeave}
+              >
+                <button className="group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent/20 focus:bg-accent/20">
                   Company
-                </NavigationMenuTrigger>
-                <NavigationMenuContent className="bg-popover/90 backdrop-blur-md rounded-lg border shadow-md">
-                  <div className="grid gap-3 p-4 w-[400px]">
+                  <ChevronDown className={`ml-1 h-4 w-4 transition-transform ${activeItem === 'company' ? 'rotate-180' : ''}`} />
+                </button>
+                
+                {activeItem === 'company' && (
+                  <div 
+                    className="dropdown-layer absolute top-full left-0 mt-2 bg-popover/95 backdrop-blur-lg rounded-lg border shadow-lg p-4 w-[400px] z-50 grid gap-3"
+                    onMouseEnter={() => handleMouseEnter('company')}
+                    onMouseLeave={handleMouseLeave}
+                  >
                     <motion.div whileHover={hoverAnimation}>
                       <Link href="/about" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
                         <div className="text-sm font-medium">About</div>
@@ -67,15 +79,25 @@ export default function Header() {
                       </Link>
                     </motion.div>
                   </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
+                )}
+              </div>
               
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="group inline-flex h-9 w-max items-center justify-center text-sm font-medium transition-colors hover:text-accent-foreground focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=open]:text-accent-foreground group bg-transparent rounded-none border-none shadow-none data-[state=open]:bg-transparent hover:bg-transparent focus:bg-transparent">
+              <div 
+                className="relative"
+                onMouseEnter={() => handleMouseEnter('resources')}
+                onMouseLeave={handleMouseLeave}
+              >
+                <button className="group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent/20 focus:bg-accent/20">
                   Resources
-                </NavigationMenuTrigger>
-                <NavigationMenuContent className="bg-popover/90 backdrop-blur-md rounded-lg border shadow-md">
-                  <div className="grid gap-3 p-4 w-[400px]">
+                  <ChevronDown className={`ml-1 h-4 w-4 transition-transform ${activeItem === 'resources' ? 'rotate-180' : ''}`} />
+                </button>
+                
+                {activeItem === 'resources' && (
+                  <div 
+                    className="dropdown-layer absolute top-full left-0 mt-2 bg-popover/95 backdrop-blur-lg rounded-lg border shadow-lg p-4 w-[400px] z-50 grid gap-3"
+                    onMouseEnter={() => handleMouseEnter('resources')}
+                    onMouseLeave={handleMouseLeave}
+                  >
                     <motion.div whileHover={hoverAnimation}>
                       <Link href="#features" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
                         <div className="text-sm font-medium">Features</div>
@@ -101,20 +123,18 @@ export default function Header() {
                       </Link>
                     </motion.div>
                   </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
+                )}
+              </div>
               
-              <NavigationMenuItem>
-                <motion.div whileHover={buttonHoverAnimation}>
-                  <Link target="_blank" href="https://x.com/GoOpenBook">
-                    <Button variant="ghost" className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:text-accent-foreground px-3 py-1.5 h-7">
-                      Twitter
-                    </Button>
-                  </Link>
-                </motion.div>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+              <motion.div whileHover={buttonHoverAnimation}>
+                <Link target="_blank" href="https://x.com/GoOpenBook">
+                  <Button variant="ghost" className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:text-accent-foreground px-3 py-1.5 h-7">
+                    Twitter
+                  </Button>
+                </Link>
+              </motion.div>
+            </div>
+          </div>
         </div>
         
         <div className="hidden md:flex items-center gap-2">

@@ -28,9 +28,21 @@ export function ParticleBackground() {
     const setCanvasDimensions = () => {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
+      
+      // Ensure the canvas stays in a fixed position
+      canvas.style.position = 'fixed'
+      canvas.style.top = '0'
+      canvas.style.left = '0'
+      canvas.style.zIndex = '-10'
     }
     
     setCanvasDimensions()
+
+    // Disconnect particle animation from scroll position
+    document.addEventListener('scroll', () => {
+      // Prevent any scroll-based behavior for particles
+      canvas.style.transform = 'translateY(0)' 
+    })
 
     // PARTICLE EFFECT: This creates the subtle starry background
     // To remove, you can set particles.length = 0 or return early from this useEffect
@@ -126,7 +138,7 @@ export function ParticleBackground() {
   return (
     <motion.canvas
       ref={canvasRef}
-      className="fixed inset-0 w-full h-full particle-layer"
+      className="fixed inset-0 w-full h-full pointer-events-none particle-layer"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 2 }}

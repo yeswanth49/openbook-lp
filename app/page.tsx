@@ -83,7 +83,7 @@ export default function LandingPage() {
       ) : (
         <>
           {showLandingContent && <Header />}
-          <div className="landing-content animate-fadeIn">
+          <div className="landing-content animate-fadeIn pt-24">
             {/* Hero Section */}
             <section className="relative overflow-hidden py-24 md:py-32">
               <div className="container mx-auto px-4 md:px-6">
