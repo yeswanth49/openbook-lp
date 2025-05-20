@@ -35,9 +35,9 @@ export default function Header() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm"
+      className="sticky top-0 header-layer w-full"
     >
-      <nav className="border-input/50 bg-popover flex w-full max-w-3xl mx-auto items-center justify-between gap-2 rounded-xl border p-2 px-4 mt-4 mb-2">
+      <nav className="border-input/50 bg-popover/90 backdrop-blur-md flex w-full max-w-3xl mx-auto items-center justify-between gap-2 rounded-xl border p-2 px-4 mt-4 mb-2">
         <div className="flex items-center gap-6">
           <Link className="relative cursor-pointer flex items-center gap-2" href="/">
             <motion.div whileHover={{ rotate: 10 }} transition={{ type: "spring", stiffness: 400 }}>
@@ -52,7 +52,7 @@ export default function Header() {
                 <NavigationMenuTrigger className="group inline-flex h-9 w-max items-center justify-center text-sm font-medium transition-colors hover:text-accent-foreground focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=open]:text-accent-foreground group bg-transparent rounded-none border-none shadow-none data-[state=open]:bg-transparent hover:bg-transparent focus:bg-transparent">
                   Company
                 </NavigationMenuTrigger>
-                <NavigationMenuContent className="bg-popover rounded-lg border shadow-md">
+                <NavigationMenuContent className="bg-popover/90 backdrop-blur-md rounded-lg border shadow-md">
                   <div className="grid gap-3 p-4 w-[400px]">
                     <motion.div whileHover={hoverAnimation}>
                       <Link href="/about" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
@@ -74,7 +74,7 @@ export default function Header() {
                 <NavigationMenuTrigger className="group inline-flex h-9 w-max items-center justify-center text-sm font-medium transition-colors hover:text-accent-foreground focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=open]:text-accent-foreground group bg-transparent rounded-none border-none shadow-none data-[state=open]:bg-transparent hover:bg-transparent focus:bg-transparent">
                   Resources
                 </NavigationMenuTrigger>
-                <NavigationMenuContent className="bg-popover rounded-lg border shadow-md">
+                <NavigationMenuContent className="bg-popover/90 backdrop-blur-md rounded-lg border shadow-md">
                   <div className="grid gap-3 p-4 w-[400px]">
                     <motion.div whileHover={hoverAnimation}>
                       <Link href="#features" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">

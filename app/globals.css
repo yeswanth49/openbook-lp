@@ -4,11 +4,11 @@
 
 /* Dark theme by default */
 :root {
-  --background: 0 0% 7%;
+  --background: 0 0% 9%;
   --foreground: 0 0% 98%;
-  --card: 0 0% 10%;
+  --card: 0 0% 12%;
   --card-foreground: 0 0% 98%;
-  --popover: 0 0% 10%;
+  --popover: 0 0% 12%;
   --popover-foreground: 0 0% 98%;
   --primary: 0 0% 98%;
   --primary-foreground: 0 0% 7%;
@@ -25,6 +25,13 @@
   --ring: 0 0% 83.9%;
   --radius: 0.5rem;
 }
+
+/* Z-index structure */
+.particle-layer { z-index: -10; }
+.content-layer { z-index: 10; }
+.header-layer { z-index: 20; }
+.modal-layer { z-index: 30; }
+.overlay-controls { z-index: 40; }
 
 /* Light theme variables */
 .light {
@@ -277,3 +284,4 @@ body {
   color: theme('colors.blue.300');
   text-decoration: underline;
 }
+

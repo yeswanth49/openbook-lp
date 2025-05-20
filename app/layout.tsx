@@ -5,7 +5,6 @@ import { Dancing_Script, Kalam } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
 import { ParticleBackground } from '@/components/particle-background'
 import CombinedFooter from '@/components/CombinedFooter'
-import BackButton from '@/components/BackButton'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -47,8 +46,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <ParticleBackground />
-          <div className="relative z-10">
-            <BackButton />
+          <div className="flex min-h-screen flex-col">
             {children}
             <CombinedFooter />
           </div>
