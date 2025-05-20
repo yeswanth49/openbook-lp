@@ -34,7 +34,7 @@ export default function BlogCard({
   
   return (
     <Link href={`/blog/${slug}`} className="block h-full">
-      <Card className="overflow-hidden transition-all hover:shadow-md hover:translate-y-[-4px] h-full flex flex-col border-white/10 bg-white/5 backdrop-blur-sm cursor-pointer group">
+      <Card className="overflow-hidden transition-all hover:shadow-md hover:translate-y-[-4px] h-full flex flex-col border-border/20 bg-card/80 backdrop-blur-sm cursor-pointer group">
         <div className="relative h-48 overflow-hidden">
           {image ? (
             <img
@@ -43,9 +43,9 @@ export default function BlogCard({
               className="w-full h-full object-cover transition-transform group-hover:scale-105 opacity-80"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center bg-white/5">
+            <div className="w-full h-full flex items-center justify-center bg-background/50">
               <div className="transition-transform group-hover:scale-110 group-hover:rotate-3">
-                <CategoryIcon className="h-16 w-16 text-white/60 mb-2" />
+                <CategoryIcon className="h-16 w-16 text-foreground/60 mb-2" />
               </div>
             </div>
           )}
@@ -61,7 +61,7 @@ export default function BlogCard({
               <span>{readTime}</span>
             </div>
           </div>
-          <h3 className="text-xl font-bold mb-2 line-clamp-2">{title}</h3>
+          <h3 className="text-xl font-bold mb-2 line-clamp-2 text-foreground">{title}</h3>
           <p className="text-muted-foreground line-clamp-3">{excerpt}</p>
         </CardContent>
         <CardFooter className="px-6 pb-6 pt-0 flex justify-between items-center">
@@ -69,7 +69,7 @@ export default function BlogCard({
             <User className="h-4 w-4 mr-1 text-muted-foreground" />
             <span className="text-muted-foreground">{author}</span>
           </div>
-          <span className="text-sm font-medium text-white inline-flex items-center">
+          <span className="text-sm font-medium text-foreground inline-flex items-center">
             Read More
             <svg
               className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1"

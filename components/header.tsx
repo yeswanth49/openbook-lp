@@ -51,20 +51,18 @@ export default function Header() {
           <div className="hidden md:block">
             <div className="flex items-center space-x-1 gap-1">
               <div 
-                className="relative"
+                className="relative group cursor-pointer"
                 onMouseEnter={() => handleMouseEnter('company')}
                 onMouseLeave={handleMouseLeave}
               >
-                <button className="group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent/20 focus:bg-accent/20">
+                <div className="inline-flex h-9 w-full items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent/20 focus:bg-accent/20">
                   Company
                   <ChevronDown className={`ml-1 h-4 w-4 transition-transform ${activeItem === 'company' ? 'rotate-180' : ''}`} />
-                </button>
+                </div>
                 
                 {activeItem === 'company' && (
                   <div 
-                    className="dropdown-layer absolute top-full left-0 mt-2 bg-popover/95 backdrop-blur-lg rounded-lg border shadow-lg p-4 w-[400px] z-50 grid gap-3"
-                    onMouseEnter={() => handleMouseEnter('company')}
-                    onMouseLeave={handleMouseLeave}
+                    className="dropdown-layer absolute top-full left-0 mt-1 bg-popover/95 backdrop-blur-lg rounded-lg border shadow-lg p-4 w-[400px] z-50 grid gap-3"
                   >
                     <motion.div whileHover={hoverAnimation}>
                       <Link href="/about" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
@@ -83,20 +81,18 @@ export default function Header() {
               </div>
               
               <div 
-                className="relative"
+                className="relative group cursor-pointer"
                 onMouseEnter={() => handleMouseEnter('resources')}
                 onMouseLeave={handleMouseLeave}
               >
-                <button className="group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent/20 focus:bg-accent/20">
+                <div className="inline-flex h-9 w-full items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent/20 focus:bg-accent/20">
                   Resources
                   <ChevronDown className={`ml-1 h-4 w-4 transition-transform ${activeItem === 'resources' ? 'rotate-180' : ''}`} />
-                </button>
+                </div>
                 
                 {activeItem === 'resources' && (
                   <div 
-                    className="dropdown-layer absolute top-full left-0 mt-2 bg-popover/95 backdrop-blur-lg rounded-lg border shadow-lg p-4 w-[400px] z-50 grid gap-3"
-                    onMouseEnter={() => handleMouseEnter('resources')}
-                    onMouseLeave={handleMouseLeave}
+                    className="dropdown-layer absolute top-full left-0 mt-1 bg-popover/95 backdrop-blur-lg rounded-lg border shadow-lg p-4 w-[400px] z-50 grid gap-3"
                   >
                     <motion.div whileHover={hoverAnimation}>
                       <Link href="#features" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">

@@ -119,7 +119,7 @@ export default function LandingPage() {
                 
                 <div className="mt-12 mb-16">
                   <AnimateInView>
-                    <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl">
+                    <div className="relative rounded-xl overflow-hidden border border-border/20 shadow-2xl">
                       <Image 
                         src="/screenshots/graph.png" 
                         alt="OpenBook Graph Interface" 
@@ -176,18 +176,18 @@ export default function LandingPage() {
                   highlightWords={[
                     {
                       word: "Better",
-                      className: "font-script text-white text-5xl md:text-6xl relative text-3d mx-2",
+                      className: "font-script text-foreground text-5xl md:text-6xl relative text-3d mx-2",
                     },
                     {
                       word: "Learning",
-                      className: "font-script text-white text-5xl md:text-6xl relative textured-underline text-3d",
+                      className: "font-script text-foreground text-5xl md:text-6xl relative textured-underline text-3d",
                     }
                   ]}
                 />
                 
                 <div className="mt-12">
                   <AnimateInView>
-                    <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl mx-auto max-w-4xl">
+                    <div className="relative rounded-xl overflow-hidden border border-border/20 shadow-2xl mx-auto max-w-4xl">
                       <Image 
                         src="/screenshots/journal-interface.png" 
                         alt="OpenBook Journal Interface" 
