@@ -4,7 +4,7 @@ import { CallToAction } from "@/components/call-to-action"
 export default function AboutPage() {
   return (
     <main className="min-h-screen">
-      <div className="container mx-auto max-w-5xl px-4 py-12">
+      <div className="container mx-auto max-w-5xl px-4 pt-24 pb-12">
         <h1 className="text-4xl font-bold text-center mb-24">About Us</h1>
 
         <section className="mb-24">

@@ -45,7 +45,7 @@ const teamMembers: TeamMember[] = [
 export default function TeamPage() {
   return (
     <main className="min-h-screen">
-      <div className="container mx-auto max-w-6xl px-4 py-12">
+      <div className="container mx-auto max-w-6xl px-4 pt-24 pb-12">
         <h1 className="text-4xl font-bold text-center mb-8">Our Team</h1>
         
         <p className="text-lg text-center max-w-3xl mx-auto mb-16">
