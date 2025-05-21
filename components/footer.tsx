@@ -1,4 +1,4 @@
-import { BookOpen, Mail, MapPin, Phone } from "lucide-react"
+import { BookOpen, Mail, MapPin, Phone, Github, Twitter, MessagesSquare, MessageCircleIcon } from "lucide-react"
 import Link from "next/link"
 
 export default function Footer() {
@@ -54,23 +54,42 @@ export default function Footer() {
             <h3 className="text-sm font-semibold uppercase tracking-wider">Resources</h3>
             <ul className="mt-4 space-y-2">
               <li>
-                <Link href="#" className="text-sm text-muted-foreground hover:text-foreground">
-                  Blog
+                <Link 
+                  href="https://github.com/openbookjs/openbook" 
+                  target="_blank" 
+                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+                >
+                  <Github className="h-4 w-4" />
+                  GitHub
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-sm text-muted-foreground hover:text-foreground">
-                  Guides
+                <Link 
+                  href="https://x.com/GoOpenBook" 
+                  target="_blank" 
+                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+                >
+                  <Twitter className="h-4 w-4" />
+                  Twitter
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-sm text-muted-foreground hover:text-foreground">
-                  FAQ
+                <Link 
+                  href="https://discord.gg/openbook" 
+                  target="_blank" 
+                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+                >
+                  <MessagesSquare className="h-4 w-4" />
+                  Discord
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-sm text-muted-foreground hover:text-foreground">
-                  Support
+                <Link 
+                  href="https://goopenbook.in" 
+                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+                >
+                  <MessageCircleIcon className="h-4 w-4" />
+                  Try Now
                 </Link>
               </li>
             </ul>
@@ -80,23 +99,27 @@ export default function Footer() {
             <h3 className="text-sm font-semibold uppercase tracking-wider">Company</h3>
             <ul className="mt-4 space-y-2">
               <li>
-                <Link href="#" className="text-sm text-muted-foreground hover:text-foreground">
-                  About Us
+                <Link 
+                  href="/about" 
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
+                  About
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-sm text-muted-foreground hover:text-foreground">
-                  Careers
+                <Link 
+                  href="/team" 
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
+                  Team
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-sm text-muted-foreground hover:text-foreground">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-sm text-muted-foreground hover:text-foreground">
-                  Terms of Service
+                <Link 
+                  href="/blogs" 
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
+                  Blogs
                 </Link>
               </li>
             </ul>
