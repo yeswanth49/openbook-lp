@@ -29,7 +29,6 @@ export const metadata: Metadata = {
   title: 'OpenBook',
   description: 'AI-powered learning notebook',
   generator: 'v0.dev',
-  metadataBase: new URL(process.env.SITE_URL || 'https://openbook.ai'),
 }
 
 export default function RootLayout({

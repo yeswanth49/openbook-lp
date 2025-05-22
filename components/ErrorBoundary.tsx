@@ -3,13 +3,11 @@
 import React, { ReactNode } from 'react'
 
 interface ErrorBoundaryProps {
-  children: ReactNode;
-  fallback?: ReactNode;
+  children: ReactNode
 }
 
 interface ErrorBoundaryState {
-  hasError: boolean;
-  error?: Error;
+  hasError: boolean
 }
 
 export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
@@ -18,8 +16,8 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
     this.state = { hasError: false }
   }
 
-  static getDerivedStateFromError(error: Error) {
-    return { hasError: true, error }
+  static getDerivedStateFromError(_: Error) {
+    return { hasError: true }
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
@@ -29,24 +27,8 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
 
   render() {
     if (this.state.hasError) {
-      // Use custom fallback if provided, otherwise show default error UI
-      if (this.props.fallback) {
-        return this.props.fallback;
-      }
-      
-      return (
-        <div className="p-4 border border-red-500 rounded-md bg-red-100/10 text-red-500">
-          <h3 className="text-lg font-semibold">Error rendering content</h3>
-          <p>There was a problem rendering this content. Please try again later.</p>
-          {this.state.error && (
-            <p className="mt-2 text-sm opacity-80">
-              {this.state.error.message}
-            </p>
-          )}
-        </div>
-      );
+      return <div className="text-red-500">There was an error rendering this post.</div>
     }
-    
-    return this.props.children;
+    return this.props.children
   }
 } 

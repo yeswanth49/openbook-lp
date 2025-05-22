@@ -13,9 +13,6 @@ const nextConfig = {
     unoptimized: true,
   },
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
-  env: {
-    SITE_URL: process.env.SITE_URL || 'https://openbook.ai',
-  },
 }
 
 const mdx = withMDX({

@@ -22,42 +22,16 @@ function CustomLink(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
 }
 
 // Helper function for heading IDs
-function createSlug(input: React.ReactNode): string {
-  // Convert ReactNode to string safely
-  let text = '';
-  
-  if (typeof input === 'string') {
-    text = input;
-  } else if (typeof input === 'number') {
-    text = String(input);
-  } else {
-    // For complex React elements, use a safer approach
-    // Convert to string representation and clean it up
-    try {
-      // Use React's renderToString in a browser-safe way
-      text = React.Children.toArray(input)
-        .map(child => {
-          if (typeof child === 'string') return child;
-          if (typeof child === 'number') return String(child);
-          return '';
-        })
-        .join('');
-    } catch (error) {
-      console.warn('Could not create slug from React element', error);
-      return '';
-    }
-  }
-  
-  // Process the text to create a slug
-  return text
-    .toLowerCase()
+function createSlug(input: string): string {
+  return input
+    ?.toLowerCase()
     .replace(/\s+/g, '-')
-    .replace(/[^\w-]+/g, '');
+    .replace(/[^\w-]+/g, '')
 }
 
 // Custom heading components with anchor links
 function H1(props: { children: React.ReactNode }) {
-  const id = createSlug(props.children)
+  const id = createSlug(props.children as string)
   return (
     <h1 id={id} className="group flex whitespace-pre-wrap text-4xl font-bold mt-8 mb-4">
       <span>{props.children}</span>
@@ -69,7 +43,7 @@ function H1(props: { children: React.ReactNode }) {
 }
 
 function H2(props: { children: React.ReactNode }) {
-  const id = createSlug(props.children)
+  const id = createSlug(props.children as string)
   return (
     <h2 id={id} className="group flex whitespace-pre-wrap text-3xl font-bold mt-8 mb-4">
       <span>{props.children}</span>
@@ -81,7 +55,7 @@ function H2(props: { children: React.ReactNode }) {
 }
 
 function H3(props: { children: React.ReactNode }) {
-  const id = createSlug(props.children)
+  const id = createSlug(props.children as string)
   return (
     <h3 id={id} className="group flex whitespace-pre-wrap text-2xl font-semibold mt-6 mb-3">
       <span>{props.children}</span>
@@ -93,7 +67,7 @@ function H3(props: { children: React.ReactNode }) {
 }
 
 function H4(props: { children: React.ReactNode }) {
-  const id = createSlug(props.children)
+  const id = createSlug(props.children as string)
   return (
     <h4 id={id} className="group flex whitespace-pre-wrap text-xl font-semibold mt-6 mb-3">
       <span>{props.children}</span>
