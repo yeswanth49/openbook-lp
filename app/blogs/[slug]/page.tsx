@@ -184,7 +184,12 @@ async function PostContentLoader({ slug, category }: { slug: string; category: s
         </div>
       )}
       
-      <ErrorBoundary>
+      <ErrorBoundary fallback={
+        <div className="p-4 border border-red-500 rounded-md bg-red-100/10 text-red-500">
+          <h3 className="text-lg font-semibold">Error rendering blog content</h3>
+          <p>There was a problem rendering this blog post. Please try again later.</p>
+        </div>
+      }>
         <div className="mdx-content">
           <MDXRemote 
             source={content} 
