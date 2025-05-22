@@ -22,16 +22,37 @@ function CustomLink(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
 }
 
 // Helper function for heading IDs
-function createSlug(input: string): string {
+function createSlug(input: React.ReactNode): string {
+  if (typeof input !== 'string') {
+    // Handle non-string input
+    if (React.isValidElement(input)) {
+      // Try to extract text content from React elements
+      const props = input.props as { children?: React.ReactNode };
+      if (props.children) {
+        return createSlug(React.Children.toArray(props.children).join(' '));
+      }
+    } else if (Array.isArray(input)) {
+      // Handle array of elements
+      return createSlug(React.Children.toArray(input).join(' '));
+    }
+    // Fall back to empty string or generated ID
+    return `heading-${Math.random().toString(36).substr(2, 9)}`;
+  }
+  
   return input
-    ?.toLowerCase()
+    .toLowerCase()
     .replace(/\s+/g, '-')
-    .replace(/[^\w-]+/g, '')
+    .replace(/[^\w-]+/g, '');
+}
+
+// Define proper type for heading components
+interface HeadingProps {
+  children: React.ReactNode;
 }
 
 // Custom heading components with anchor links
-function H1(props: { children: React.ReactNode }) {
-  const id = createSlug(props.children as string)
+function H1(props: HeadingProps) {
+  const id = createSlug(props.children)
   return (
     <h1 id={id} className="group flex whitespace-pre-wrap text-4xl font-bold mt-8 mb-4">
       <span>{props.children}</span>
@@ -42,8 +63,8 @@ function H1(props: { children: React.ReactNode }) {
   )
 }
 
-function H2(props: { children: React.ReactNode }) {
-  const id = createSlug(props.children as string)
+function H2(props: HeadingProps) {
+  const id = createSlug(props.children)
   return (
     <h2 id={id} className="group flex whitespace-pre-wrap text-3xl font-bold mt-8 mb-4">
       <span>{props.children}</span>
@@ -54,8 +75,8 @@ function H2(props: { children: React.ReactNode }) {
   )
 }
 
-function H3(props: { children: React.ReactNode }) {
-  const id = createSlug(props.children as string)
+function H3(props: HeadingProps) {
+  const id = createSlug(props.children)
   return (
     <h3 id={id} className="group flex whitespace-pre-wrap text-2xl font-semibold mt-6 mb-3">
       <span>{props.children}</span>
@@ -66,8 +87,8 @@ function H3(props: { children: React.ReactNode }) {
   )
 }
 
-function H4(props: { children: React.ReactNode }) {
-  const id = createSlug(props.children as string)
+function H4(props: HeadingProps) {
+  const id = createSlug(props.children)
   return (
     <h4 id={id} className="group flex whitespace-pre-wrap text-xl font-semibold mt-6 mb-3">
       <span>{props.children}</span>

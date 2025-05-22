@@ -51,6 +51,7 @@ export async function generateMetadata({ params }: BlogPostPageParams): Promise<
       return { title: 'Post Not Found' }
     }
     return {
+      metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://openbook.ai'),
       title: post.title,
       description: post.excerpt,
       openGraph: {
