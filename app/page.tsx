@@ -6,7 +6,6 @@ import { ChevronRight, Brain, Search, Edit, PenTool, KeyRound, Lightbulb, Clock,
 import Header from "@/components/header"
 import AnimateInView from "@/components/animate-in-view"
 import SectionHeading from "@/components/section-heading"
-import { ParticleBackground } from "@/components/particle-background"
 import { motion } from "framer-motion"
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
@@ -181,7 +180,7 @@ export default function LandingPage() {
         </section>
 
         {/* Key Features Section */}
-        <section className="py-20 bg-background/50">
+        <section className="py-20">
           <div className="container mx-auto px-4 md:px-6">
             <SectionHeading
               title="Speed Is Everything"
@@ -239,7 +238,7 @@ export default function LandingPage() {
         </section>
 
         {/* Interface Preview Section */}
-        <section className="relative overflow-hidden py-20 bg-background/50">
+        <section className="relative overflow-hidden">
           <div className="container mx-auto px-4 md:px-6">
             <SectionHeading
               title="Optimized for Phones Too!!"
@@ -328,7 +327,7 @@ export default function LandingPage() {
         </section>
 
         {/* Productivity Benefits Section */}
-        <section className="py-20 bg-background/50">
+        <section className="py-20">
           <div className="container mx-auto px-4 md:px-6">
             <div className="max-w-3xl mx-auto text-center">
               <AnimateInView>

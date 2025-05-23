@@ -19,7 +19,7 @@ export function CallToAction({
   withBreak = true,
 }: CallToActionProps) {
   return (
-    <section className="py-32 md:py-40 bg-background/50">
+    <section className="py-32 md:py-40 ">
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-4xl mx-auto text-center">
           <AnimateInView>

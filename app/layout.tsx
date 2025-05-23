@@ -3,7 +3,7 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import { Dancing_Script, Kalam } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
-import { ParticleBackground } from '@/components/particle-background'
+import BeamsBackground from '@/components/beams-background'
 import CombinedFooter from '@/components/CombinedFooter'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
@@ -47,7 +47,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ParticleBackground />
+          <BeamsBackground intensity="strong" />
           <div className="flex min-h-screen flex-col">
             {children}
             <CombinedFooter />
