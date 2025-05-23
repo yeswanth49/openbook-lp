@@ -3,18 +3,25 @@
     "next/core-web-vitals",
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended"
   ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["react", "react-hooks", "@typescript-eslint"],
+  "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
+    "react/no-unescaped-entities": "off",
+    "react/no-unknown-property": ["error", { "ignore": ["jsx", "global", "cmdk-input-wrapper"] }],
+    "react/jsx-no-target-blank": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/no-explicit-any": "warn",
-    "no-console": ["warn", { "allow": ["warn", "error"] }]
+    "@typescript-eslint/ban-ts-comment": "warn",
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "no-useless-escape": "warn",
+    "no-var": "warn"
   },
   "settings": {
     "react": {

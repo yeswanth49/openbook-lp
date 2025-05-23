@@ -192,7 +192,7 @@ export default function LandingPage() {
                 <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
                   <AnimateInView>
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 gradient-text">
-                      AI Powered Notebook, Built to Learn Faster
+                      Clarity in <span className="font-instrument-serif">Complexity</span>, Built for Learners
                     </h1>
                     <p className="text-lg md:text-xl mb-8 text-muted-foreground max-w-2xl mx-auto">
                       OpenBook is an AI-native notebook that helps you learn, retain, and apply knowledge more effectively than ever before.
@@ -270,33 +270,31 @@ export default function LandingPage() {
             </section>
 
             {/* Interface Preview Section */}
-            <section className="py-20 bg-background/50">
+            <section className="relative overflow-hidden py-20 bg-background/50">
               <div className="container mx-auto px-4 md:px-6">
                 <SectionHeading
-                  title="Designed for Better Learning"
-                  description="A clean interface that helps you focus on what matters most"
-                  highlightWords={[
-                    {
-                      word: "Better",
-                      className: "font-script text-foreground text-5xl md:text-6xl relative text-3d mx-2",
-                    },
-                    {
-                      word: "Learning",
-                      className: "font-script text-foreground text-5xl md:text-6xl relative textured-underline text-3d",
-                    }
-                  ]}
+                  title="Optimized for Phones Too!!"
+                  description="Designed for students and lifelong learners who value their time"
                 />
                 
-                <div className="mt-12 mb-16">
+                <div className="mt-12 mb-16 relative">
                   <AnimateInView>
-                    <div className="">
+                    <div className="relative">
                       <Image 
-                        src="/screenshots/iPhone15.png" 
+                        src="/screenshots/iPhones1.png" 
                         alt="OpenBook Graph Interface" 
                         width={1200}
                         height={675}
                         className="w-full h-auto"
                       />
+                      
+                      {/* Glassmorphism overlay - positioned for desktop, full width for mobile */}
+                      <div className="absolute bottom-0 left-0 right-0 md:inset-auto md:left-[5%] md:top-1/2 md:transform md:-translate-y-1/2 bg-background/40 backdrop-blur-md rounded-t-lg md:rounded-xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.1)] md:w-[320px] md:max-w-xs z-10 p-4 md:p-6 flex items-center md:block">
+                        <div className="w-full md:w-auto px-4 md:px-0">
+                          <h3 className="text-lg md:text-xl font-bold mb-2 gradient-text">Mobile First</h3>
+                          <p className="text-xs md:text-sm text-muted-foreground">Access your notes anywhere with our fully responsive design optimized for all your devices.</p>
+                        </div>
+                      </div>
                     </div>
                   </AnimateInView>
                 </div>

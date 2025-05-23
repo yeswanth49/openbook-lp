@@ -5,18 +5,23 @@ import BlogCard from '@/components/blog-card'
 import AnimateInView from '@/components/animate-in-view'
 import { notFound } from 'next/navigation'
 
+type CategoryParams = {
+  category: string;
+};
+
 export async function generateMetadata({ 
   params 
 }: { 
-  params: { category: string } 
+  params: Promise<CategoryParams>
 }): Promise<Metadata> {
+  const { category } = await params;
   const categoryLabels: Record<string, string> = {
     'personal': 'Personal Blogs',
     'weekly': 'Weekly Blogs',
     'company': 'Company Blogs',
   }
   
-  const label = categoryLabels[params.category]
+  const label = categoryLabels[category]
   if (!label) return notFound()
   
   return {
@@ -28,15 +33,15 @@ export async function generateMetadata({
 export default async function CategoryPage({ 
   params 
 }: { 
-  params: { category: string } 
+  params: Promise<CategoryParams>
 }) {
+  const { category } = await params;
   const categoryLabels: Record<string, string> = {
     'personal': 'Personal Blogs',
     'weekly': 'Weekly Blogs',
     'company': 'Company Blogs',
   }
   
-  const category = params.category
   const label = categoryLabels[category]
   
   if (!label) {

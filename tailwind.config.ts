@@ -118,19 +118,6 @@ const config = {
   ],
   prefix: "",
   mode: "jit",
-  purge: {
-    enabled: process.env.NODE_ENV === 'production',
-    content: [
-      "./pages/**/*.{ts,tsx}",
-      "./components/**/*.{ts,tsx}",
-      "./app/**/*.{ts,tsx}",
-      "./src/**/*.{ts,tsx}",
-      "*.{js,ts,jsx,tsx,mdx}",
-    ],
-    options: {
-      safelist: ['dark'],
-    }
-  },
   theme: {
     container: {
       center: true,
