@@ -289,7 +289,7 @@ export default function LandingPage() {
                 
                 <div className="mt-12 mb-16">
                   <AnimateInView>
-                    <div className="relative rounded-xl overflow-hidden border border-border/20 shadow-2xl">
+                    <div className="">
                       <Image 
                         src="/screenshots/iPhone15.png" 
                         alt="OpenBook Graph Interface" 

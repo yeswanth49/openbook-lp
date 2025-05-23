@@ -34,9 +34,10 @@ export default function BackgroundParticles() {
     const newParticles: Particle[] = []
     
     for (let i = 0; i < 15; i++) {
+      const randomType = types[Math.floor(Math.random() * types.length)] || 'book';
       newParticles.push({
         id: i,
-        type: types[Math.floor(Math.random() * types.length)],
+        type: randomType,
         x: Math.random() * 100,
         y: Math.random() * 100,
         size: Math.random() * 10 + 15,

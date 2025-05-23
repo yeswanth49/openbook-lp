@@ -26,6 +26,9 @@ export class AnimationTimeline {
     if (currentIndex >= this.phases.length || this.isPaused) return;
 
     const phase = this.phases[currentIndex];
+    
+    if (!phase) return; // Skip if phase is undefined
+    
     const timeout = setTimeout(() => {
       this.currentState = phase.state;
       this.onStateChange(phase.state);

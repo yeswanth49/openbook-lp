@@ -25,7 +25,7 @@ export async function generateMetadata({
   }
 }
 
-export default function CategoryPage({ 
+export default async function CategoryPage({ 
   params 
 }: { 
   params: { category: string } 
@@ -43,9 +43,10 @@ export default function CategoryPage({
     notFound()
   }
   
-  const posts = getAllPosts().filter(post => post.category === category)
+  const posts = await getAllPosts()
+  const filteredPosts = posts.filter((post) => post.category === category)
   
-  if (posts.length === 0) {
+  if (filteredPosts.length === 0) {
     notFound()
   }
   
@@ -57,7 +58,7 @@ export default function CategoryPage({
       />
       
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {posts.map((post, idx) => (
+        {filteredPosts.map((post, idx: number) => (
           <AnimateInView key={post.slug} delay={0.1 * (idx % 3)}>
             <BlogCard
               title={post.title}

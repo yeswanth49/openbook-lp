@@ -18,6 +18,7 @@ This document tracks the implementation of performance improvements as listed in
 - [x] **5.2 - Enable ESLint during production builds**: Added linting to build process and pre-commit hooks to prevent code quality issues.
 - [x] **6.2 - Turn on Next.js Telemetry**: Added analytics and Web Vitals reporting for better performance monitoring.
 - [x] **6.3 - Include Bundle Analyzer**: Added regular bundle analysis to track client-side growth and identify optimization opportunities.
+- [x] **1.1 - Enable strict TypeScript options**: Enabled `strict`/`noUncheckedIndexedAccess` TypeScript options and removed `typescript.ignoreBuildErrors` flag, fixing type errors throughout the codebase.
 
 ## In Progress Tasks
 
@@ -25,7 +26,6 @@ This document tracks the implementation of performance improvements as listed in
 
 ## Future Tasks
 
-- [ ] **1.1 - Enable strict TypeScript options**: Enable `strict`/`noUncheckedIndexedAccess` TypeScript options and remove `typescript.ignoreBuildErrors` flag.
 - [ ] **1.3 - Replace manual MDX pipeline**: Replace the manual MDX pipeline with Next 13/14 built-in app/mdx support.
 - [ ] **1.4 - Audit third-party packages**: Audit and tree-shake/lazy-load third-party packages where possible.
 - [ ] **1.5 - Split UI kit into workspace package**: Move UI components into their own npm workspace package.
@@ -158,8 +158,21 @@ This document tracks the implementation of performance improvements as listed in
 - Results are stored as artifacts in CI and a comment is added to PRs showing bundle size changes
 - Result: Better visibility into bundle size changes over time, proactive identification of size regressions
 
+### 1.1 - Enable strict TypeScript options
+- Enabled `noUncheckedIndexedAccess` in `tsconfig.json` to prevent undefined access errors
+- Removed `typescript.ignoreBuildErrors: true` from `next.config.mjs` to enforce type checking during builds
+- Fixed type errors throughout the codebase:
+  - Added proper null checks in components like `chart.tsx` and `input-otp.tsx`
+  - Added missing type definitions for function parameters
+  - Fixed async/await usage in blog category pages
+  - Created missing action files for server actions
+  - Added proper null checks for array access
+  - Fixed parameter structure for the waitlist form submission
+- Added the Supabase client dependency for type definitions
+- Result: Improved code quality, better type safety, and prevention of runtime errors
+
 ## Next Steps
 
 Proceed with one of the following medium-effort tasks:
-1. **3.2 - Prefix expensive network calls with fetchCache**: Leverage Edge caching for Upstash/Redis/network calls.
+1. **1.3 - Replace manual MDX pipeline**: Replace the manual MDX pipeline with Next 13/14 built-in app/mdx support.
 2. **2.4 - Adopt React Server Components/streaming**: Convert MDX pages to stream content and parse on server. 

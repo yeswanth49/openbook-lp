@@ -15,9 +15,6 @@ const nextConfig = {
     // Enable ESLint checking during builds
     ignoreDuringBuilds: false,
   },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
   images: {
     unoptimized: false,
   },

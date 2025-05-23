@@ -34,7 +34,10 @@ export default function WaitlistForm({ initialCount }: { initialCount: number })
     setIsSubmitting(true)
 
     try {
-      const result = await addToWaitlist(email, source)
+      const result = await addToWaitlist({
+        email,
+        referrer: source
+      })
 
       if (result.success) {
         setIsSubmitted(true)
