@@ -8,13 +8,28 @@ import AnimateInView from "@/components/animate-in-view"
 import SectionHeading from "@/components/section-heading"
 import { ParticleBackground } from "@/components/particle-background"
 import { motion } from "framer-motion"
-import { useState, useEffect } from 'react'
-import BookOpeningAnimation from '@/components/animations/BookOpeningAnimation'
-import BlogCard from '@/components/blog-card'
-import { FeatureCard } from '@/components/feature-card'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { CallToAction } from "@/components/call-to-action"
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
+
+// Dynamically import heavy or rarely-visible components
+const BookOpeningAnimation = dynamic(() => import('@/components/animations/BookOpeningAnimation'), {
+  loading: () => <div className="flex items-center justify-center h-screen">Loading animation...</div>,
+  ssr: false // Animation only needed client-side
+})
+
+const BlogCard = dynamic(() => import('@/components/blog-card'), {
+  loading: () => <Card className="p-6 h-96 animate-pulse"></Card>
+})
+
+const FeatureCard = dynamic(() => import('@/components/feature-card').then(mod => ({ default: mod.FeatureCard })), {
+  loading: () => <Card className="p-6 h-64 animate-pulse"></Card>
+})
+
+const CallToAction = dynamic(() => import('@/components/call-to-action').then(mod => ({ default: mod.CallToAction })), {
+  loading: () => <div className="py-20"></div>
+})
 
 // Blog post interface for type safety
 interface BlogPost {
@@ -27,6 +42,31 @@ interface BlogPost {
   slug: string
   category: string
   featured?: boolean
+}
+
+// Create a separate fetch function for blog posts with cache directive
+async function fetchFeaturedBlogPosts(): Promise<BlogPost[]> {
+  // Use edge caching with the fetch cache directive
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/blogs?featured=true`, {
+    next: { revalidate: 60 } // Revalidate every 60 seconds (ISR)
+  });
+  
+  if (!res.ok) {
+    console.error('Failed to fetch blog posts');
+    return [];
+  }
+  
+  const posts = await res.json();
+  
+  // If there are featured posts, use them
+  const featuredPosts = posts.filter((post: BlogPost) => post.featured);
+  if (featuredPosts.length > 0) {
+    // Take up to 3 featured posts
+    return featuredPosts.slice(0, 3);
+  } else {
+    // Fallback to latest posts if no featured ones
+    return posts.slice(0, 3);
+  }
 }
 
 export default function LandingPage() {
@@ -49,32 +89,94 @@ export default function LandingPage() {
     // }
   }, [])
 
+  // Fetch blog posts only once when component mounts, using the cached fetch function
   useEffect(() => {
-    fetch('/api/blogs?featured=true')
-      .then(res => res.json())
-      .then(data => {
-        // If there are featured posts, use them
-        const featuredPosts = data.filter((post: BlogPost) => post.featured)
-        if (featuredPosts.length > 0) {
-          // Take up to 3 featured posts
-          setLatestPosts(featuredPosts.slice(0, 3))
-        } else {
-          // Fallback to latest posts if no featured ones
-          setLatestPosts(data.slice(0, 3))
-        }
+    fetchFeaturedBlogPosts()
+      .then(posts => {
+        setLatestPosts(posts);
       })
-      .catch((err) => {
-        console.error('Failed to fetch blog posts:', err)
-        setBlogError('Failed to load blog posts. Please try again later.')
-      })
-  }, [])
+      .catch(err => {
+        console.error('Failed to fetch blog posts:', err);
+        setBlogError('Failed to load blog posts. Please try again later.');
+      });
+  }, []); // Empty dependency array means this runs once on mount
 
-  const handleAnimationComplete = () => {
+  const handleAnimationComplete = useCallback(() => {
     setShowAnimation(false)
     setShowLandingContent(true)
     // Optional: Mark animation as played for this session
     // sessionStorage.setItem('animationPlayed', 'true')
-  }
+  }, [])
+
+  // Memoize fallback blog posts to avoid recreating them on each render
+  const fallbackPosts = useMemo(() => [
+    {
+      title: "Learning with AI",
+      excerpt: "Discover how AI is transforming the education landscape and helping students learn more effectively.",
+      date: "2023-06-15",
+      readTime: "5 min read",
+      author: "OpenBook Team",
+      icon: Brain,
+      slug: "learning-with-ai",
+    },
+    {
+      title: "The Science of Memory",
+      excerpt: "Understanding how the brain processes and retains information can help you optimize your study habits.",
+      date: "2023-06-10",
+      readTime: "4 min read",
+      author: "OpenBook Team",
+      icon: Lightbulb,
+      slug: "science-of-memory",
+    },
+    {
+      title: "Note-Taking Strategies",
+      excerpt: "Effective note-taking methods that can help you capture and organize information for better recall.",
+      date: "2023-06-05",
+      readTime: "3 min read",
+      author: "OpenBook Team",
+      icon: PenTool,
+      slug: "note-taking-strategies",
+    },
+  ], [])
+
+  // Use memoized blog post rendering
+  const renderedBlogPosts = useMemo(() => {
+    if (latestPosts.length > 0) {
+      return latestPosts.map((post, index) => (
+        <AnimateInView key={post.slug} delay={0.1 * index}>
+          <BlogCard
+            title={post.title}
+            excerpt={post.excerpt}
+            date={post.date}
+            readTime={post.readTime || ''}
+            author={post.author}
+            icon={index === 0 ? Brain : index === 1 ? Lightbulb : PenTool}
+            slug={post.slug}
+          />
+        </AnimateInView>
+      ));
+    }
+    
+    // Fallback posts when no posts are loaded
+    return fallbackPosts.map((post, index) => (
+      <AnimateInView key={post.slug} delay={0.1 * (index + 1)}>
+        <BlogCard
+          title={post.title}
+          excerpt={post.excerpt}
+          date={post.date}
+          readTime={post.readTime || ''}
+          author={post.author}
+          icon={post.icon}
+          slug={post.slug}
+        />
+      </AnimateInView>
+    ));
+  }, [latestPosts, fallbackPosts]);
+
+  // Memoize navigation handler
+  const handleViewAllArticles = useCallback(() => {
+    router.push('/blog');
+  }, [router]);
 
   return (
     <div>
@@ -185,12 +287,12 @@ export default function LandingPage() {
                   ]}
                 />
                 
-                <div className="mt-12">
+                <div className="mt-12 mb-16">
                   <AnimateInView>
-                    <div className="relative rounded-xl overflow-hidden border border-border/20 shadow-2xl mx-auto max-w-4xl">
+                    <div className="relative rounded-xl overflow-hidden border border-border/20 shadow-2xl">
                       <Image 
-                        src="/screenshots/journal-interface.png" 
-                        alt="OpenBook Journal Interface" 
+                        src="/screenshots/iPhone15.png" 
+                        alt="OpenBook Graph Interface" 
                         width={1200}
                         height={675}
                         className="w-full h-auto"
@@ -310,62 +412,15 @@ export default function LandingPage() {
                 <SectionHeading title="From Our Blog" description="Latest articles and insights" />
 
                 <div className="mt-12 grid md:grid-cols-3 gap-8">
-                  {latestPosts.length > 0 ? (
-                    latestPosts.map((post, index) => (
-                      <AnimateInView key={post.slug} delay={0.1 * index}>
-                        <BlogCard
-                          title={post.title}
-                          excerpt={post.excerpt}
-                          date={post.date}
-                          readTime={post.readTime || ''}
-                          author={post.author}
-                          icon={index === 0 ? Brain : index === 1 ? Lightbulb : PenTool}
-                          slug={post.slug}
-                        />
-                      </AnimateInView>
-                    ))
-                  ) : (
-                    // Fallback for when no posts are loaded
-                    <>
-                      <AnimateInView delay={0.1}>
-                        <BlogCard
-                          title="Learning with AI"
-                          excerpt="Discover how AI is transforming the education landscape and helping students learn more effectively."
-                          date="2023-06-15"
-                          readTime="5 min read"
-                          author="OpenBook Team"
-                          icon={Brain}
-                          slug="learning-with-ai"
-                        />
-                      </AnimateInView>
-                      <AnimateInView delay={0.2}>
-                        <BlogCard
-                          title="The Science of Memory"
-                          excerpt="Understanding how the brain processes and retains information can help you optimize your study habits."
-                          date="2023-06-10"
-                          readTime="4 min read"
-                          author="OpenBook Team"
-                          icon={Lightbulb}
-                          slug="science-of-memory"
-                        />
-                      </AnimateInView>
-                      <AnimateInView delay={0.3}>
-                        <BlogCard
-                          title="Note-Taking Strategies"
-                          excerpt="Effective note-taking methods that can help you capture and organize information for better recall."
-                          date="2023-06-05"
-                          readTime="3 min read"
-                          author="OpenBook Team"
-                          icon={PenTool}
-                          slug="note-taking-strategies"
-                        />
-                      </AnimateInView>
-                    </>
-                  )}
+                  {renderedBlogPosts}
                 </div>
 
                 <div className="mt-8 text-center">
-                  <Button variant="outline" className="border-border text-foreground hover:bg-foreground/10" onClick={() => router.push('/blog')}>
+                  <Button 
+                    variant="outline" 
+                    className="border-border text-foreground hover:bg-foreground/10" 
+                    onClick={handleViewAllArticles}
+                  >
                     View All Articles <ChevronRight className="ml-2 h-4 w-4 inline-block" />
                   </Button>
                 </div>

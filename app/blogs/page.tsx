@@ -1,19 +1,31 @@
 import { Metadata } from 'next'
 import { getAllPosts } from '@/lib/blog'
 import SectionHeading from '@/components/section-heading'
-import BlogCard from '@/components/blog-card'
 import AnimateInView from '@/components/animate-in-view'
 import { ChevronRight } from 'lucide-react'
 import '@/styles/scrollbar.css'
-import { HorizontalScrollArea } from '@/components/HorizontalScrollArea'
+import dynamic from 'next/dynamic'
+
+// Dynamically import heavy components
+const BlogCard = dynamic(() => import('@/components/blog-card'), {
+  loading: () => <div className="bg-card rounded-lg h-96 animate-pulse"></div>
+})
+
+const HorizontalScrollArea = dynamic(
+  () => import('@/components/HorizontalScrollArea').then(mod => ({ default: mod.HorizontalScrollArea })),
+  { ssr: true }
+)
 
 export const metadata: Metadata = {
   title: 'Blog - OpenBook',
   description: 'Browse all blog posts',
 }
 
-export default function BlogIndexPage() {
-  const posts = getAllPosts()
+// Add ISR revalidation
+export const revalidate = 60 // Revalidate this page every 60 seconds
+
+export default async function BlogIndexPage() {
+  const posts = await getAllPosts()
   const categories = [
     { key: 'personal', label: 'Personal Blogs' },
     { key: 'weekly', label: 'Weekly Blogs' },

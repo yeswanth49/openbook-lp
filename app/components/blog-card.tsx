@@ -1,6 +1,7 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { CalendarIcon, Clock, User } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 
 interface BlogCardProps {
   title: string
@@ -16,10 +17,12 @@ export default function BlogCard({ title, excerpt, date, readTime, author, image
   return (
     <Card className="overflow-hidden transition-all hover:shadow-md h-full flex flex-col border-white/10 bg-white/5 backdrop-blur-sm">
       <div className="relative h-48 overflow-hidden">
-        <img
+        <Image
           src={image || "/placeholder.svg"}
           alt={title}
-          className="w-full h-full object-cover transition-transform hover:scale-105 opacity-80"
+          className="object-cover transition-transform hover:scale-105 opacity-80"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
       <CardContent className="p-6 flex-grow">

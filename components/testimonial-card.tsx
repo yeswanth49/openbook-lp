@@ -2,6 +2,7 @@
 
 import { Card, CardContent } from "@/components/ui/card"
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 interface TestimonialCardProps {
   quote: string
@@ -21,10 +22,12 @@ export default function TestimonialCard({ quote, name, location, image }: Testim
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 400 }}
             >
-              <img
+              <Image
                 src={image || "/placeholder.svg"}
                 alt={`${name} from ${location}`}
-                className="object-cover w-full h-full"
+                className="object-cover"
+                fill
+                sizes="64px"
               />
             </motion.div>
             <div className="mb-4">

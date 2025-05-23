@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useCallback, useMemo } from 'react'
 
 // Define particle types
 type ParticleType = 'book' | 'pencil' | 'glasses' | 'lightbulb' | 'bookmark' | 'note'
@@ -24,6 +24,10 @@ export default function BackgroundParticles() {
   const [mousePosition, setMousePosition] = useState<{ x: number; y: number } | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   
+  // Use ref to store particle data for animation frames to avoid unnecessary re-renders
+  const particlesRef = useRef<Particle[]>([])
+  const rafRef = useRef<number | null>(null)
+  
   // Initialize particles
   useEffect(() => {
     const types: ParticleType[] = ['book', 'pencil', 'glasses', 'lightbulb', 'bookmark', 'note']
@@ -45,6 +49,7 @@ export default function BackgroundParticles() {
       })
     }
     setParticles(newParticles)
+    particlesRef.current = newParticles
   }, [])
 
   // Mouse move listener for interaction
@@ -73,18 +78,36 @@ export default function BackgroundParticles() {
     }
   }, [])
   
-  // Animate particles (drift, rotation, mouse interaction)
+  // Animation using requestAnimationFrame instead of setInterval
   useEffect(() => {
-    const interval = setInterval(() => {
-      setParticles(prevParticles => 
-        prevParticles.map(particle => {
+    let lastTime = 0
+    const fps = 20 // Limit to 20 FPS for performance (same as previous 50ms interval)
+    const frameDuration = 1000 / fps
+    
+    const animate = (timestamp: number) => {
+      // Throttle frame rate for performance
+      if (timestamp - lastTime < frameDuration) {
+        rafRef.current = requestAnimationFrame(animate)
+        return
+      }
+      
+      lastTime = timestamp
+      
+      // Skip animation if container not available
+      if (!containerRef.current) {
+        rafRef.current = requestAnimationFrame(animate)
+        return
+      }
+      
+      const containerWidth = containerRef.current.offsetWidth
+      const containerHeight = containerRef.current.offsetHeight
+      
+      // Update particles in the ref (not state)
+      particlesRef.current = particlesRef.current.map(particle => {
           let newOffsetX = particle.offsetX
           let newOffsetY = particle.offsetY
 
           if (mousePosition && containerRef.current) {
-            const containerWidth = containerRef.current.offsetWidth
-            const containerHeight = containerRef.current.offsetHeight
-
             const pX = (particle.x / 100) * containerWidth + particle.offsetX + (particle.size * particle.currentScale / 2)
             const pY = (particle.y / 100) * containerHeight + particle.offsetY + (particle.size * particle.currentScale / 2)
 
@@ -115,90 +138,85 @@ export default function BackgroundParticles() {
             offsetY: newOffsetY,
           }
         })
-      )
-    }, 50) // Update interval for smoother animation
+      
+      // Update React state only when needed for rendering (fewer re-renders)
+      setParticles([...particlesRef.current])
+      
+      // Continue animation loop
+      rafRef.current = requestAnimationFrame(animate)
+    }
     
-    return () => clearInterval(interval)
+    // Start animation loop
+    rafRef.current = requestAnimationFrame(animate)
+    
+    // Cleanup on unmount
+    return () => {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current)
+      }
+    }
   }, [mousePosition]) // Re-run if mousePosition changes for interaction logic
   
-  const handleParticleMouseEnter = (id: number) => {
-    setParticles(prev => prev.map(p => p.id === id ? { ...p, currentScale: 1.3 } : p))
-  }
+  // Memoize event handlers to avoid recreating functions on each render
+  const handleParticleMouseEnter = useCallback((id: number) => {
+    // Update both the ref and state for hover effects
+    particlesRef.current = particlesRef.current.map(p => 
+      p.id === id ? { ...p, currentScale: 1.3 } : p
+    )
+    setParticles(particlesRef.current)
+  }, [])
 
-  const handleParticleMouseLeave = (id: number) => {
-    setParticles(prev => prev.map(p => p.id === id ? { ...p, currentScale: 1 } : p))
-  }
-
-  // Render different SVG shapes based on particle type
-  const renderParticleIcon = (particle: Particle) => {
-    switch (particle.type) {
-      case 'book':
-        return (
-          <svg width={particle.size} height={particle.size} viewBox="0 0 24 24" fill="none">
-            <rect x="2" y="4" width="20" height="16" rx="1" stroke="black" strokeWidth="1" />
-            <line x1="12" y1="4" x2="12" y2="20" stroke="black" strokeWidth="1" />
-          </svg>
-        )
-      case 'pencil':
-        return (
-          <svg width={particle.size} height={particle.size} viewBox="0 0 24 24" fill="none">
-            <path d="M4 20L15 9L19 13L8 24H4V20Z" stroke="black" strokeWidth="1" />
-            <path d="M15 9L17 7L21 11L19 13L15 9Z" stroke="black" strokeWidth="1" />
-          </svg>
-        )
-      case 'glasses':
-        return (
-          <svg width={particle.size} height={particle.size} viewBox="0 0 24 24" fill="none">
-            <circle cx="6" cy="12" r="4" stroke="black" strokeWidth="1" />
-            <circle cx="18" cy="12" r="4" stroke="black" strokeWidth="1" />
-            <line x1="10" y1="12" x2="14" y2="12" stroke="black" strokeWidth="1" />
-          </svg>
-        )
-      case 'lightbulb':
-        return (
-          <svg width={particle.size} height={particle.size} viewBox="0 0 24 24" fill="none">
-            <path d="M9 18H15M9 22H15M12 2V6M4 12L6 12M18 12H20M6 7L8 9M18 7L16 9" stroke="black" strokeWidth="1" />
-            <path d="M9 10.5C9 14 12 14.5 12 17C12 14.5 15 14 15 10.5C15 7 12 4 9 10.5Z" stroke="black" strokeWidth="1" />
-          </svg>
-        )
-      case 'bookmark':
-        return (
-          <svg width={particle.size} height={particle.size} viewBox="0 0 24 24" fill="none">
-            <path d="M6 2H18C19.1 2 20 2.9 20 4V22L12 17L4 22V4C4 2.9 4.9 2 6 2Z" stroke="black" strokeWidth="1" />
-          </svg>
-        )
-      case 'note':
-        return (
-          <svg width={particle.size} height={particle.size} viewBox="0 0 24 24" fill="none">
-            <path d="M4 4H20V20H4V4Z" stroke="black" strokeWidth="1" />
-            <line x1="8" y1="8" x2="16" y2="8" stroke="black" strokeWidth="1" />
-            <line x1="8" y1="12" x2="16" y2="12" stroke="black" strokeWidth="1" />
-            <line x1="8" y1="16" x2="12" y2="16" stroke="black" strokeWidth="1" />
-          </svg>
-        )
-    }
-  }
+  const handleParticleMouseLeave = useCallback((id: number) => {
+    // Update both the ref and state for hover effects
+    particlesRef.current = particlesRef.current.map(p => 
+      p.id === id ? { ...p, currentScale: 1 } : p
+    )
+    setParticles(particlesRef.current)
+  }, [])
+  
+  // A single SVG sprite is loaded in public/particle-sprite.svg
+  // This component just renders the SVG icon by referencing the sprite
+  const renderParticleIcon = useCallback((particle: Particle) => {
+    return (
+      <svg 
+        width={particle.size} 
+        height={particle.size} 
+        fill="none"
+        stroke="black"
+        aria-hidden="true"
+      >
+        <use href={`/particle-sprite.svg#particle-${particle.type}`} />
+      </svg>
+    )
+  }, [])
   
   return (
-    <div ref={containerRef} className="absolute inset-0 w-full h-full overflow-hidden pointer-events-auto"> {/* Changed pointer-events */}
-      {particles.map(particle => (
-        <div 
-          key={particle.id}
-          className="absolute cursor-default" // Added cursor-default
-          style={{
-            left: `${particle.x}%`,
-            top: `${particle.y}%`,
-            opacity: particle.opacity,
-            transform: `translateX(${particle.offsetX}px) translateY(${particle.offsetY}px) rotate(${particle.rotation}deg) scale(${particle.currentScale})`,
-            transition: 'transform 0.2s ease-out, top 2s linear', // Adjusted transitions
-            willChange: 'transform, top' // Performance hint
-          }}
-          onMouseEnter={() => handleParticleMouseEnter(particle.id)}
-          onMouseLeave={() => handleParticleMouseLeave(particle.id)}
-        >
-          {renderParticleIcon(particle)}
-        </div>
-      ))}
-    </div>
+    <>
+      {/* Load the SVG sprite once */}
+      <div className="hidden">
+        <div dangerouslySetInnerHTML={{ __html: '<svg width="0" height="0" style="position:absolute"><use href="/particle-sprite.svg"></use></svg>' }} />
+      </div>
+    
+      <div ref={containerRef} className="absolute inset-0 w-full h-full overflow-hidden pointer-events-auto"> {/* Changed pointer-events */}
+        {particles.map(particle => (
+          <div 
+            key={particle.id}
+            className="absolute cursor-default" // Added cursor-default
+            style={{
+              left: `${particle.x}%`,
+              top: `${particle.y}%`,
+              opacity: particle.opacity,
+              transform: `translateX(${particle.offsetX}px) translateY(${particle.offsetY}px) rotate(${particle.rotation}deg) scale(${particle.currentScale})`,
+              transition: 'transform 0.2s ease-out, top 2s linear', // Adjusted transitions
+              willChange: 'transform, top' // Performance hint
+            }}
+            onMouseEnter={() => handleParticleMouseEnter(particle.id)}
+            onMouseLeave={() => handleParticleMouseLeave(particle.id)}
+          >
+            {renderParticleIcon(particle)}
+          </div>
+        ))}
+      </div>
+    </>
   )
 } 

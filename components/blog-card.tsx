@@ -1,6 +1,7 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { CalendarIcon, Clock, User, BookOpen, Newspaper, Users, BarChart } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { LucideIcon } from "lucide-react"
 
 interface BlogCardProps {
@@ -37,10 +38,12 @@ export default function BlogCard({
       <Card className="overflow-hidden transition-all hover:shadow-md hover:translate-y-[-4px] h-full flex flex-col border-border/20 bg-card/80 backdrop-blur-sm cursor-pointer group">
         <div className="relative h-48 overflow-hidden">
           {image ? (
-            <img
+            <Image
               src={image}
               alt={title}
-              className="w-full h-full object-cover transition-transform group-hover:scale-105 opacity-80"
+              className="object-cover transition-transform group-hover:scale-105 opacity-80"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-background/50">

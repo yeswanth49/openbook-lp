@@ -5,6 +5,8 @@ import { Dancing_Script, Kalam } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
 import { ParticleBackground } from '@/components/particle-background'
 import CombinedFooter from '@/components/CombinedFooter'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -51,6 +53,8 @@ export default function RootLayout({
             <CombinedFooter />
           </div>
         </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )

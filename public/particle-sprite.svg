@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <!-- Book icon -->
+  <symbol id="particle-book" viewBox="0 0 24 24">
+    <rect x="2" y="4" width="20" height="16" rx="1" stroke="currentColor" strokeWidth="1" />
+    <line x1="12" y1="4" x2="12" y2="20" stroke="currentColor" strokeWidth="1" />
+  </symbol>
+  
+  <!-- Pencil icon -->
+  <symbol id="particle-pencil" viewBox="0 0 24 24">
+    <path d="M4 20L15 9L19 13L8 24H4V20Z" stroke="currentColor" strokeWidth="1" />
+    <path d="M15 9L17 7L21 11L19 13L15 9Z" stroke="currentColor" strokeWidth="1" />
+  </symbol>
+  
+  <!-- Glasses icon -->
+  <symbol id="particle-glasses" viewBox="0 0 24 24">
+    <circle cx="6" cy="12" r="4" stroke="currentColor" strokeWidth="1" />
+    <circle cx="18" cy="12" r="4" stroke="currentColor" strokeWidth="1" />
+    <line x1="10" y1="12" x2="14" y2="12" stroke="currentColor" strokeWidth="1" />
+  </symbol>
+  
+  <!-- Lightbulb icon -->
+  <symbol id="particle-lightbulb" viewBox="0 0 24 24">
+    <path d="M9 18H15M9 22H15M12 2V6M4 12L6 12M18 12H20M6 7L8 9M18 7L16 9" stroke="currentColor" strokeWidth="1" />
+    <path d="M9 10.5C9 14 12 14.5 12 17C12 14.5 15 14 15 10.5C15 7 12 4 9 10.5Z" stroke="currentColor" strokeWidth="1" />
+  </symbol>
+  
+  <!-- Bookmark icon -->
+  <symbol id="particle-bookmark" viewBox="0 0 24 24">
+    <path d="M6 2H18C19.1 2 20 2.9 20 4V22L12 17L4 22V4C4 2.9 4.9 2 6 2Z" stroke="currentColor" strokeWidth="1" />
+  </symbol>
+  
+  <!-- Note icon -->
+  <symbol id="particle-note" viewBox="0 0 24 24">
+    <path d="M4 4H20V20H4V4Z" stroke="currentColor" strokeWidth="1" />
+    <line x1="8" y1="8" x2="16" y2="8" stroke="currentColor" strokeWidth="1" />
+    <line x1="8" y1="12" x2="16" y2="12" stroke="currentColor" strokeWidth="1" />
+    <line x1="8" y1="16" x2="12" y2="16" stroke="currentColor" strokeWidth="1" />
+  </symbol>
+</svg> 

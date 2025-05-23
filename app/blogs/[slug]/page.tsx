@@ -1,14 +1,19 @@
-import fs from 'fs'
+import fs from 'fs/promises'
 import path from 'path'
 import matter from 'gray-matter'
-import { MDXRemote } from 'next-mdx-remote/rsc'
 import remarkGfm from 'remark-gfm'
-import mdxComponents from '@/components/mdx-components'
 import { getAllPosts } from '@/lib/blog'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
-import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { Suspense } from 'react'
+import Image from 'next/image'
+import dynamic from 'next/dynamic'
+import { MDXRemote } from 'next-mdx-remote/rsc'
+import mdxComponents from '@/components/mdx-components'
+import { unstable_cache } from 'next/cache'
+
+// Dynamically import heavy components with proper error boundaries
+const ErrorBoundary = dynamic(() => import('@/components/ErrorBoundary').then(mod => ({ default: mod.ErrorBoundary })))
 
 // Define types for cached post and frontmatter
 interface PostFrontmatter {
@@ -37,15 +42,18 @@ interface BlogPostPageParams {
   params: Promise<{ slug: string }>
 }
 
+// Add ISR revalidation
+export const revalidate = 60 // Revalidate this page every 60 seconds
+
 export async function generateStaticParams() {
-  const posts = getAllPosts()
+  const posts = await getAllPosts()
   return posts.map((post) => ({ slug: post.slug }))
 }
 
 export async function generateMetadata({ params }: BlogPostPageParams): Promise<Metadata> {
   try {
     const { slug } = await params
-    const posts = getAllPosts()
+    const posts = await getAllPosts()
     const post = posts.find((p) => p.slug === slug)
     if (!post) {
       return { title: 'Post Not Found' }
@@ -83,6 +91,25 @@ function formatDate(dateStr: string): string {
   });
 }
 
+// Enhanced cache with unstable_cache API for better edge caching
+const getPostContent = unstable_cache(
+  async (category: string, slug: string) => {
+    const dirPath = path.join(process.cwd(), 'content', category)
+    const filePath = path.join(dirPath, `${slug}.mdx`)
+  
+    try {
+      const source = await fs.readFile(filePath, 'utf8')
+      const { content, data } = matter(source)
+      return { content, data: data as PostFrontmatter }
+    } catch (error) {
+      console.error(`Error reading file for slug ${slug}:`, error)
+      return null
+    }
+  },
+  ['post-content'], // Cache key namespace
+  { revalidate: 60, tags: ['post-content'] } // Revalidate every 60 seconds
+)
+
 // New async component for loading and displaying the post content
 async function PostContentLoader({ slug, category }: { slug: string; category: string }) {
   const cacheKey = createCacheKey(category, slug);
@@ -111,10 +138,13 @@ async function PostContentLoader({ slug, category }: { slug: string; category: s
         
         {cachedPost.data.image && (
           <div className="mb-10 mt-4 relative h-[400px] w-full rounded-xl overflow-hidden">
-            <img
+            <Image
               src={cachedPost.data.image}
               alt={`Cover image for ${cachedPost.data.title}`}
-              className="object-cover object-center absolute inset-0 w-full h-full"
+              className="object-cover object-center"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 800px"
+              priority
             />
           </div>
         )}
@@ -138,22 +168,15 @@ async function PostContentLoader({ slug, category }: { slug: string; category: s
     );
   }
 
-  const dirPath = path.join(process.cwd(), 'content', category)
-  const filePath = path.join(dirPath, `${slug}.mdx`)
+  // Use the cached getPostContent function instead of direct file access
+  const postData = await getPostContent(category, slug);
   
-  let source: string;
-  try {
-    source = await fs.promises.readFile(filePath, 'utf8')
-  } catch (error) {
-    console.error(`Error reading file for slug ${slug} in PostContentLoader:`, error);
-    notFound(); 
-    return;
+  if (!postData) {
+    notFound();
+    return null;
   }
   
-  // Parse frontmatter and cast data to PostFrontmatter for type safety
-  const { content, data } = matter(source);
-  const typedData = data as PostFrontmatter;
-
+  const { content, data: typedData } = postData;
   postCache.set(cacheKey, { content, data: typedData });
 
   return (
@@ -177,10 +200,13 @@ async function PostContentLoader({ slug, category }: { slug: string; category: s
       
       {typedData.image && (
         <div className="mb-10 mt-4 relative h-[400px] w-full rounded-xl overflow-hidden">
-          <img
+          <Image
             src={typedData.image}
             alt={`Cover image for ${typedData.title}`}
-            className="object-cover object-center absolute inset-0 w-full h-full"
+            className="object-cover object-center"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 800px"
+            priority
           />
         </div>
       )}
@@ -195,7 +221,7 @@ async function PostContentLoader({ slug, category }: { slug: string; category: s
                 remarkPlugins: [remarkGfm],
                 development: process.env.NODE_ENV === 'development'
               }
-            }}
+            }} 
             components={mdxComponents} 
           />
         </div>
@@ -207,7 +233,7 @@ async function PostContentLoader({ slug, category }: { slug: string; category: s
 export default async function BlogPostPage({ params }: BlogPostPageParams) {
   const { slug } = await params
   
-  const posts = getAllPosts() 
+  const posts = await getAllPosts() 
   const postMeta = posts.find((p) => p.slug === slug)
   
   if (!postMeta) {
