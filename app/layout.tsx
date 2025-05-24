@@ -40,7 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${dancingScript.variable} ${kalam.variable}`} suppressHydrationWarning>
-      <body className="font-sans dot-pattern">
+      <body className="font-sans relative bg-dots">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -48,6 +48,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <ImageBackground />
+          <div className="fixed inset-0 bg-dots -z-10 pointer-events-none" />
           <div className="flex min-h-screen flex-col">
             {children}
             <CombinedFooter />

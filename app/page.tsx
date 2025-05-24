@@ -183,7 +183,8 @@ export default function LandingPage() {
         <SectionSeparator />
 
         {/* Key Features Section */}
-        <section className="py-20">
+        <section className="py-20 relative overflow-hidden">
+          <div className="absolute inset-0 bg-dots -z-10"></div>
           <div className="container mx-auto px-4 md:px-6">
             <SectionHeading
               title="Speed Is Everything"
@@ -409,12 +410,15 @@ export default function LandingPage() {
         <SectionSeparator />
 
         {/* Call to Action Section */}
+        <section className="py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-dots -z-10"></div>
         <CallToAction 
           title="Experience the Future of Learning Today"
           description="Watch how OpenBook helps you learn in a fraction of the time."
           buttonText="Get Started"
           buttonHref="/"
         />
+        </section>
       </div>
 
       {/* Basic styles for fadeIn animation of landing content */}
