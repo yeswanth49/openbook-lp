@@ -6,6 +6,7 @@ import { ChevronRight, Brain, Search, Edit, PenTool, KeyRound, Lightbulb, Clock,
 import Header from "@/components/header"
 import AnimateInView from "@/components/animate-in-view"
 import SectionHeading from "@/components/section-heading"
+import { SectionSeparator } from "@/components/ui/section-separator"
 import { motion } from "framer-motion"
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
@@ -147,7 +148,7 @@ export default function LandingPage() {
 
   // Memoize navigation handler
   const handleViewAllArticles = useCallback(() => {
-    router.push('/blog');
+    router.push('/blogs');
   }, [router]);
 
   return (
@@ -179,6 +180,8 @@ export default function LandingPage() {
           </div>
         </section>
 
+        <SectionSeparator />
+
         {/* Key Features Section */}
         <section className="py-20">
           <div className="container mx-auto px-4 md:px-6">
@@ -202,6 +205,8 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
+
+        <SectionSeparator />
 
         {/* Core Features Grid */}
         <section className="py-20">
@@ -237,6 +242,8 @@ export default function LandingPage() {
           </div>
         </section>
 
+        <SectionSeparator />
+
         {/* Interface Preview Section */}
         <section className="relative overflow-hidden">
           <div className="container mx-auto px-4 md:px-6">
@@ -268,6 +275,8 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
+
+        <SectionSeparator />
 
         {/* Natural Language Interaction */}
         <section className="py-20">
@@ -326,6 +335,8 @@ export default function LandingPage() {
           </div>
         </section>
 
+        <SectionSeparator />
+
         {/* Productivity Benefits Section */}
         <section className="py-20">
           <div className="container mx-auto px-4 md:px-6">
@@ -372,6 +383,8 @@ export default function LandingPage() {
           </div>
         </section>
 
+        <SectionSeparator />
+
         {/* Blog Section */}
         <section className="py-20">
           <div className="container mx-auto px-4 md:px-6">
@@ -392,6 +405,8 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
+
+        <SectionSeparator />
 
         {/* Call to Action Section */}
         <CallToAction 

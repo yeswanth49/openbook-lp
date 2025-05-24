@@ -58,12 +58,17 @@ export default function AboutPage() {
             Want to learn more about OpenBook? Get in touch:
           </p>
           <div className="space-y-4">
-            <Link href="mailto:founders@openbook.com" className="text-blue-400 hover:underline inline-flex items-center">
-              founders@openbook.com
+            <Link href="mailto:work.yeswanth@gmail.com" className="text-blue-400 hover:underline inline-flex items-center">
+              work.yeswanth@gmail.com
             </Link>
             <div>
-              <Link href="https://github.com/openbook" target="_blank" className="text-blue-400 hover:underline inline-flex items-center">
+              <Link href="https://github.com/yeswanth49/openbook" target="_blank" className="text-blue-400 hover:underline inline-flex items-center">
                 Open an issue on GitHub
+              </Link>
+            </div>
+            <div>
+              <Link href="https://yesh.vercel.app" target="_blank" className="text-blue-400 hover:underline inline-flex items-center">
+                Portfolio
               </Link>
             </div>
           </div>

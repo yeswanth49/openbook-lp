@@ -23,14 +23,17 @@ export default function CombinedFooter() {
               Your smart Notebook. Personalized learning that adapts to your needs—accessible anytime, anywhere.
             </p>
             <div className="flex space-x-4">
-              <a href="https://discord.gg/openbook" target="_blank" className="text-muted-foreground hover:text-foreground">
+              <a href="https://discord.com/users/810347349418573825" target="_blank" className="text-muted-foreground hover:text-foreground">
                 <MessagesSquare className="h-5 w-5" />
               </a>
               <a href="https://x.com/GoOpenBook" target="_blank" className="text-muted-foreground hover:text-foreground">
                 <Twitter className="h-5 w-5" />
               </a>
-              <a href="https://github.com/openbookjs/openbook" target="_blank" className="text-muted-foreground hover:text-foreground">
+              <a href="https://github.com/yeswanth49/openbook" target="_blank" className="text-muted-foreground hover:text-foreground">
                 <Github className="h-5 w-5" />
+              </a>
+              <a href="https://substack.com/@yeshh49" target="_blank" className="text-muted-foreground hover:text-foreground">
+                <BookOpen className="h-5 w-5" />
               </a>
             </div>
           </div>
@@ -44,11 +47,10 @@ export default function CombinedFooter() {
             <ul className="mt-4 space-y-2">
               <li>
                 <Link 
-                  href="https://github.com/openbookjs/openbook" 
+                  href="https://github.com/yeswanth49/openbook" 
                   target="_blank" 
-                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+                  className="block text-sm text-muted-foreground hover:text-foreground"
                 >
-                  <Github className="h-4 w-4" />
                   GitHub
                 </Link>
               </li>
@@ -56,15 +58,14 @@ export default function CombinedFooter() {
                 <Link 
                   href="https://x.com/GoOpenBook" 
                   target="_blank" 
-                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+                  className="block text-sm text-muted-foreground hover:text-foreground"
                 >
-                  <Twitter className="h-4 w-4" />
                   Twitter
                 </Link>
               </li>
               <li>
                 <Link 
-                  href="https://discord.gg/openbook" 
+                  href="https://discord.com/users/810347349418573825" 
                   target="_blank" 
                   className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
                 >

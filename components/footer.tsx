@@ -15,14 +15,17 @@ export default function Footer() {
               Your smart Notebook. Personalized learning that adapts to your needs—accessible anytime, anywhere.
             </p>
             <div className="flex space-x-4">
-              <a href="https://discord.gg/openbook" target="_blank" className="text-muted-foreground hover:text-foreground">
+              <a href="https://discord.com/users/810347349418573825" target="_blank" className="text-muted-foreground hover:text-foreground">
                 <MessagesSquare className="h-5 w-5" />
               </a>
               <a href="https://x.com/GoOpenBook" target="_blank" className="text-muted-foreground hover:text-foreground">
                 <Twitter className="h-5 w-5" />
               </a>
-              <a href="https://github.com/openbookjs/openbook" target="_blank" className="text-muted-foreground hover:text-foreground">
+              <a href="https://github.com/yeswanth49/openbook" target="_blank" className="text-muted-foreground hover:text-foreground">
                 <Github className="h-5 w-5" />
+              </a>
+              <a href="https://substack.com/@yeshh49" target="_blank" className="text-muted-foreground hover:text-foreground">
+                <BookOpen className="h-5 w-5" />
               </a>
             </div>
           </div>
@@ -32,7 +35,7 @@ export default function Footer() {
             <ul className="mt-4 space-y-2">
               <li>
                 <Link 
-                  href="https://github.com/openbookjs/openbook" 
+                  href="https://github.com/yeswanth49/openbook" 
                   target="_blank" 
                   className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
                 >
@@ -52,7 +55,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link 
-                  href="https://discord.gg/openbook" 
+                  href="https://discord.com/users/810347349418573825" 
                   target="_blank" 
                   className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
                 >
@@ -62,11 +65,12 @@ export default function Footer() {
               </li>
               <li>
                 <Link 
-                  href="https://goopenbook.in" 
+                  href="https://substack.com/@yeshh49" 
+                  target="_blank" 
                   className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
                 >
-                  <MessageCircleIcon className="h-4 w-4" />
-                  Try Now
+                  <BookOpen className="h-4 w-4" />
+                  Substack
                 </Link>
               </li>
             </ul>
@@ -123,7 +127,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center">
                 <MessagesSquare className="h-5 w-5 text-muted-foreground mr-2" />
-                <Link href="https://discord.gg/openbook" target="_blank" className="text-sm text-muted-foreground hover:text-foreground">
+                <Link href="https://discord.com/users/810347349418573825" target="_blank" className="text-sm text-muted-foreground hover:text-foreground">
                   Discord Community
                 </Link>
               </li>

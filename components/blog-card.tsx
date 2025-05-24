@@ -34,7 +34,7 @@ export default function BlogCard({
   const CategoryIcon = Icon || getCategoryIcon(category);
   
   return (
-    <Link href={`/blog/${slug}`} className="block h-full">
+    <Link href={`/blogs/${slug}`} className="block h-full">
       <Card className="overflow-hidden transition-all hover:shadow-md hover:translate-y-[-4px] h-full flex flex-col border-border/20 bg-card/80 backdrop-blur-sm cursor-pointer group">
         <div className="relative h-48 overflow-hidden">
           {image ? (

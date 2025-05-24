@@ -1,19 +1,16 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import { CallToAction } from "@/components/call-to-action"
-import { Github, Linkedin, Twitter } from "lucide-react"
+import { Github, Twitter } from "lucide-react"
 
 interface TeamMember {
   name: string;
   role: string;
   bio: string;
-  image: string;
   social?: {
     twitter?: string;
     github?: string;
-    linkedin?: string;
   }
 }
 
@@ -22,22 +19,18 @@ const teamMembers: TeamMember[] = [
     name: "John Doe",
     role: "Co-Founder & CEO",
     bio: "John is passionate about AI and education. With over 10 years of experience in EdTech, he leads our vision to make learning more accessible and personalized.",
-    image: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=250&h=250&auto=format&fit=crop",
     social: {
-      twitter: "https://twitter.com/johndoe",
-      github: "https://github.com/johndoe",
-      linkedin: "https://linkedin.com/in/johndoe"
+      twitter: "https://x.com/Yeshh49",
+      github: "https://github.com/yeswanth49",
     }
   },
   {
     name: "Jane Smith",
     role: "Co-Founder & CTO",
     bio: "Jane brings deep technical expertise in AI and machine learning. She's the architect behind our advanced learning algorithms and user experience.",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=250&h=250&auto=format&fit=crop",
     social: {
-      twitter: "https://twitter.com/janesmith",
-      github: "https://github.com/janesmith",
-      linkedin: "https://linkedin.com/in/janesmith"
+      twitter: "https://x.com/Yeshh49",
+      github: "https://github.com/yeswanth49",
     }
   }
 ];
@@ -55,16 +48,6 @@ export default function TeamPage() {
         <div className="grid md:grid-cols-2 gap-12 mb-24 max-w-4xl mx-auto">
           {teamMembers.map((member) => (
             <div key={member.name} className="group flex flex-col items-center bg-background/30 backdrop-blur-sm border border-white/10 rounded-lg p-8 hover:shadow-md transition-all">
-              <div className="mb-6 flex justify-center">
-                <div className="relative w-40 h-40 rounded-full overflow-hidden">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    className="object-cover transition-transform group-hover:scale-105"
-                  />
-                </div>
-              </div>
               <h3 className="text-xl font-bold text-center mb-2">{member.name}</h3>
               <p className="text-primary text-center mb-4">{member.role}</p>
               <p className="text-muted-foreground text-center mb-6">{member.bio}</p>
@@ -81,11 +64,6 @@ export default function TeamPage() {
                       <Github className="h-5 w-5" />
                     </Link>
                   )}
-                  {member.social.linkedin && (
-                    <Link href={member.social.linkedin} target="_blank" className="rounded-full p-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground">
-                      <Linkedin className="h-5 w-5" />
-                    </Link>
-                  )}
                 </div>
               )}
             </div>
@@ -96,7 +74,7 @@ export default function TeamPage() {
           title="Join Us in Transforming Education"
           description="Be part of the revolution in learning technology."
           buttonText="Get Started"
-          buttonHref="/"
+          buttonHref="https://cal.com/yeshh49"
           withBreak={false}
         />
       </div>

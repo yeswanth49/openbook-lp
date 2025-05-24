@@ -17,6 +17,7 @@ const nextConfig = {
   },
   images: {
     unoptimized: false,
+    domains: ['images.unsplash.com'],
   },
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   env: {

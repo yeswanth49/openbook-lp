@@ -102,7 +102,7 @@ export default function Header() {
                   >
                     <div className="grid grid-cols-2 gap-3">
                       <motion.div whileHover={hoverAnimation}>
-                        <Link href="https://github.com/openbookjs/openbook" target="_blank" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
+                        <Link href="https://github.com/yeswanth49/openbook" target="_blank" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
                           <div className="flex items-center gap-2 text-sm font-medium">
                             <Github className="h-4 w-4" />
                             GitHub
@@ -111,7 +111,7 @@ export default function Header() {
                         </Link>
                       </motion.div>
                       <motion.div whileHover={hoverAnimation}>
-                        <Link href="https://x.com/GoOpenBook" target="_blank" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
+                        <Link href="https://x.com/Yeshh49" target="_blank" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
                           <div className="flex items-center gap-2 text-sm font-medium">
                             <Twitter className="h-4 w-4" />
                             Twitter
@@ -120,7 +120,7 @@ export default function Header() {
                         </Link>
                       </motion.div>
                       <motion.div whileHover={hoverAnimation}>
-                        <Link href="https://discord.gg/openbook" target="_blank" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
+                        <Link href="https://discord.com/users/810347349418573825" target="_blank" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground">
                           <div className="flex items-center gap-2 text-sm font-medium">
                             <MessagesSquare className="h-4 w-4" />
                             Discord
@@ -142,7 +142,7 @@ export default function Header() {
                 )}
               </div>
               <motion.div whileHover={buttonHoverAnimation}>
-                <Link target="_blank" href="https://x.com/GoOpenBook">
+                <Link target="_blank" href="https://x.com/Yeshh49">
                   <Button variant="ghost" className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:text-accent-foreground px-3 py-1.5 h-7">
                     Twitter
                   </Button>
@@ -157,7 +157,7 @@ export default function Header() {
             <ThemeToggle />
           </motion.div>
           <motion.div whileHover={buttonHoverAnimation}>
-            <Link target="_blank" href="https://cal.com/team/0">
+            <Link target="_blank" href="https://cal.com/yeshh49">
               <Button variant="ghost" className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:text-accent-foreground px-4 py-2 h-8">
                 Contact Us
               </Button>
@@ -227,7 +227,7 @@ export default function Header() {
               <div className="font-medium mb-1">Resources</div>
               <motion.div whileHover={{ x: 2 }}>
                 <Link
-                  href="https://github.com/openbookjs/openbook"
+                  href="https://github.com/yeswanth49/openbook"
                   target="_blank"
                   className="flex items-center gap-2 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                   onClick={() => setIsMenuOpen(false)}
@@ -238,7 +238,7 @@ export default function Header() {
               </motion.div>
               <motion.div whileHover={{ x: 2 }}>
                 <Link
-                  href="https://x.com/GoOpenBook"
+                  href="https://x.com/Yeshh49"
                   target="_blank"
                   className="flex items-center gap-2 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                   onClick={() => setIsMenuOpen(false)}
@@ -249,7 +249,7 @@ export default function Header() {
               </motion.div>
               <motion.div whileHover={{ x: 2 }}>
                 <Link
-                  href="https://discord.gg/openbook"
+                  href="https://discord.com/users/810347349418573825"
                   target="_blank"
                   className="flex items-center gap-2 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                   onClick={() => setIsMenuOpen(false)}
